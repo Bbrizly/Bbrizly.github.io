@@ -1,14 +1,61 @@
-<html>
-    <head>
-        <title>Javascript basics</title>
-        <link href="style.css" rel="stylesheet">
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bassam Kamal</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Bassam Kamal</h1>
+        <p>Programmer | Creative Developer | Designer</p>
+    </header>
 
-    <body>
-        <button onclick ='changeColor()'>Click Me</button>
-        <div id ="changeMe"></div>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Welcome!<br>I am a passionate developer with a keen eye for design and functionality.<br>I specialize in programming OpenGL graphics and various applications that bring ideas to life.</p>
+        </section>
 
-        <script src="myscripts.js"></script>
-    </body>
+        <section id="projects">
+            <h2>My Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <img src="images/s1.png" alt="Project 1">
+                    <div class="content">
+                        <h3>OpenGL Cityscape</h3>
+                        <p>An optimized procedurally generated Voronoi Diagram based cityscape, with a day & night cycle. Built using OpenGL and C++.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/s2.png" alt="Project 2">
+                    <div class="content">
+                        <h3>OpenGL Text-Renderer</h3>
+                        <p>OpenGL based Text-Renderer using Font-sheet techniques.<br>Text dynamically shrinks to fit textboxes, and can be easily customized.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/s3.png" alt="Project 3">
+                    <div class="content">
+                        <h3>Java Inventory System</h3>
+                        <p>A java inventory system for small businesses, with features such as adding, removing, and editing items.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Feel free to reach out to me via email at <a href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>.</p>
+            <button onclick="changeColor()">Click for Surprise</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Bassam Kamal. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script src="myscripts.js"></script>
+</body>
 </html>
