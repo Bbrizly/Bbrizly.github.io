@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ page.title }}</title>
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container">
+    {% include header.html %}
+  
+    <main>
+      <article class="project-page" data-aos="fade-up">
+        <header>
+          <h1>{{ page.title }}</h1>
+          {% if page.github_link %}
+            <p>
+              <a href="{{ page.github_link }}" target="_blank">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
+            </p>
+          {% endif %}
+        </header>
+  
+        <section class="project-content">
+          {{ content | markdownify }}
+        </section>
+  
+        {% if page.images %}
+        <section class="project-images" data-aos="fade-up">
+          {% for image in page.images %}
+            <img src="{{ image }}" alt="{{ page.title }} image">
+          {% endfor %}
+        </section>
+        {% endif %}
+      </article>
+    </main>
+  
+    {% include footer.html %}
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="/assets/js/myscripts.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

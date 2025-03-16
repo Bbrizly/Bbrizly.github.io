@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Bassam Kamal</title>
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+  <h1>Bassam Kamal</h1>
+  <p>Programmer | Creative Developer | Designer</p>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/bassam-k/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/Bbrizly" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="/documents/Bassam's tech resume.pdf" target="_blank"><i class="fas fa-file-alt"></i></a>
+  </div>
+</header>
+
+
+  <main>
+    <!-- ABOUT SECTION -->
+    <section id="about" data-aos="fade-up">
+      <h2>About Me</h2>
+      <p>
+        Welcome! I am a passionate developer with a keen eye for design and functionality.
+        I specialize in programming OpenGL graphics and various applications that bring ideas to life.
+      </p>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" data-aos="fade-up">
+      <h2>My Projects</h2>
+
+      <div class="slideshow-container">
+        <div class="slide fade">
+          <a href="/projects/project1.html">
+            <img src="/assets/images/s1.png" alt="Cityscape">
+            <div class="slide-caption">OpenGL Cityscape</div>
+          </a>
+        </div>
+        <div class="slide fade">
+          <a href="/projects/project2.html">
+            <img src="/assets/images/s2.png" alt="Text Renderer">
+            <div class="slide-caption">OpenGL Text-Renderer</div>
+          </a>
+        </div>
+        <div class="slide fade">
+          <a href="/projects/project3.html">
+            <img src="/assets/images/gif.gif" alt="Volpe Engine">
+            <div class="slide-caption">Volpe Engine</div>
+          </a>
+        </div>
+        <div class="slide fade">
+          <a href="/projects/project4.html">
+            <img src="/assets/images/particle2.gif" alt="Particle System">
+            <div class="slide-caption">OpenGL Particle System</div>
+          </a>
+        </div>
+      </div>
+      <br>
+      <!-- Slideshow Dots -->
+      <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+      </div>
+
+    <br>
+    <br>
+    <br>
+
+    <!-- WORK EXPERIENCE SECTION -->
+    <section id="work-experience" data-aos="fade-up">
+      <h2>Work Experience</h2>
+      <div class="work-container">
+
+        <div class="job-titles">
+          <button class="job-btn active" data-job="ta">Teaching Assistant</button>
+          <button class="job-btn" data-job="cec">Campus Events Coordinator</button>
+        </div>
+        
+        <div class="job-details">
+          <div class="job-description" id="ta">
+            <h3>Teaching Assistant (Jan 2025 - Present)</h3>
+            <ul>
+              <li>Clarified course material and debugged code.</li>
+              <li>Guided students in programming challenges.</li>
+            </ul>
+          </div>
+          <div class="job-description hidden" id="cec">
+            <h3>Campus Events Coordinator (Jan 2023 - July 2024)</h3>
+            <ul>
+              <li>Led tech workshops on Git and Python.</li>
+              <li>Automated event scheduling with Python scripts.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    <!-- Grid of Project Cards -->
+    <div class="projects">
+      <a href="/projects/project1.html" class="project-card" data-aos="zoom-in">
+        <img src="/assets/images/s1.png" alt="Project 1">
+        <div class="content">
+          <h3>OpenGL Cityscape</h3>
+          <p>An optimized, procedurally generated city with a day &amp; night cycle. Built with OpenGL &amp; C++.</p>
+        </div>
+      </a>
+
+      <a href="/projects/project2.html" class="project-card" data-aos="zoom-in">
+        <img src="/assets/images/s2.png" alt="Project 2">
+        <div class="content">
+          <h3>OpenGL Text-Renderer</h3>
+          <p>Dynamic text rendering with font-sheet optimization for custom textboxes.</p>
+        </div>
+      </a>
+
+      <a href="/projects/project3.html" class="project-card" data-aos="zoom-in">
+        <img src="/assets/images/gif.gif" alt="Project 3">
+        <div class="content">
+          <h3>Volpe Engine</h3>
+          <p>A culling-based, memory-efficient game engine with custom pipeline and scene management.</p>
+        </div>
+      </a>
+
+      <a href="/projects/project4.html" class="project-card" data-aos="zoom-in">
+        <img src="/assets/images/particle2.gif" alt="Project 4">
+        <div class="content">
+          <h3>OpenGL Particle System</h3>
+          <p>GPU-accelerated particle system with physics-based effects and custom shaders.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+</section>
+
+    <section id="contact" data-aos="fade-up">
+      <h2>Contact Me</h2>
+      <p>Reach out via email at <a href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>.</p>
+      
+      <button id="surprise-btn">Click for Surprise</button>
+    </section>
+  </main>
+
+  <footer>
+  <p>&copy; 2025 Bassam Kamal. All rights reserved. | <a href="#">Privacy Policy</a></p>
+</footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="/assets/js/myscripts.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
