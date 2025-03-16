@@ -1,0 +1,6 @@
+title: "Bassam Kamal"
+description: "Programmer | Creative Developer | Designer"
+url: "https://bbrizly.github.io" 
+baseurl: ""                     
+markdown: kramdown
+theme: minima  # or any other Jekyll-compatible theme, if desired
