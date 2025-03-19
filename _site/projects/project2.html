@@ -23,19 +23,60 @@
   
     <main>
       <article class="project-page" data-aos="fade-up">
-        <header>
+
+        <a href="/#projects" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+        
+        <header class="project-header">
           <h1>OpenGL Text-Renderer</h1>
           
-            <p>
-              <a href="https://github.com/Bbrizly/OpenGL-Text-Renderer" target="_blank">
-                <i class="fab fa-github"></i> View on GitHub
-              </a>
-            </p>
+            <a href="https://github.com/Bbrizly/OpenGL-Text-Renderer" target="_blank" class="github-link">
+              <i class="fab fa-github"></i> 
+            </a>
           
         </header>
   
         <section class="project-content">
           <p>This <strong>OpenGL-based Text-Renderer</strong> uses a Font-sheet approach to dynamically shrink text to fit textboxes.</p>
+
+<h2 id="what-has-been-done">What has been done</h2>
+
+<ol>
+  <li><strong>Unified Array Texture</strong>
+    <ul>
+      <li>All pages of a given font are merged into <strong>one</strong> texture array. This greatly simplifies binding in OpenGL and avoids multiple texture switches per letter.</li>
+    </ul>
+  </li>
+  <li><strong>Multiple Font Sizes</strong>
+    <ul>
+      <li>By scanning filenames (<code class="language-plaintext highlighter-rouge">"MyFont0.fnt"</code>, <code class="language-plaintext highlighter-rouge">"MyFont1.fnt"</code>, etc.), you take care of all sizes</li>
+      <li>The program automatically picks smaller fonts if text won’t fit the bounding box at size=1.</li>
+    </ul>
+  </li>
+  <li><strong>Wrapping &amp; Truncation</strong>
+    <ul>
+      <li>Single-word overflow triggers <strong>hyphenation</strong>.</li>
+      <li>Forced breaks <code class="language-plaintext highlighter-rouge">\n</code> are accounted for.</li>
+      <li>If final text still exceeds the box height, it’s truncated from the bottom with an ellipsis (<code class="language-plaintext highlighter-rouge">"..."</code>).</li>
+    </ul>
+  </li>
+  <li><strong>TextTable Integration</strong>
+    <ul>
+      <li>Simple CSV-based approach to store multiple languages or dynamic placeholders (e.g., <code class="language-plaintext highlighter-rouge">{scoreValue}</code>).</li>
+      <li>Automatic re-substitution if the table changes language or placeholder data.</li>
+    </ul>
+  </li>
+  <li><strong>Decoupled Rendering</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">TextRenderer</code> only draws all boxes; each <code class="language-plaintext highlighter-rouge">TextBox</code> manages its own geometry.</li>
+      <li>This keeps it flexible for adding or removing text boxes at runtime.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>You get a <strong>scalable</strong> text-rendering system that can handle multiple fonts, multiple languages, on-the-fly changes, and robust 
+word-wrapping/truncation — <strong>all</strong> driven by array textures for efficiency.</p>
 
 <ul>
   <li><strong>Highlights</strong>:

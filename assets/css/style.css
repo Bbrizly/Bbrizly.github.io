@@ -36,6 +36,7 @@ body {
   }
   header .social-links {
     margin-top: 10px;
+    font-size: 3.5rem;
   }
   header .social-links a {
     color: #87ceeb;
@@ -45,6 +46,37 @@ body {
   }
   header .social-links a:hover {
     color: #00ffff;
+    /* font-size: 3.5rem; */
+  }
+
+  .project-header {
+    text-indent: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /*space-between;*/
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* GitHub Link */
+  .github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #0dcaf0;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .github-link i {
+    font-size: 4rem;
+  }
+  
+  .github-link:hover {
+    color: #00ffff;
+    text-decoration: none;
   }
   
   /* Main Layout */
@@ -99,18 +131,27 @@ body {
     margin: 0 auto;
     overflow: hidden;
   }
+
+  /* Slide fade transition */
   .slide {
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.15s ease;
   }
+  .slide.active {
+    opacity: 1;
+  }
+
   .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;   /* Ensures the image fills the container without distortion */
   }
+  
   .slide-caption {
     position: absolute;
     bottom: 15px;
@@ -120,6 +161,24 @@ body {
     border-radius: 5px;
     font-size: 1.2rem;
   }
+  
+  /* Arrow buttons */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+  .prev:hover, .next:hover { background: rgba(255, 255, 255, 0.894); }
+
+  
   .dots-container {
     text-align: center;
   }
