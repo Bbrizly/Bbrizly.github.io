@@ -28,7 +28,9 @@ Under the hood, each ParticleNode runs a spawn-update-render loop:
         Increments its age; if it has outlived its lifetime, it is removed.
         Applies affectors, which might alter velocity, color, scale, etc.
         Moves the particle by updating position or rotation.
-    Rendering: Sorts the particles (for correct blending) and draws each one as a billboard quad, meaning it always faces the camera. This is done by calculating “right” and “up” vectors from the camera to orient the particles. The system supports normal alpha blending or additive/glow-style blending.
+    Rendering: Sorts the particles (for correct blending) and draws each one as a billboard quad, meaning it always faces the camera.
+    This is done by calculating “right” and “up” vectors from the camera to orient the particles.
+    The system supports normal alpha blending or additive/glow-style blending.
 
 ### Particle
 
