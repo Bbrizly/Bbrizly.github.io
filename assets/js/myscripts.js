@@ -43,13 +43,18 @@ function changeSlide(offset) {
 
 function showSlide(n) {
   clearInterval(slideTimer);
+
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot');
+
   slideIndex = (n + slides.length) % slides.length;
+
   slides.forEach(slide => slide.classList.remove('active'));
   dots.forEach(dot => dot.classList.remove('active-dot'));
+
   slides[slideIndex].classList.add('active');
   dots[slideIndex].classList.add('active-dot');
+
   slideTimer = setInterval(() => changeSlide(1), 5000);
 }
 
