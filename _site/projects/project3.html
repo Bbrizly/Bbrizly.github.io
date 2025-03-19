@@ -23,14 +23,17 @@
   
     <main>
       <article class="project-page" data-aos="fade-up">
-        <header>
+
+        <a href="/#projects" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+        
+        <header class="project-header">
           <h1>Volpe Engine</h1>
           
-            <p>
-              <a href="https://github.com/Bbrizly/Volpe-Engine" target="_blank">
-                <i class="fab fa-github"></i> View on GitHub
-              </a>
-            </p>
+            <a href="https://github.com/Bbrizly/Volpe-Engine" target="_blank" class="github-link">
+              <i class="fab fa-github"></i> 
+            </a>
           
         </header>
   
@@ -40,6 +43,136 @@
   <li><strong>Culling-based</strong> scene management</li>
   <li><strong>Efficient memory</strong> usage for complex scenes</li>
   <li><strong>Custom</strong> rendering pipeline</li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<p>Volpe Engine aims to provide a small but complete environment for real–time 3D rendering. Key features include:</p>
+
+<ul>
+  <li><strong>Scene Graph &amp; Node</strong>: Nodes can have parent–child relationships, maintain local transforms, and propagate updates.</li>
+  <li><strong>Camera</strong>: Supports multiple camera styles—First Person and Orbit—through an abstract <code class="language-plaintext highlighter-rouge">Camera</code> interface.</li>
+  <li><strong>Quad &amp; Oct Tree</strong>: The engine dynamically switches between a <strong>QuadTree</strong> for 2D spatial partitioning (XZ plane) and an <strong>Octree</strong> for full 3D space division.</li>
+  <li><strong>Camera Frustum Culling</strong>: Uses <strong>AABB (Axis-Aligned Bounding Boxes)</strong> and <strong>Sphere Bounding Volumes</strong> to determine if objects are within the camera’s view, optimizing rendering.</li>
+  <li><strong>Dynamic Node Lighting</strong>: Nodes are automatically assigned to active lights within their spatial partition, allowing for <strong>dynamic light updates</strong> based on object position.</li>
+  <li><strong>Text Rendering</strong>: A robust system for drawing text overlays, powered by an orthographic projection and array textures.</li>
+  <li><strong>Debug Rendering</strong>: Quick lines, squares, and circles for visualizing bounding volumes, quad/oct tree partitions, and frustum culling.</li>
+</ul>
+
+<hr />
+
+<h2 id="core-architecture">Core Architecture</h2>
+
+<p>The engine revolves around several key components:</p>
+
+<h3 id="program"><strong><code class="language-plaintext highlighter-rouge">Program</code></strong></h3>
+
+<p>A user-defined class that ties the scene, cameras, and quadtree together. In <strong>Volpe Engine</strong>, <code class="language-plaintext highlighter-rouge">Program</code>:</p>
+
+<ul>
+  <li>Initializes OpenGL state (depth test, blend mode, etc.)</li>
+  <li>Instantiates an appropriate <strong>Camera</strong></li>
+  <li>Creates the <strong>Scene</strong> singleton, populates random nodes, and builds the <strong>QuadTree</strong></li>
+  <li>Orchestrates update logic (key input, re-randomizing the scene, toggling quadtree view)</li>
+</ul>
+
+<h3 id="scene-singleton"><strong><code class="language-plaintext highlighter-rouge">Scene</code> Singleton</strong></h3>
+
+<p>Central to Volpe Engine is the <strong>Scene</strong>. It maintains a list of top–level scene <code class="language-plaintext highlighter-rouge">Node</code> objects, an active camera, and a <code class="language-plaintext highlighter-rouge">QuadTree</code> for culling. Typical usage:</p>
+
+<ol>
+  <li><strong>Populate</strong> the scene by adding <code class="language-plaintext highlighter-rouge">DebugCube</code> (or other) nodes.</li>
+  <li><strong>BuildQuadTree</strong> once the scene is initialized.</li>
+  <li><strong>Update</strong> calls propagate transforms, recalculate bounding volumes, and cull using frustum checks.</li>
+  <li><strong>Render</strong> calls draw the visible nodes and optionally show quad tree boundaries.</li>
+</ol>
+
+<hr />
+
+<h2 id="scene-management-and-culling">Scene Management and Culling</h2>
+
+<ol>
+  <li>
+    <p><strong>Scene Graph</strong></p>
+
+    <ul>
+      <li>Each <code class="language-plaintext highlighter-rouge">Node</code> can have children, forming a hierarchy (parent transforms affect children) (ex. Solar-System Scene.)</li>
+      <li><strong>update</strong>: Each node’s local and world transformations are recalculated.</li>
+      <li><strong>draw</strong>: Each node issues draw calls for itself (e.g. a <code class="language-plaintext highlighter-rouge">DebugCube</code> can bind a shader and buffer, then call <code class="language-plaintext highlighter-rouge">glDrawArrays</code>).</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Quad &amp; Oct Tree</strong></p>
+
+    <ul>
+      <li>The engine organizes objects in <strong>XZ</strong> space using a <strong>QuadTree</strong> but switches to an <strong>Octree</strong> when handling 3D spatial partitioning for more complex scenes.</li>
+      <li><strong>AABB and Sphere Bounding Volumes</strong> are used for fast collision and culling checks.</li>
+      <li>On <strong>Scene::Update</strong>, it extracts the camera frustum and queries the <strong>QuadTree (for terrain &amp; 2D elements)</strong> or <strong>Octree (for 3D spatial objects)</strong>, gathering only the objects that intersect the frustum.</li>
+      <li>This culling significantly reduces the rendering load for large scenes.</li>
+      <li><strong>Dynamic light system</strong> queries efficently using whichever tree you choose.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Camera Frustum Culling</strong></p>
+
+    <ul>
+      <li>The camera calculates <strong>six planes</strong> defining its viewing frustum.</li>
+      <li><strong>Bounding Volumes (AABB &amp; Sphere Tests)</strong> are used to quickly discard objects that lie outside the view.</li>
+      <li>Objects fully outside the frustum are skipped, while partially visible objects undergo finer checks.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Dynamic Lighting Assignment</strong></p>
+
+    <ul>
+      <li>Each node dynamically assigns itself to the <strong>nearest active lights</strong> based on its position in the <strong>QuadTree/Octree</strong>.</li>
+      <li>The engine updates the <strong>list of affecting lights</strong> per frame to ensure optimal real-time lighting performance.</li>
+      <li>Lighting calculations are optimized by limiting the number of lights per node based on proximity and importance.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="text-rendering">Text Rendering</h2>
+
+<p>Volpe Engine also has a <strong>Text Renderer</strong>, which draws 2D overlays (FPS counters, instructions, debug text) on top of the 3D scene. Key components:</p>
+
+<ol>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">Font</code></strong></p>
+
+    <ul>
+      <li>Loads a set of <code class="language-plaintext highlighter-rouge">.fnt</code> and <code class="language-plaintext highlighter-rouge">.tga</code> files (commonly exported by bmFont).</li>
+      <li>Handles multiple font pages (e.g. <code class="language-plaintext highlighter-rouge">Arial0.fnt</code>, <code class="language-plaintext highlighter-rouge">Arial1.fnt</code>, etc.) for different sizes.</li>
+      <li>Merges them into an <strong>Array Texture</strong> for efficient binding.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">TextBox</code></strong></p>
+
+    <ul>
+      <li>Represents a rectangle containing text with dynamic scaling, word-wrapping, alignment, optional background, etc.</li>
+      <li>Has auto‐truncation if the text overflows the box’s height, optionally adding ellipses (“…”).</li>
+      <li>Renders as quads in an orthographic projection.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong><code class="language-plaintext highlighter-rouge">TextRenderer</code></strong></p>
+
+    <ul>
+      <li>Manages one or more TextBoxes.</li>
+      <li>Maintains a simple shader (<code class="language-plaintext highlighter-rouge">2d.vsh</code>, <code class="language-plaintext highlighter-rouge">2d.fsh</code>) for drawing text in screen‐space.</li>
+      <li>Have the ability to edit colours, alignments, etc.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="localization--texttable">Localization / <code class="language-plaintext highlighter-rouge">TextTable</code></h3>
+
+<ul>
+  <li>(Optional) The engine provides a CSV-based system for storing multiple languages or dynamic placeholders (like <code class="language-plaintext highlighter-rouge">{scoreValue}</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">TextTable</code> can do runtime substitution so your UI text automatically updates if you switch languages or variables.</li>
 </ul>
 
 <p>Tailored for high-performance 3D applications.</p>

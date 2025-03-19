@@ -14,14 +14,17 @@
   
     <main>
       <article class="project-page" data-aos="fade-up">
-        <header>
+
+        <a href="/#projects" class="back-btn">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+        
+        <header class="project-header">
           <h1>{{ page.title }}</h1>
           {% if page.github_link %}
-            <p>
-              <a href="{{ page.github_link }}" target="_blank">
-                <i class="fab fa-github"></i> View on GitHub
-              </a>
-            </p>
+            <a href="{{ page.github_link }}" target="_blank" class="github-link">
+              <i class="fab fa-github"></i> 
+            </a>
           {% endif %}
         </header>
   
