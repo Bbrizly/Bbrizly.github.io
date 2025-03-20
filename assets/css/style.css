@@ -125,8 +125,9 @@ body {
   
   /* Slideshow */
   .slideshow-container {
-    width: 700px;        /* Fixed width */
-    height: 400px;       /* Fixed height to prevent shifting */
+    width: 100%;         
+    max-width: 700px;    
+    height: auto;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
@@ -157,11 +158,13 @@ body {
   .slide-caption {
     position: absolute;
     bottom: 15px;
-    left: 20px;
-    padding: 10px 20px;
-    background-color: rgba(0,0,0,0.5);
+    left: 10%;
+    padding: 8px 15px;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    text-align: center;
+    width: 80%;
   }
   
   /* Arrow buttons */
