@@ -127,7 +127,7 @@ body {
   .slideshow-container {
     width: 100%;         
     max-width: 700px;    
-    height: auto;
+    height: 400px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
