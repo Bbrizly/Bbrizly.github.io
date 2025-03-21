@@ -1,6 +1,28 @@
 let slideIndex = 0;
 let slideTimer;
 
+let coolModeActivated = false;
+
+function activateCoolCursor() {
+  document.body.style.cursor = "none";
+  
+  document.addEventListener('mousemove', createTrail);
+}
+
+function createTrail(e) {
+  const trail = document.createElement('div');
+  trail.classList.add('trail');
+  
+  trail.style.left = e.pageX + 'px';
+  trail.style.top = e.pageY + 'px';
+  document.body.appendChild(trail);
+  
+  setTimeout(() => {
+    trail.remove();
+  }, 1000);
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   // --- Slideshow initialization ---
   startSlideshow();
@@ -13,7 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const surpriseBtn = document.getElementById('surprise-btn');
   if (surpriseBtn) {
     surpriseBtn.addEventListener('click', () => {
-      document.body.style.background = getRandomGradient();
+      
+      if (!coolModeActivated) {
+        activateCoolCursor();
+        coolModeActivated = true;
+      }
+
+      // document.body.style.background = getRandomGradient();
     });
   }
 
