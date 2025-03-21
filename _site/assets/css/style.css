@@ -311,6 +311,13 @@ body {
     border-radius: 8px;
     margin: 0 auto;
   }
+  .project-content img {
+    max-width: 100%;
+    height: 500px;
+    display: block;
+    margin: 20px auto;
+  }
+  
   
   @media(max-width: 768px) {
     .work-container {
