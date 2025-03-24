@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UPSTART</title>
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+  />
+
+  <!-- Chart.js -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
+    defer
+  ></script>
+
+  <style>
+    /* ============ GLOBAL STYLES ============ */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+      background: linear-gradient(180deg, #f5f7fa 0%, #e6ecf3 100%);
+    }
+    /* Make sure the body doesn't get hidden behind the fixed sidebar */
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background-color: #2f3542;
+      color: #fff;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .sidebar a {
+      color: #ccc;
+      transition: background 0.3s, color 0.3s;
+    }
+    .sidebar a:hover,
+    .sidebar .nav-link.active {
+      background-color: #3b434f;
+      color: #fff;
+    }
+    .sidebar .nav-link i {
+      margin-right: 8px;
+    }
+    .sidebar .fs-4 {
+      font-weight: 500;
+    }
+    .sidebar .dropdown-toggle {
+      color: #fff;
+    }
+
+    /* ============ MAIN CONTENT WRAPPER ============ */
+    .main-content {
+      margin-left: 240px; /* same width as sidebar */
+      padding: 2rem;
+      transition: margin-left 0.5s;
+      min-height: 100vh;
+    }
+    .section-header {
+      margin-bottom: 1rem;
+    }
+
+    /* ============ CARDS, TABLES & GENERAL UI ============ */
+    .dash-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .dash-card h4 {
+      margin-bottom: 0.75rem;
+    }
+    .dash-card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .fade-in {
+      animation: fadeIn 0.7s ease-in-out forwards;
+      opacity: 0; /* initial, to allow fadeIn to go from 0 to 1 */
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hidden {
+      display: none !important;
+    }
+
+    /* Table styling improvements */
+    table th {
+      background-color: #f1f3f5;
+    }
+    table thead tr {
+      border-bottom: 2px solid #ccc;
+    }
+
+    /* Chart containers */
+    .chart-container {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+
+    /* Extra accent colors for numbers */
+    .text-highlight-1 {
+      color: #1abc9c; /* a nice teal */
+    }
+    .text-highlight-2 {
+      color: #e67e22; /* orange shade */
+    }
+    .text-highlight-3 {
+      color: #3498db; /* blue shade */
+    }
+    .text-highlight-4 {
+      color: #e74c3c; /* red shade */
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar d-flex flex-column p-3">
+  <a
+    href="#"
+    class="d-flex align-items-center mb-3 mb-md-0 text-decoration-none text-white"
+  >
+    <span class="fs-4">UPSTART</span>
+  </a>
+  <hr class="bg-secondary" />
+  <ul class="nav nav-pills flex-column mb-auto" id="sidebarMenu">
+    <li class="nav-item">
+      <a
+        href="#dashboard"
+        class="nav-link active"
+        onclick="showSection('dashboard')"
+      >
+        <i class="bi bi-speedometer2"></i>Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#marketing"
+        class="nav-link"
+        onclick="showSection('marketing')"
+      >
+        <i class="bi bi-bullseye"></i>Marketing
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#finance"
+        class="nav-link"
+        onclick="showSection('finance')"
+      >
+        <i class="bi bi-cash-stack"></i>Finance
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#hr" class="nav-link" onclick="showSection('hr')">
+        <i class="bi bi-people-fill"></i>HR
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#customerService"
+        class="nav-link"
+        onclick="showSection('customerService')"
+      >
+        <i class="bi bi-headset"></i>Customer Service
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        href="#operations"
+        class="nav-link"
+        onclick="showSection('operations')"
+      >
+        <i class="bi bi-gear-wide-connected"></i>Operations
+      </a>
+    </li>
+  </ul>
+  <hr class="bg-secondary" />
+  <div class="dropdown mb-3">
+    <a
+      href="#"
+      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+      id="dropdownUser1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <strong>Admin</strong>
+    </a>
+    <ul
+      class="dropdown-menu dropdown-menu-dark text-small shadow"
+      aria-labelledby="dropdownUser1"
+    >
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="main-content">
+  <!-- ============== DASHBOARD SECTION ============== -->
+  <div id="dashboard" class="section fade-in">
+    <h1 class="section-header">Dashboard</h1>
+    <div class="row g-3">
+      <!-- Example metric cards -->
+      <div class="col-lg-3">
+        <div class="dash-card text-center">
+          <h4>Monthly Revenue</h4>
+          <p id="dashboardRevenue" class="fs-3 text-highlight-1"></p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="dash-card text-center">
+          <h4>Active Campaigns</h4>
+          <p id="dashboardCampaigns" class="fs-3 text-highlight-2"></p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="dash-card text-center">
+          <h4>Open Positions</h4>
+          <p id="dashboardPositions" class="fs-3 text-highlight-3"></p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="dash-card text-center">
+          <h4>Support Tickets</h4>
+          <p id="dashboardTickets" class="fs-3 text-highlight-4"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-charts row: revenue & expenditure & distribution -->
+    <div class="row g-3 mt-3">
+      <div class="col-md-6">
+        <div class="dash-card">
+          <h4>Revenue Trend</h4>
+          <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dash-card">
+          <h4>Expenditure Trend</h4>
+          <div class="chart-container">
+            <canvas id="expenditureChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Another row for Profit Chart or Pie chart distribution -->
+    <div class="row g-3 mt-3">
+      <div class="col-md-6">
+        <div class="dash-card">
+          <h4>Profit Margin</h4>
+          <div class="chart-container">
+            <canvas id="profitChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dash-card">
+          <h4>Sales Distribution</h4>
+          <div class="chart-container">
+            <canvas id="distributionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MARKETING SECTION ============== -->
+  <div id="marketing" class="section fade-in hidden">
+    <h1 class="section-header">Marketing</h1>
+
+    <!-- Branding Strategy Setup -->
+    <div class="dash-card">
+      <h5>Branding Strategy Setup</h5>
+      <form id="brandingForm">
+        <div class="mb-3">
+          <label class="form-label">Color Palette</label>
+          <input
+            type="text"
+            class="form-control"
+            name="colorPalette"
+            placeholder="#FF5733, #C70039"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Fonts</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fonts"
+            placeholder="Roboto, Montserrat"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tone of Voice</label>
+          <textarea
+            class="form-control"
+            name="toneOfVoice"
+            rows="2"
+            placeholder="Friendly, professional, witty, etc."
+            required
+          ></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Save Strategy</button>
+      </form>
+      <!-- Display Branding Info -->
+      <div class="mt-3" id="brandingDisplay" style="display:none;">
+        <strong>Saved Branding Strategy:</strong>
+        <p class="mb-0" id="brandingColors"></p>
+        <p class="mb-0" id="brandingFonts"></p>
+        <p class="mb-0" id="brandingTone"></p>
+      </div>
+    </div>
+
+    <!-- Advertising Campaigns -->
+    <div class="dash-card">
+      <h5>Advertising Campaigns</h5>
+      <form id="campaignForm" class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Campaign Topic</label>
+          <input
+            type="text"
+            class="form-control"
+            id="campaignTopic"
+            placeholder="e.g. Christmas Sale"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Social Accounts</label>
+          <select class="form-select" id="campaignAccounts">
+            <option>Facebook, Instagram, Twitter, LinkedIn</option>
+            <option>Facebook only</option>
+            <option>Instagram only</option>
+            <option>Twitter only</option>
+            <option>LinkedIn only</option>
+          </select>
+        </div>
+        <button class="btn btn-success mt-3" type="submit">
+          Generate Content
+        </button>
+      </form>
+      <hr />
+      <table class="table table-striped mt-3" id="campaignsTable">
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Social</th>
+            <th>Suggested Content</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic rows inserted by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Engagement Chart Example -->
+    <div class="dash-card">
+      <h5>Engagement Over Time</h5>
+      <p>Track how your marketing engagement changes month to month.</p>
+      <div class="chart-container">
+        <canvas id="engagementChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Rating Employee-created Content -->
+    <div class="dash-card">
+      <h5>Rate Employee Created Content</h5>
+      <table class="table table-bordered" id="employeeContentTable">
+        <thead>
+          <tr>
+            <th>Content Title</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample items - user can Approve or Request Revision -->
+          <tr>
+            <td>Video: Winter Promotion</td>
+            <td><span class="badge bg-warning">Pending Rating</span></td>
+            <td>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="approveContent(this)"
+              >
+                Approve
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="reviseContent(this)"
+              >
+                Request Revision
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Poster: Spring Collection Sale</td>
+            <td><span class="badge bg-warning">Pending Rating</span></td>
+            <td>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="approveContent(this)"
+              >
+                Approve
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="reviseContent(this)"
+              >
+                Request Revision
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============== FINANCE SECTION ============== -->
+  <div id="finance" class="section fade-in hidden">
+    <h1 class="section-header">Finance</h1>
+    <div class="dash-card">
+      <h5>Financial Inputs</h5>
+      <form id="financeForm" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Monthly Revenue</label>
+          <input
+            type="number"
+            class="form-control"
+            id="monthlyRevenue"
+            placeholder="10000"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Monthly Expenses</label>
+          <input
+            type="number"
+            class="form-control"
+            id="monthlyExpenses"
+            placeholder="4000"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Country (Tax)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="taxCountry"
+            placeholder="e.g. Canada"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">
+            Calculate Net &amp; Tax
+          </button>
+        </div>
+      </form>
+      <div class="mt-3" id="financeResults" style="display:none;">
+        <p>
+          <strong>Net Income:</strong>
+          <span id="netIncome"></span>
+        </p>
+        <p>
+          <strong>Tax Owed:</strong>
+          <span id="taxOwed"></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h5>Monthly Budget &amp; Forecast (Bar Chart)</h5>
+      <p>See how your budget may look for the upcoming months.</p>
+      <div class="chart-container">
+        <canvas id="budgetChart"></canvas>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h5>Expenses Distribution</h5>
+      <p>A quick breakdown of expense categories.</p>
+      <div class="chart-container">
+        <canvas id="expensesDistributionChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== HR SECTION ============== -->
+  <div id="hr" class="section fade-in hidden">
+    <h1 class="section-header">Human Resources</h1>
+
+    <div class="dash-card">
+      <h5>Create &amp; Post a Job</h5>
+      <form id="hrJobForm" class="mb-3">
+        <div class="mb-3">
+          <label class="form-label">Job Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="jobTitle"
+            placeholder="e.g. Marketing Specialist"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Roles &amp; Responsibilities</label>
+          <textarea
+            class="form-control"
+            id="jobRoles"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">KPIs</label>
+          <textarea
+            class="form-control"
+            id="jobKpis"
+            rows="2"
+            required
+          ></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Create Job</button>
+      </form>
+      <button class="btn btn-secondary" type="button" onclick="publishJobs()">
+        Publish All Jobs
+      </button>
+    </div>
+
+    <div class="dash-card">
+      <h5>Job Listings</h5>
+      <table class="table table-hover" id="jobsTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Roles</th>
+            <th>KPIs</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="dash-card">
+      <h5>Applicant Tracking</h5>
+      <table class="table table-bordered" id="applicantTable">
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample applicants for demo purposes -->
+          <tr>
+            <td>John Doe</td>
+            <td><span class="badge bg-info">Reviewing</span></td>
+            <td>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="qualifyApplicant(this)"
+              >
+                Qualify
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="rejectApplicant(this)"
+              >
+                Reject
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+            <td><span class="badge bg-info">Reviewing</span></td>
+            <td>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="qualifyApplicant(this)"
+              >
+                Qualify
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                onclick="rejectApplicant(this)"
+              >
+                Reject
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dash-card">
+      <h5>Employee Performance Tracking</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Tasks Completed</th>
+            <th>KPI Score</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Manager</td>
+            <td>15</td>
+            <td>80%</td>
+            <td>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="assignBonus(this)"
+              >
+                Give Bonus
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Jane Developer</td>
+            <td>20</td>
+            <td>90%</td>
+            <td>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="assignBonus(this)"
+              >
+                Give Bonus
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dash-card">
+      <h5>Employee Performance Trend</h5>
+      <p>Visualize how employee performance changes over time.</p>
+      <div class="chart-container">
+        <canvas id="employeePerformanceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== CUSTOMER SERVICE SECTION ============== -->
+  <div id="customerService" class="section fade-in hidden">
+    <h1 class="section-header">Customer Service</h1>
+
+    <div class="dash-card">
+      <h5>Live Text Chat</h5>
+      <div
+        id="chatContainer"
+        style="border:1px solid #ccc; border-radius:5px; padding:1rem; height:300px; overflow-y:auto; margin-bottom:1rem;"
+      >
+        <!-- Messages appended here -->
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="chatInput"
+          placeholder="Type a message..."
+        />
+        <button class="btn btn-primary" type="button" onclick="sendMessage()">
+          Send
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <h5>Phone Operated AI</h5>
+      <p>Simulate an AI-driven call system</p>
+      <button class="btn btn-success mb-2" type="button" onclick="startCall()">
+        <i class="bi bi-telephone"></i> Start Call
+      </button>
+      <div id="callStatus" class="text-muted"></div>
+    </div>
+
+    <div class="dash-card">
+      <h5>FAQ Management</h5>
+      <form class="d-flex mb-3" onsubmit="addFaq(event)">
+        <input
+          type="text"
+          class="form-control"
+          id="faqQuestion"
+          placeholder="Enter a new FAQ question"
+          required
+        />
+        <button class="btn btn-outline-primary ms-2" type="submit">
+          Add FAQ
+        </button>
+      </form>
+      <ul class="list-group" id="faqList">
+        <li class="list-group-item">How do I reset my password?</li>
+        <li class="list-group-item">Where can I track my orders?</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============== OPERATIONS SECTION ============== -->
+  <div id="operations" class="section fade-in hidden">
+    <h1 class="section-header">Operations</h1>
+    <div class="dash-card">
+      <h5>Delivery Tracking</h5>
+      <table class="table table-striped" id="deliveryTable">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Destination</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1001</td>
+            <td>New York</td>
+            <td>
+              <select class="form-select" onchange="updateDeliveryStatus()">
+                <option>Shipped</option>
+                <option>In Transit</option>
+                <option>Delivered</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>1002</td>
+            <td>Toronto</td>
+            <td>
+              <select class="form-select" onchange="updateDeliveryStatus()">
+                <option>Shipped</option>
+                <option>In Transit</option>
+                <option>Delivered</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="dash-card">
+      <h5>Quality Assurance</h5>
+      <p>Complete these steps to ensure consistent quality.</p>
+      <form onsubmit="submitQaChecklist(event)">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="qaItem1"
+            required
+          />
+          <label class="form-check-label" for="qaItem1">
+            Verify Packaging
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="qaItem2"
+            required
+          />
+          <label class="form-check-label" for="qaItem2">
+            Check Product Labeling
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="qaItem3"
+            required
+          />
+          <label class="form-check-label" for="qaItem3">
+            Inspect for Damages
+          </label>
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">
+          Submit QA
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+></script>
+
+<script>
+// ====== Show/Hide Sections Logic with Fading Animations ======
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('#sidebarMenu a.nav-link');
+
+function showSection(sectionId) {
+  sections.forEach(sec => {
+    sec.classList.add('hidden');
+    sec.classList.remove('fade-in');
+  });
+  navLinks.forEach(link => link.classList.remove('active'));
+
+  // Show the chosen one with fade-in
+  const target = document.getElementById(sectionId);
+  target.classList.remove('hidden');
+  // Force reflow to restart CSS animation (trick)
+  void target.offsetWidth;
+  target.classList.add('fade-in');
+
+  // Mark the nav link as active
+  const activeLink = document.querySelector(`#sidebarMenu a[href="#${sectionId}"]`);
+  if (activeLink) activeLink.classList.add('active');
+}
+
+// ====== Some Helper Function ======
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ====== Dashboard Data & Additional Charts ======
+const dashboardRevenue = document.getElementById('dashboardRevenue');
+const dashboardCampaigns = document.getElementById('dashboardCampaigns');
+const dashboardPositions = document.getElementById('dashboardPositions');
+const dashboardTickets = document.getElementById('dashboardTickets');
+
+// Four main Dashboard charts
+let revenueChart, expenditureChart, profitChart, distributionChart;
+
+function initDashboardData() {
+  dashboardRevenue.textContent = '$' + randomInt(10000, 20000).toLocaleString();
+  dashboardCampaigns.textContent = randomInt(2, 10);
+  dashboardPositions.textContent = randomInt(1, 5);
+  dashboardTickets.textContent = randomInt(0, 10);
+}
+function createLineChart(ctx, label) {
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: label,
+          data: Array.from({ length: 6 }, () => randomInt(5000, 15000)),
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+function createBarChart(ctx, label) {
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: label,
+          data: Array.from({ length: 6 }, () => randomInt(5000, 15000))
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+function createPieChart(ctx) {
+  return new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['North', 'South', 'East', 'West'],
+      datasets: [
+        {
+          data: [
+            randomInt(10, 40),
+            randomInt(10, 40),
+            randomInt(10, 40),
+            randomInt(10, 40)
+          ]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+
+// Create all charts in Dashboard
+function initDashboardCharts() {
+  // Revenue Trend
+  const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+  revenueChart = createLineChart(revenueCtx, 'Revenue');
+
+  // Expenditure Trend
+  const expCtx = document.getElementById('expenditureChart').getContext('2d');
+  expenditureChart = createLineChart(expCtx, 'Expenditure');
+
+  // Profit Margin (Bar)
+  const profitCtx = document.getElementById('profitChart').getContext('2d');
+  profitChart = createBarChart(profitCtx, 'Profit Margin');
+
+  // Sales Distribution (Pie)
+  const distrCtx = document.getElementById('distributionChart').getContext('2d');
+  distributionChart = createPieChart(distrCtx);
+}
+
+// ====== Marketing Section ======
+// Branding form
+const brandingForm = document.getElementById('brandingForm');
+const brandingDisplay = document.getElementById('brandingDisplay');
+const brandingColors = document.getElementById('brandingColors');
+const brandingFonts = document.getElementById('brandingFonts');
+const brandingTone = document.getElementById('brandingTone');
+
+brandingForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(brandingForm);
+  brandingColors.textContent = 'Colors: ' + formData.get('colorPalette');
+  brandingFonts.textContent = 'Fonts: ' + formData.get('fonts');
+  brandingTone.textContent = 'Tone of Voice: ' + formData.get('toneOfVoice');
+  brandingDisplay.style.display = 'block';
+});
+
+// Advertising campaigns
+const campaignForm = document.getElementById('campaignForm');
+const campaignsTable = document
+  .getElementById('campaignsTable')
+  .querySelector('tbody');
+
+campaignForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const topic = document.getElementById('campaignTopic').value.trim();
+  const accounts = document.getElementById('campaignAccounts').value;
+  const content = `Generated content ideas for "${topic}" targeting ${accounts}.`;
+
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${topic}</td>
+    <td>${accounts}</td>
+    <td>${content}</td>
+    <td>
+      <button class="btn btn-outline-primary btn-sm" onclick="postCampaign()">Post</button>
+    </td>
+  `;
+  campaignsTable.appendChild(row);
+
+  campaignForm.reset();
+});
+
+function postCampaign() {
+  alert('Your campaign has been posted to the selected accounts!');
+}
+
+// Rate Employee Content
+function approveContent(btn) {
+  const row = btn.closest('tr');
+  row.querySelector('td:nth-child(2) .badge').textContent = 'Approved';
+  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-success';
+}
+function reviseContent(btn) {
+  const row = btn.closest('tr');
+  row.querySelector('td:nth-child(2) .badge').textContent = 'Needs Revision';
+  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-danger';
+}
+
+// Engagement Chart in Marketing
+let engagementChart;
+function initEngagementChart() {
+  const ctx = document.getElementById('engagementChart').getContext('2d');
+  engagementChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: 'Engagement',
+          data: Array.from({length:6}, () => randomInt(50, 150)),
+          borderWidth: 2,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+
+// ====== Finance Section ======
+const financeForm = document.getElementById('financeForm');
+const financeResults = document.getElementById('financeResults');
+const netIncome = document.getElementById('netIncome');
+const taxOwed = document.getElementById('taxOwed');
+
+financeForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const monthlyRev = parseFloat(document.getElementById('monthlyRevenue').value);
+  const monthlyExp = parseFloat(document.getElementById('monthlyExpenses').value);
+  const country = document.getElementById('taxCountry').value.trim();
+
+  // Basic example: net = revenue - expenses
+  const net = monthlyRev - monthlyExp;
+
+  // Dummy tax calculation (say 15%)
+  const tax = net * 0.15;
+
+  netIncome.textContent = '$' + net.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  taxOwed.textContent = `$${tax.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} (approx, for ${country})`;
+
+  financeResults.style.display = 'block';
+});
+
+// Budget & Forecast Chart (Finance)
+let budgetChart;
+function initBudgetChart() {
+  const ctx = document.getElementById('budgetChart').getContext('2d');
+  budgetChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          label: 'Forecasted Budget',
+          data: Array.from({ length: 6 }, () => randomInt(5000, 12000))
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+
+// Expenses Distribution (Finance)
+let expensesDistChart;
+function initExpensesDistributionChart() {
+  const ctx = document
+    .getElementById('expensesDistributionChart')
+    .getContext('2d');
+  expensesDistChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Salaries', 'Rent', 'Utilities', 'Marketing', 'Misc'],
+      datasets: [
+        {
+          data: [
+            randomInt(1000,5000),
+            randomInt(1000,5000),
+            randomInt(500,2000),
+            randomInt(1000,4000),
+            randomInt(300,1500)
+          ]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+
+// ====== HR Section ======
+const hrJobForm = document.getElementById('hrJobForm');
+const jobsTable = document.getElementById('jobsTable').querySelector('tbody');
+
+hrJobForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const title = document.getElementById('jobTitle').value.trim();
+  const roles = document.getElementById('jobRoles').value.trim();
+  const kpis = document.getElementById('jobKpis').value.trim();
+
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${title}</td>
+    <td>${roles}</td>
+    <td>${kpis}</td>
+  `;
+  jobsTable.appendChild(row);
+
+  hrJobForm.reset();
+});
+function publishJobs() {
+  alert('All new jobs have been published to LinkedIn/Indeed successfully!');
+}
+
+// Applicant tracking
+function qualifyApplicant(btn) {
+  const row = btn.closest('tr');
+  row.querySelector('td:nth-child(2) .badge').textContent = 'Qualified';
+  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-success';
+}
+function rejectApplicant(btn) {
+  const row = btn.closest('tr');
+  row.querySelector('td:nth-child(2) .badge').textContent = 'Rejected';
+  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-danger';
+}
+
+// Employee performance
+function assignBonus(btn) {
+  alert('Bonus assigned successfully!');
+}
+
+// Employee Performance Trend (HR)
+let employeePerformanceChart;
+function initEmployeePerformanceChart() {
+  const ctx = document
+    .getElementById('employeePerformanceChart')
+    .getContext('2d');
+  employeePerformanceChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'John Manager',
+          data: [randomInt(50,100), randomInt(50,100), randomInt(50,100), randomInt(50,100)],
+          borderWidth: 2,
+          tension: 0.3
+        },
+        {
+          label: 'Jane Developer',
+          data: [randomInt(50,100), randomInt(50,100), randomInt(50,100), randomInt(50,100)],
+          borderWidth: 2,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1000
+      }
+    }
+  });
+}
+
+// ====== Customer Service Section ======
+const chatContainer = document.getElementById('chatContainer');
+const chatInput = document.getElementById('chatInput');
+
+function sendMessage() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+  const p = document.createElement('p');
+  p.innerHTML = `<strong>You:</strong> ${msg}`;
+  chatContainer.appendChild(p);
+  chatInput.value = '';
+  // Scroll to bottom
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// Phone AI
+const callStatus = document.getElementById('callStatus');
+let callInProgress = false;
+function startCall() {
+  if (!callInProgress) {
+    callStatus.textContent = 'Calling... AI is answering.';
+    callInProgress = true;
+    setTimeout(() => {
+      callStatus.textContent = 'In Call with AI assistant.';
+    }, 2000);
+  } else {
+    callStatus.textContent = 'Call ended.';
+    callInProgress = false;
+  }
+}
+
+// FAQ management
+const faqList = document.getElementById('faqList');
+function addFaq(event) {
+  event.preventDefault();
+  const question = document.getElementById('faqQuestion').value.trim();
+  const li = document.createElement('li');
+  li.classList.add('list-group-item');
+  li.textContent = question;
+  faqList.appendChild(li);
+  document.getElementById('faqQuestion').value = '';
+}
+
+// ====== Operations Section ======
+function updateDeliveryStatus() {
+  alert('Delivery status updated successfully!');
+}
+function submitQaChecklist(e) {
+  e.preventDefault();
+  alert('QA Checklist submitted successfully!');
+  e.target.reset();
+}
+
+// ====== On Window Load ======
+window.addEventListener('DOMContentLoaded', () => {
+  // Dashboard
+  initDashboardData();
+  initDashboardCharts();
+
+  // Additional Charts
+  initEngagementChart();
+  initBudgetChart();
+  initExpensesDistributionChart();
+  initEmployeePerformanceChart();
+});
+</script>
+
+</body>
+</html>
