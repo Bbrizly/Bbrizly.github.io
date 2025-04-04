@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <title>UPSTART</title>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
   <!-- Bootstrap 5 -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -23,92 +31,147 @@
   ></script>
 
   <style>
-    /* ============ GLOBAL STYLES ============ */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Roboto", sans-serif;
-      background: linear-gradient(180deg, #f5f7fa 0%, #e6ecf3 100%);
-    }
-    /* Make sure the body doesn't get hidden behind the fixed sidebar */
-    body, html {
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
+    /* ===================================
+       THEME & LAYOUT VARIABLES
+    =================================== */
+    :root {
+      --sidebar-width: 280px;
+      --sidebar-bg: #2f3542;
+      --sidebar-hover-bg: #3b434f;
+      --sidebar-text-color: #ccc;
+      --sidebar-brand-border: rgba(255,255,255,0.1);
+
+      --main-bg: #f5f7fa;
+      --card-bg: #fff;
+      --card-border: #e0e0e0;
+      --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+      --primary-font: 'Roboto', sans-serif;
+      --button-hover-bg: #3b434f;
+      --button-hover-color: #fff;
     }
 
-    /* ============ SIDEBAR ============ */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* No global scroll */
+      font-family: var(--primary-font);
+      background: linear-gradient(180deg, #f5f7fa 0%, #e6ecf3 100%);
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ===================================
+       SIDEBAR
+    =================================== */
     .sidebar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 240px;
-      height: 100vh;
-      background-color: #2f3542;
+      width: var(--sidebar-width);
+      height: 100%;
+      background-color: var(--sidebar-bg);
       color: #fff;
-      overflow-y: auto;
       z-index: 1000;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      padding-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
     }
-    .sidebar a {
-      color: #ccc;
-      transition: background 0.3s, color 0.3s;
+    .sidebar .brand {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--sidebar-brand-border);
+      margin-bottom: 1rem;
     }
-    .sidebar a:hover,
-    .sidebar .nav-link.active {
-      background-color: #3b434f;
-      color: #fff;
+    .sidebar hr {
+      border-color: var(--sidebar-brand-border);
+      margin: 0 1rem 1rem 1rem;
+    }
+    .sidebar .nav-link {
+      color: var(--sidebar-text-color);
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      display: block;
     }
     .sidebar .nav-link i {
       margin-right: 8px;
     }
-    .sidebar .fs-4 {
-      font-weight: 500;
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+      background-color: var(--sidebar-hover-bg);
+      color: var(--button-hover-color);
     }
-    .sidebar .dropdown-toggle {
+    .sidebar .dropdown .dropdown-toggle {
       color: #fff;
+      margin-left: 1rem;
+      margin-top: auto;
+    }
+    .sidebar .dropdown-menu {
+      margin-top: 0.5rem;
     }
 
-    /* ============ MAIN CONTENT WRAPPER ============ */
+    /* ===================================
+       MAIN CONTENT AREA
+    =================================== */
     .main-content {
-      margin-left: 240px; /* same width as sidebar */
-      padding: 2rem;
-      transition: margin-left 0.5s;
-      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+      height: 100%;
+      background: var(--main-bg);
+      overflow: hidden; /* no scrollbar on the entire page */
+      display: flex;
+      flex-direction: column;
     }
+
+    /* Each 'section' is a full-height container, with scroll inside it. */
+    .section {
+      height: 100%;
+      overflow-y: auto;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
     .section-header {
       margin-bottom: 1rem;
+      font-weight: 500;
     }
 
-    /* ============ CARDS, TABLES & GENERAL UI ============ */
+    /* ===================================
+       CARDS & UI ELEMENTS
+    =================================== */
     .dash-card {
-      background-color: #fff;
-      border: 1px solid #ddd;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .dash-card h4 {
-      margin-bottom: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.3s;
     }
     .dash-card:hover {
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     .fade-in {
       animation: fadeIn 0.7s ease-in-out forwards;
-      opacity: 0; /* initial, to allow fadeIn to go from 0 to 1 */
+      opacity: 0;
     }
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .hidden {
       display: none !important;
     }
 
-    /* Table styling improvements */
+    /* Table styling */
     table th {
-      background-color: #f1f3f5;
+      background-color: #f8f9fa;
     }
     table thead tr {
       border-bottom: 2px solid #ccc;
@@ -121,1142 +184,986 @@
       position: relative;
     }
 
-    /* Extra accent colors for numbers */
-    .text-highlight-1 {
-      color: #1abc9c; /* a nice teal */
+    /* Mini-widget (Dashboard) */
+    .mini-widget {
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .text-highlight-2 {
-      color: #e67e22; /* orange shade */
+    .mini-widget:hover {
+      transform: scale(1.02);
     }
-    .text-highlight-3 {
-      color: #3498db; /* blue shade */
+
+    /* Chat windows (Customer Service) */
+    .chat-window {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      height: 150px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
     }
-    .text-highlight-4 {
-      color: #e74c3c; /* red shade */
+    .chat-window p {
+      margin: 0.25rem 0;
+    }
+
+    /* Text highlights */
+    .text-highlight-1 { color: #1abc9c; }
+    .text-highlight-2 { color: #e67e22; }
+    .text-highlight-3 { color: #3498db; }
+    .text-highlight-4 { color: #e74c3c; }
+
+    /* Collapsible arrow, if needed */
+    .toggle-arrow {
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-arrow i {
+      transition: transform 0.3s;
+      margin-right: 0.5rem;
+    }
+    .toggle-arrow.collapsed i {
+      transform: rotate(-90deg);
+    }
+
+    /* ===================================
+       SPECIAL ELEMENTS FOR THIS PROTOTYPE
+    =================================== */
+
+    /* (1) Spinner overlay for fake loading */
+    .spinner-overlay {
+      position: fixed;
+      display: none; /* Show only when needed */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    /* (2) AI Created Content Box (Marketing) */
+    #aiGeneratedContent {
+      border: 1px dashed #aaa;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none; /* displayed after "fake load" */
+    }
+
+    /* (3) Bottom-right popup "Saved to archive" */
+    .popup-saved {
+      position: fixed;
+      right: 20px;
+      bottom: -100px; /* Initially hidden below the screen */
+      background: #333;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: bottom 0.6s ease;
+      z-index: 3000;
+    }
+    .popup-saved.show {
+      bottom: 20px; /* Slide up visible */
+    }
+
+    /* (4) "Notification" button or toast for new applicant */
+    .notification-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 250px;
+      z-index: 4000;
+      display: none;
+    }
+    .notification-toast.show {
+      display: block;
+    }
+
+    /* (5) The extra "Assess qualification" details box */
+    .qual-details {
+      margin-top: 5px;
+      padding: 0.5rem;
+      border-left: 3px solid #888;
+      font-size: 0.9rem;
+      color: #555;
+      display: none; /* shown after arrow is clicked */
+    }
+    .arrow-toggle i {
+      cursor: pointer;
+      margin-left: 5px;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
+  <!-- (1) SPINNER OVERLAY (Fake Loading) -->
+  <div class="spinner-overlay d-flex" id="spinnerOverlay">
+    <div class="spinner-border text-light" role="status"></div>
+  </div>
 
-<!-- ========== SIDEBAR ========== -->
-<div class="sidebar d-flex flex-column p-3">
-  <a
-    href="#"
-    class="d-flex align-items-center mb-3 mb-md-0 text-decoration-none text-white"
-  >
-    <span class="fs-4">UPSTART</span>
-  </a>
-  <hr class="bg-secondary" />
-  <ul class="nav nav-pills flex-column mb-auto" id="sidebarMenu">
-    <li class="nav-item">
-      <a
-        href="#dashboard"
-        class="nav-link active"
-        onclick="showSection('dashboard')"
-      >
-        <i class="bi bi-speedometer2"></i>Dashboard
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        href="#marketing"
-        class="nav-link"
-        onclick="showSection('marketing')"
-      >
-        <i class="bi bi-bullseye"></i>Marketing
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        href="#finance"
-        class="nav-link"
-        onclick="showSection('finance')"
-      >
-        <i class="bi bi-cash-stack"></i>Finance
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="#hr" class="nav-link" onclick="showSection('hr')">
-        <i class="bi bi-people-fill"></i>HR
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        href="#customerService"
-        class="nav-link"
-        onclick="showSection('customerService')"
-      >
-        <i class="bi bi-headset"></i>Customer Service
-      </a>
-    </li>
-  </ul>
-  <hr class="bg-secondary" />
-  <div class="dropdown mb-3">
-    <a
-      href="#"
-      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-      id="dropdownUser1"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <strong>Admin</strong>
-    </a>
-    <ul
-      class="dropdown-menu dropdown-menu-dark text-small shadow"
-      aria-labelledby="dropdownUser1"
-    >
-      <li><a class="dropdown-item" href="#">Profile</a></li>
-      <li><a class="dropdown-item" href="#">Settings</a></li>
-      <li><hr class="dropdown-divider" /></li>
-      <li><a class="dropdown-item" href="#">Sign out</a></li>
+  <!-- (2) BOTTOM-RIGHT POPUP "Saved to Archive" -->
+  <div id="savedPopup" class="popup-saved">Saved marketing campaign to archive</div>
+
+  <!-- (3) NOTIFICATION TOAST (HR) -->
+  <div class="notification-toast" id="hrNotification">
+    <div class="toast show">
+      <div class="toast-header bg-warning text-dark">
+        <strong class="me-auto">HR Dept</strong>
+        <small>Just now</small>
+      </div>
+      <div class="toast-body">
+        <i class="bi bi-people-fill"></i> New applicant received!
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SIDEBAR ========== -->
+  <div class="sidebar d-flex flex-column">
+    <div class="brand">
+      <span class="fs-4">UPSTART</span>
+    </div>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto" id="sidebarMenu">
+      <li class="nav-item">
+        <a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#marketing" class="nav-link" onclick="showSection('marketing')">
+          <i class="bi bi-bullseye"></i> Marketing
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#finance" class="nav-link" onclick="showSection('finance')">
+          <i class="bi bi-cash-stack"></i> Finance
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#accounting" class="nav-link" onclick="showSection('accounting')">
+          <i class="bi bi-receipt-cutoff"></i> Accounting
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#humanResources" class="nav-link" onclick="showSection('humanResources')">
+          <i class="bi bi-people-fill"></i> Human Resources
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#customerService" class="nav-link" onclick="showSection('customerService')">
+          <i class="bi bi-headset"></i> Customer Service
+        </a>
+      </li>
     </ul>
-  </div>
-</div>
-
-<!-- ========== MAIN CONTENT ========== -->
-<div class="main-content">
-  <!-- ============== DASHBOARD SECTION ============== -->
-  <div id="dashboard" class="section fade-in">
-    <h1 class="section-header">Dashboard</h1>
-    <div class="row g-3">
-      <!-- Example metric cards -->
-      <div class="col-lg-3">
-        <div class="dash-card text-center">
-          <h4>Monthly Revenue</h4>
-          <p id="dashboardRevenue" class="fs-3 text-highlight-1"></p>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="dash-card text-center">
-          <h4>Active Campaigns</h4>
-          <p id="dashboardCampaigns" class="fs-3 text-highlight-2"></p>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="dash-card text-center">
-          <h4>Open Positions</h4>
-          <p id="dashboardPositions" class="fs-3 text-highlight-3"></p>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="dash-card text-center">
-          <h4>Support Tickets</h4>
-          <p id="dashboardTickets" class="fs-3 text-highlight-4"></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Multi-charts row: revenue & expenditure & distribution -->
-    <div class="row g-3 mt-3">
-      <div class="col-md-6">
-        <div class="dash-card">
-          <h4>Revenue Trend</h4>
-          <div class="chart-container">
-            <canvas id="revenueChart"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="dash-card">
-          <h4>Expenditure Trend</h4>
-          <div class="chart-container">
-            <canvas id="expenditureChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Another row for Profit Chart or Pie chart distribution -->
-    <div class="row g-3 mt-3">
-      <div class="col-md-6">
-        <div class="dash-card">
-          <h4>Profit Margin</h4>
-          <div class="chart-container">
-            <canvas id="profitChart"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="dash-card">
-          <h4>Sales Distribution</h4>
-          <div class="chart-container">
-            <canvas id="distributionChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============== MARKETING SECTION ============== -->
-  <div id="marketing" class="section fade-in hidden">
-    <h1 class="section-header">Marketing</h1>
-
-    <!-- Branding Strategy Setup -->
-    <div class="dash-card">
-      <h5>Branding Strategy Setup</h5>
-      <form id="brandingForm">
-        <div class="mb-3">
-          <label class="form-label">Color Palette</label>
-          <input
-            type="text"
-            class="form-control"
-            name="colorPalette"
-            placeholder="#FF5733, #C70039"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Fonts</label>
-          <input
-            type="text"
-            class="form-control"
-            name="fonts"
-            placeholder="Roboto, Montserrat"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Tone of Voice</label>
-          <textarea
-            class="form-control"
-            name="toneOfVoice"
-            rows="2"
-            placeholder="Friendly, professional, witty, etc."
-            required
-          ></textarea>
-        </div>
-        <button class="btn btn-primary" type="submit">Save Strategy</button>
-      </form>
-      <!-- Display Branding Info -->
-      <div class="mt-3" id="brandingDisplay" style="display:none;">
-        <strong>Saved Branding Strategy:</strong>
-        <p class="mb-0" id="brandingColors"></p>
-        <p class="mb-0" id="brandingFonts"></p>
-        <p class="mb-0" id="brandingTone"></p>
-      </div>
-    </div>
-
-    <!-- Advertising Campaigns -->
-    <div class="dash-card">
-      <h5>Advertising Campaigns</h5>
-      <form id="campaignForm" class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label">Campaign Topic</label>
-          <input
-            type="text"
-            class="form-control"
-            id="campaignTopic"
-            placeholder="e.g. Christmas Sale"
-            required
-          />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Social Accounts</label>
-          <select class="form-select" id="campaignAccounts">
-            <option>Facebook, Instagram, Twitter, LinkedIn</option>
-            <option>Facebook only</option>
-            <option>Instagram only</option>
-            <option>Twitter only</option>
-            <option>LinkedIn only</option>
-          </select>
-        </div>
-        <button class="btn btn-success mt-3" type="submit">
-          Generate Content
-        </button>
-      </form>
-      <hr />
-      <table class="table table-striped mt-3" id="campaignsTable">
-        <thead>
-          <tr>
-            <th>Topic</th>
-            <th>Social</th>
-            <th>Suggested Content</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Dynamic rows inserted by JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Engagement Chart Example -->
-    <div class="dash-card">
-      <h5>Engagement Over Time</h5>
-      <p>Track how your marketing engagement changes month to month.</p>
-      <div class="chart-container">
-        <canvas id="engagementChart"></canvas>
-      </div>
-    </div>
-
-    <!-- Rating Employee-created Content -->
-    <div class="dash-card">
-      <h5>Rate Employee Created Content</h5>
-      <table class="table table-bordered" id="employeeContentTable">
-        <thead>
-          <tr>
-            <th>Content Title</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sample items - user can Approve or Request Revision -->
-          <tr>
-            <td>Video: Winter Promotion</td>
-            <td><span class="badge bg-warning">Pending Rating</span></td>
-            <td>
-              <button
-                class="btn btn-outline-success btn-sm"
-                onclick="approveContent(this)"
-              >
-                Approve
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                onclick="reviseContent(this)"
-              >
-                Request Revision
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Poster: Spring Collection Sale</td>
-            <td><span class="badge bg-warning">Pending Rating</span></td>
-            <td>
-              <button
-                class="btn btn-outline-success btn-sm"
-                onclick="approveContent(this)"
-              >
-                Approve
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                onclick="reviseContent(this)"
-              >
-                Request Revision
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ============== FINANCE SECTION ============== -->
-  <div id="finance" class="section fade-in hidden">
-    <h1 class="section-header">Finance</h1>
-    <div class="dash-card">
-      <h5>Financial Inputs</h5>
-      <form id="financeForm" class="row g-3">
-        <div class="col-md-4">
-          <label class="form-label">Monthly Revenue</label>
-          <input
-            type="number"
-            class="form-control"
-            id="monthlyRevenue"
-            placeholder="10000"
-            required
-          />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Monthly Expenses</label>
-          <input
-            type="number"
-            class="form-control"
-            id="monthlyExpenses"
-            placeholder="4000"
-            required
-          />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Country (Tax)</label>
-          <input
-            type="text"
-            class="form-control"
-            id="taxCountry"
-            placeholder="e.g. Canada"
-            required
-          />
-        </div>
-        <div class="col-12">
-          <button class="btn btn-primary" type="submit">
-            Calculate Net &amp; Tax
-          </button>
-        </div>
-      </form>
-      <div class="mt-3" id="financeResults" style="display:none;">
-        <p>
-          <strong>Net Income:</strong>
-          <span id="netIncome"></span>
-        </p>
-        <p>
-          <strong>Tax Owed:</strong>
-          <span id="taxOwed"></span>
-        </p>
-      </div>
-    </div>
-
-    <div class="dash-card">
-      <h5>Monthly Budget &amp; Forecast (Bar Chart)</h5>
-      <p>See how your budget may look for the upcoming months.</p>
-      <div class="chart-container">
-        <canvas id="budgetChart"></canvas>
-      </div>
-    </div>
-
-    <div class="dash-card">
-      <h5>Expenses Distribution</h5>
-      <p>A quick breakdown of expense categories.</p>
-      <div class="chart-container">
-        <canvas id="expensesDistributionChart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============== HR SECTION ============== -->
-  <div id="hr" class="section fade-in hidden">
-    <h1 class="section-header">Human Resources</h1>
-
-    <div class="dash-card">
-      <h5>Create &amp; Post a Job</h5>
-      <form id="hrJobForm" class="mb-3">
-        <div class="mb-3">
-          <label class="form-label">Job Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="jobTitle"
-            placeholder="e.g. Marketing Specialist"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Roles &amp; Responsibilities</label>
-          <textarea
-            class="form-control"
-            id="jobRoles"
-            rows="3"
-            required
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">KPIs</label>
-          <textarea
-            class="form-control"
-            id="jobKpis"
-            rows="2"
-            required
-          ></textarea>
-        </div>
-        <button class="btn btn-primary" type="submit">Create Job</button>
-      </form>
-      <button class="btn btn-secondary" type="button" onclick="publishJobs()">
-        Publish All Jobs
-      </button>
-    </div>
-
-    <div class="dash-card">
-      <h5>Job Listings</h5>
-      <table class="table table-hover" id="jobsTable">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Roles</th>
-            <th>KPIs</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <div class="dash-card">
-      <h5>Applicant Tracking</h5>
-      <table class="table table-bordered" id="applicantTable">
-        <thead>
-          <tr>
-            <th>Applicant</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sample applicants for demo purposes -->
-          <tr>
-            <td>John Doe</td>
-            <td><span class="badge bg-info">Reviewing</span></td>
-            <td>
-              <button
-                class="btn btn-outline-success btn-sm"
-                onclick="qualifyApplicant(this)"
-              >
-                Qualify
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                onclick="rejectApplicant(this)"
-              >
-                Reject
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Jane Smith</td>
-            <td><span class="badge bg-info">Reviewing</span></td>
-            <td>
-              <button
-                class="btn btn-outline-success btn-sm"
-                onclick="qualifyApplicant(this)"
-              >
-                Qualify
-              </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                onclick="rejectApplicant(this)"
-              >
-                Reject
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="dash-card">
-      <h5>Employee Performance Tracking</h5>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Employee</th>
-            <th>Tasks Completed</th>
-            <th>KPI Score</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>John Manager</td>
-            <td>15</td>
-            <td>80%</td>
-            <td>
-              <button
-                class="btn btn-outline-primary btn-sm"
-                onclick="assignBonus(this)"
-              >
-                Give Bonus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Jane Developer</td>
-            <td>20</td>
-            <td>90%</td>
-            <td>
-              <button
-                class="btn btn-outline-primary btn-sm"
-                onclick="assignBonus(this)"
-              >
-                Give Bonus
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="dash-card">
-      <h5>Employee Performance Trend</h5>
-      <p>Visualize how employee performance changes over time.</p>
-      <div class="chart-container">
-        <canvas id="employeePerformanceChart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============== CUSTOMER SERVICE SECTION ============== -->
-  <div id="customerService" class="section fade-in hidden">
-    <h1 class="section-header">Customer Service</h1>
-
-    <div class="dash-card">
-      <h5>Live Text Chat</h5>
-      <div
-        id="chatContainer"
-        style="border:1px solid #ccc; border-radius:5px; padding:1rem; height:300px; overflow-y:auto; margin-bottom:1rem;"
-      >
-        <!-- Messages appended here -->
-      </div>
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          id="chatInput"
-          placeholder="Type a message..."
-        />
-        <button class="btn btn-primary" type="button" onclick="sendMessage()">
-          Send
-        </button>
-      </div>
-    </div>
-
-    <div class="dash-card">
-      <h5>Phone Operated AI</h5>
-      <p>Simulate an AI-driven call system</p>
-      <button class="btn btn-success mb-2" type="button" onclick="startCall()">
-        <i class="bi bi-telephone"></i> Start Call
-      </button>
-      <div id="callStatus" class="text-muted"></div>
-    </div>
-
-    <div class="dash-card">
-      <h5>FAQ Management</h5>
-      <form class="d-flex mb-3" onsubmit="addFaq(event)">
-        <input
-          type="text"
-          class="form-control"
-          id="faqQuestion"
-          placeholder="Enter a new FAQ question"
-          required
-        />
-        <button class="btn btn-outline-primary ms-2" type="submit">
-          Add FAQ
-        </button>
-      </form>
-      <ul class="list-group" id="faqList">
-        <li class="list-group-item">How do I reset my password?</li>
-        <li class="list-group-item">Where can I track my orders?</li>
+    <hr />
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown">
+        <strong>Admin</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- ============== OPERATIONS SECTION ============== -->
-  <div id="operations" class="section fade-in hidden">
-    <h1 class="section-header">Operations</h1>
-    <div class="dash-card">
-      <h5>Delivery Tracking</h5>
-      <table class="table table-striped" id="deliveryTable">
-        <thead>
-          <tr>
-            <th>Order #</th>
-            <th>Destination</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1001</td>
-            <td>New York</td>
-            <td>
-              <select class="form-select" onchange="updateDeliveryStatus()">
-                <option>Shipped</option>
-                <option>In Transit</option>
-                <option>Delivered</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>1002</td>
-            <td>Toronto</td>
-            <td>
-              <select class="form-select" onchange="updateDeliveryStatus()">
-                <option>Shipped</option>
-                <option>In Transit</option>
-                <option>Delivered</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ========== MAIN CONTENT ========== -->
+  <div class="main-content">
+    <!-- ============== DASHBOARD SECTION ============== -->
+    <div id="dashboard" class="section fade-in">
+      <h1 class="section-header">Dashboard</h1>
+      <div class="row g-3">
+        <!-- KPI Cards (sample) -->
+        <div class="col-lg-3">
+          <div class="dash-card text-center">
+            <h4>Monthly Revenue</h4>
+            <p id="dashboardRevenue" class="fs-3 text-highlight-1"></p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="dash-card text-center">
+            <h4>Active Campaigns</h4>
+            <p id="dashboardCampaigns" class="fs-3 text-highlight-2"></p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="dash-card text-center">
+            <h4>Open Positions</h4>
+            <p id="dashboardPositions" class="fs-3 text-highlight-3"></p>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="dash-card text-center">
+            <h4>Support Tickets</h4>
+            <p id="dashboardTickets" class="fs-3 text-highlight-4"></p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h4>Revenue Trend</h4>
+            <div class="chart-container">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h4>Expenditure Trend</h4>
+            <div class="chart-container">
+              <canvas id="expenditureChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="dash-card">
-      <h5>Quality Assurance</h5>
-      <p>Complete these steps to ensure consistent quality.</p>
-      <form onsubmit="submitQaChecklist(event)">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="qaItem1"
-            required
-          />
-          <label class="form-check-label" for="qaItem1">
-            Verify Packaging
-          </label>
+
+    <!-- ============== MARKETING SECTION ============== -->
+    <div class="dash-card mb-3">
+      <label for="marketingPrompt" class="form-label fw-bold">Enter a prompt...</label>
+      <input
+        type="text"
+        class="form-control mb-2"
+        id="marketingPrompt"
+        placeholder="E.g. Summer sale campaign..."
+      />
+      <button class="btn btn-primary" onclick="generateMarketingContent()">Generate</button>
+    
+      <!-- Inline spinner lives here, hidden by default -->
+      <div id="miniSpinner" class="text-center mt-3 d-none">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="qaItem2"
-            required
-          />
-          <label class="form-check-label" for="qaItem2">
-            Check Product Labeling
-          </label>
+      </div>
+    </div>
+    
+    <div id="marketing" class="section fade-in hidden">
+      <h1 class="section-header">Marketing</h1>
+      <!-- Prompt at top for new campaign -->
+      <div class="dash-card mb-3">
+        <label for="marketingPrompt" class="form-label fw-bold">Enter a prompt for the AI to create your marketing campaign:</label>
+        <input 
+          type="text" 
+          class="form-control mb-2" 
+          id="marketingPrompt" 
+          placeholder="E.g. Summer sale campaign targeting Instagram only..."
+        />
+        <button class="btn btn-primary" onclick="generateMarketingContent()">Generate Campaign</button>
+      </div>
+
+      <!-- Fake AI Generated Content (hidden until after fake load) -->
+      <div id="aiGeneratedContent">
+        <h5>AI-Created Videos &amp; Posts</h5>
+        <p>This content is automatically generated based on your prompt.</p>
+
+        <!-- Example "video style" or "post style" placeholders -->
+        <div class="mb-2">
+          <label class="fw-bold">Choose Video Style:</label><br/>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="videoStyle" id="style1" value="Short Reel" checked />
+            <label class="form-check-label" for="style1">Short Reel</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="videoStyle" id="style2" value="Long Ad" />
+            <label class="form-check-label" for="style2">Long Ad</label>
+          </div>
         </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="qaItem3"
-            required
-          />
-          <label class="form-check-label" for="qaItem3">
-            Inspect for Damages
-          </label>
+        
+        <!-- Social Media Checkboxes -->
+        <div class="mb-2">
+          <span class="fw-bold">Select Social Media:</span><br/>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="facebookCheck" value="Facebook" />
+            <label class="form-check-label" for="facebookCheck">
+              <i class="bi bi-facebook"></i>
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="instaCheck" value="Instagram" />
+            <label class="form-check-label" for="instaCheck">
+              <i class="bi bi-instagram"></i>
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="twitterCheck" value="Twitter" />
+            <label class="form-check-label" for="twitterCheck">
+              <i class="bi bi-twitter"></i>
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="linkedInCheck" value="LinkedIn" />
+            <label class="form-check-label" for="linkedInCheck">
+              <i class="bi bi-linkedin"></i>
+            </label>
+          </div>
+          <!-- add more if needed -->
         </div>
-        <button class="btn btn-primary mt-2" type="submit">
-          Submit QA
+
+        <div class="my-3">
+          <label for="changeRequest" class="fw-bold">What would you like to change?</label>
+          <textarea class="form-control" id="changeRequest" rows="2" placeholder="Describe any changes you'd like to see..."></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-secondary" onclick="resetGeneratedContent()">Start Over</button>
+          <button class="btn btn-success" onclick="saveGeneratedContent()">Save for Later</button>
+        </div>
+      </div>
+
+      <!-- Engagement & Conversion Charts (unchanged) -->
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Engagement Over Time</h5>
+            <div class="chart-container">
+              <canvas id="engagementChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Conversion Rate Trend</h5>
+            <div class="chart-container">
+              <canvas id="conversionChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== FINANCE SECTION ============== -->
+    <div id="finance" class="section fade-in hidden">
+      <h1 class="section-header">Finance</h1>
+
+      <div class="dash-card mb-3">
+        <h5>Generate Quarterly Financial Statements</h5>
+        <input type="text" class="form-control mb-2" placeholder="Enter quarter info (e.g. Q1 2025)" id="quarterlyStatementInput" />
+        <button class="btn btn-primary" onclick="generateQuarterlyStatements()">Generate Statements</button>
+      </div>
+
+      <div class="dash-card">
+        <h5>Financial Inputs</h5>
+        <form id="financeForm" class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Monthly Revenue</label>
+            <input type="number" class="form-control" id="monthlyRevenue" placeholder="10000" required />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Monthly Expenses</label>
+            <input type="number" class="form-control" id="monthlyExpenses" placeholder="4000" required />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Country (Tax)</label>
+            <input type="text" class="form-control" id="taxCountry" placeholder="e.g. Canada" required />
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Calculate Net &amp; Tax</button>
+          </div>
+        </form>
+        <div class="mt-3" id="financeResults" style="display:none;">
+          <p><strong>Net Income:</strong> <span id="netIncome"></span></p>
+          <p><strong>Tax Owed:</strong> <span id="taxOwed"></span></p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Monthly Budget &amp; Forecast</h5>
+            <p>See how your budget may look for the upcoming months.</p>
+            <div class="chart-container">
+              <canvas id="budgetChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Expenses Distribution</h5>
+            <p>A quick breakdown of expense categories.</p>
+            <div class="chart-container">
+              <canvas id="expensesDistributionChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== HUMAN RESOURCES SECTION ============== -->
+    <div id="humanResources" class="section fade-in hidden">
+      <h1 class="section-header">Human Resources</h1>
+
+      <div class="dash-card mb-3">
+        <h5>Job Posting Prompt</h5>
+        <p>Describe the job you want to create, and AI will figure out the rest:</p>
+        <textarea class="form-control mb-2" id="jobPrompt" rows="2" placeholder="We need a software developer with 2 years experience in React..."></textarea>
+        <button class="btn btn-primary" onclick="generateJobFromPrompt()">Generate Job Posting</button>
+      </div>
+
+      <div class="dash-card">
+        <h5>Job Listings</h5>
+        <table class="table table-hover" id="jobsTable">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Roles &amp; Responsibilities</th>
+              <th>KPIs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Auto-populated from generateJobFromPrompt() or user input -->
+          </tbody>
+        </table>
+        <button class="btn btn-secondary mt-2" onclick="publishJobs()">Publish All Jobs</button>
+      </div>
+
+      <div class="dash-card">
+        <h5>View Applicants</h5>
+        <table class="table table-bordered" id="applicantTable">
+          <thead>
+            <tr>
+              <th>Applicant</th>
+              <th>Position</th>
+              <th>Status</th>
+              <th>Action</th>
+              <th>Assess Qualification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- We add new row(s) dynamically when "notification" triggers -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Employee Performance Tracking and Time Entries side by side -->
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Employee Performance Tracking</h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Tasks Completed</th>
+                  <th>KPI Score</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John Manager</td>
+                  <td>15</td>
+                  <td>80%</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" onclick="assignBonus(this)">Give Bonus</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Jane Developer</td>
+                  <td>20</td>
+                  <td>90%</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" onclick="assignBonus(this)">Give Bonus</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="dash-card">
+            <h5>Employee Time Entries</h5>
+            <table class="table table-hover" id="timeEntryTable">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Hours Clocked</th>
+                  <th>Hourly Rate</th>
+                  <th>Total Paycheck</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John Manager</td>
+                  <td>40</td>
+                  <td>$20</td>
+                  <td>$800</td>
+                </tr>
+                <tr>
+                  <td>Jane Developer</td>
+                  <td>42</td>
+                  <td>$25</td>
+                  <td>$1050</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h5>Employee Performance Trend</h5>
+        <p>Visualize how employee performance changes over time.</p>
+        <div class="chart-container">
+          <canvas id="employeePerformanceChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== ACCOUNTING SECTION ============== -->
+    <div id="accounting" class="section fade-in hidden">
+      <h1 class="section-header">Accounting</h1>
+      <div class="dash-card">
+        <h5>Financial Statements</h5>
+        <p>
+          Generate or view your statements for a specific time period. 
+          <button class="btn btn-sm btn-primary">Generate Statement</button>
+        </p>
+      </div>
+      <div class="dash-card">
+        <h5>Cash Flow</h5>
+        <p>
+          Quick snapshot of your incoming and outgoing funds.
+          <button class="btn btn-sm btn-secondary">View Cash Flow</button>
+        </p>
+      </div>
+      <div class="dash-card">
+        <h5>Revenue Balance Sheet</h5>
+        <p>
+          Consolidated view of assets, liabilities, and equity.
+          <button class="btn btn-sm btn-success">Show Balance Sheet</button>
+        </p>
+      </div>
+      <div class="dash-card">
+        <h5>Taxes</h5>
+        <p>
+          Configure or calculate your taxes based on the chosen region.
+          <button class="btn btn-sm btn-warning">Calculate Taxes</button>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============== CUSTOMER SERVICE SECTION ============== -->
+    <div id="customerService" class="section fade-in hidden">
+      <h1 class="section-header">Customer Service</h1>
+      <div class="dash-card">
+        <h5>Ongoing Chats</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <h6>Chat #1 (AI - Customer A)</h6>
+            <div class="chat-window">
+              <p><strong>Customer A:</strong> Hi, I need help!</p>
+              <p><strong>AI:</strong> Sure, what do you need assistance with?</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6>Chat #2 (AI - Customer B)</h6>
+            <div class="chat-window">
+              <p><strong>Customer B:</strong> Is my order shipped?</p>
+              <p><strong>AI:</strong> Checking... Your order is on the way!</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6>Chat #3 (AI - Customer C)</h6>
+            <div class="chat-window">
+              <p><strong>Customer C:</strong> How do I reset password?</p>
+              <p><strong>AI:</strong> Let me guide you through that...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <h5>Phone Operated AI</h5>
+        <p>Simulate an AI-driven call system.</p>
+        <button class="btn btn-success mb-2" type="button" onclick="startCall()">
+          <i class="bi bi-telephone"></i> Start Call
         </button>
-      </form>
+        <div id="callStatus" class="text-muted"></div>
+      </div>
+      <div class="dash-card">
+        <h5>FAQ Management</h5>
+        <form class="d-flex mb-3" onsubmit="addFaq(event)">
+          <input type="text" class="form-control" id="faqQuestion" placeholder="Enter a new FAQ question" required />
+          <button class="btn btn-outline-primary ms-2" type="submit">Add FAQ</button>
+        </form>
+        <ul class="list-group" id="faqList">
+          <li class="list-group-item">How do I reset my password?</li>
+          <li class="list-group-item">Where can I track my orders?</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-></script>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-// ====== Show/Hide Sections Logic with Fading Animations ======
-const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('#sidebarMenu a.nav-link');
+  <script>
+    // ======== Show/Hide Sections ========
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('#sidebarMenu a.nav-link');
 
-function showSection(sectionId) {
-  sections.forEach(sec => {
-    sec.classList.add('hidden');
-    sec.classList.remove('fade-in');
-  });
-  navLinks.forEach(link => link.classList.remove('active'));
-
-  // Show the chosen one with fade-in
-  const target = document.getElementById(sectionId);
-  target.classList.remove('hidden');
-  // Force reflow to restart CSS animation (trick)
-  void target.offsetWidth;
-  target.classList.add('fade-in');
-
-  // Mark the nav link as active
-  const activeLink = document.querySelector(`#sidebarMenu a[href="#${sectionId}"]`);
-  if (activeLink) activeLink.classList.add('active');
-}
-
-// ====== Some Helper Function ======
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// ====== Dashboard Data & Additional Charts ======
-const dashboardRevenue = document.getElementById('dashboardRevenue');
-const dashboardCampaigns = document.getElementById('dashboardCampaigns');
-const dashboardPositions = document.getElementById('dashboardPositions');
-const dashboardTickets = document.getElementById('dashboardTickets');
-
-// Four main Dashboard charts
-let revenueChart, expenditureChart, profitChart, distributionChart;
-
-function initDashboardData() {
-  dashboardRevenue.textContent = '$' + randomInt(10000, 20000).toLocaleString();
-  dashboardCampaigns.textContent = randomInt(2, 10);
-  dashboardPositions.textContent = randomInt(1, 5);
-  dashboardTickets.textContent = randomInt(0, 10);
-}
-function createLineChart(ctx, label) {
-  return new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: label,
-          data: Array.from({ length: 6 }, () => randomInt(5000, 15000)),
-          tension: 0.3
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
+    function showSection(sectionId) {
+      sections.forEach(sec => {
+        sec.classList.add('hidden');
+        sec.classList.remove('fade-in');
+      });
+      navLinks.forEach(link => link.classList.remove('active'));
+      const target = document.getElementById(sectionId);
+      target.classList.remove('hidden');
+      void target.offsetWidth; // Reflow trick
+      target.classList.add('fade-in');
+      const activeLink = document.querySelector(`#sidebarMenu a[href="#${sectionId}"]`);
+      if (activeLink) activeLink.classList.add('active');
     }
-  });
-}
-function createBarChart(ctx, label) {
-  return new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: label,
-          data: Array.from({ length: 6 }, () => randomInt(5000, 15000))
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
+
+    // ======== Helper Function ========
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  });
-}
-function createPieChart(ctx) {
-  return new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['North', 'South', 'East', 'West'],
-      datasets: [
-        {
-          data: [
-            randomInt(10, 40),
-            randomInt(10, 40),
-            randomInt(10, 40),
-            randomInt(10, 40)
-          ]
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
+
+    // ======== Dashboard Data & Charts ========
+    const dashboardRevenue = document.getElementById('dashboardRevenue');
+    const dashboardCampaigns = document.getElementById('dashboardCampaigns');
+    const dashboardPositions = document.getElementById('dashboardPositions');
+    const dashboardTickets = document.getElementById('dashboardTickets');
+    let revenueChart, expenditureChart;
+
+    function initDashboardData() {
+      dashboardRevenue.textContent = '$' + randomInt(10000, 20000).toLocaleString();
+      dashboardCampaigns.textContent = randomInt(2, 10);
+      dashboardPositions.textContent = randomInt(1, 5);
+      dashboardTickets.textContent = randomInt(0, 10);
     }
-  });
-}
-
-// Create all charts in Dashboard
-function initDashboardCharts() {
-  // Revenue Trend
-  const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-  revenueChart = createLineChart(revenueCtx, 'Revenue');
-
-  // Expenditure Trend
-  const expCtx = document.getElementById('expenditureChart').getContext('2d');
-  expenditureChart = createLineChart(expCtx, 'Expenditure');
-
-  // Profit Margin (Bar)
-  const profitCtx = document.getElementById('profitChart').getContext('2d');
-  profitChart = createBarChart(profitCtx, 'Profit Margin');
-
-  // Sales Distribution (Pie)
-  const distrCtx = document.getElementById('distributionChart').getContext('2d');
-  distributionChart = createPieChart(distrCtx);
-}
-
-// ====== Marketing Section ======
-// Branding form
-const brandingForm = document.getElementById('brandingForm');
-const brandingDisplay = document.getElementById('brandingDisplay');
-const brandingColors = document.getElementById('brandingColors');
-const brandingFonts = document.getElementById('brandingFonts');
-const brandingTone = document.getElementById('brandingTone');
-
-brandingForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(brandingForm);
-  brandingColors.textContent = 'Colors: ' + formData.get('colorPalette');
-  brandingFonts.textContent = 'Fonts: ' + formData.get('fonts');
-  brandingTone.textContent = 'Tone of Voice: ' + formData.get('toneOfVoice');
-  brandingDisplay.style.display = 'block';
-});
-
-// Advertising campaigns
-const campaignForm = document.getElementById('campaignForm');
-const campaignsTable = document
-  .getElementById('campaignsTable')
-  .querySelector('tbody');
-
-campaignForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const topic = document.getElementById('campaignTopic').value.trim();
-  const accounts = document.getElementById('campaignAccounts').value;
-  const content = `Generated content ideas for "${topic}" targeting ${accounts}.`;
-
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${topic}</td>
-    <td>${accounts}</td>
-    <td>${content}</td>
-    <td>
-      <button class="btn btn-outline-primary btn-sm" onclick="postCampaign()">Post</button>
-    </td>
-  `;
-  campaignsTable.appendChild(row);
-
-  campaignForm.reset();
-});
-
-function postCampaign() {
-  alert('Your campaign has been posted to the selected accounts!');
-}
-
-// Rate Employee Content
-function approveContent(btn) {
-  const row = btn.closest('tr');
-  row.querySelector('td:nth-child(2) .badge').textContent = 'Approved';
-  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-success';
-}
-function reviseContent(btn) {
-  const row = btn.closest('tr');
-  row.querySelector('td:nth-child(2) .badge').textContent = 'Needs Revision';
-  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-danger';
-}
-
-// Engagement Chart in Marketing
-let engagementChart;
-function initEngagementChart() {
-  const ctx = document.getElementById('engagementChart').getContext('2d');
-  engagementChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: 'Engagement',
-          data: Array.from({length:6}, () => randomInt(50, 150)),
-          borderWidth: 2,
-          tension: 0.3
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
-    }
-  });
-}
-
-// ====== Finance Section ======
-const financeForm = document.getElementById('financeForm');
-const financeResults = document.getElementById('financeResults');
-const netIncome = document.getElementById('netIncome');
-const taxOwed = document.getElementById('taxOwed');
-
-financeForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const monthlyRev = parseFloat(document.getElementById('monthlyRevenue').value);
-  const monthlyExp = parseFloat(document.getElementById('monthlyExpenses').value);
-  const country = document.getElementById('taxCountry').value.trim();
-
-  // Basic example: net = revenue - expenses
-  const net = monthlyRev - monthlyExp;
-
-  // Dummy tax calculation (say 15%)
-  const tax = net * 0.15;
-
-  netIncome.textContent = '$' + net.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  taxOwed.textContent = `$${tax.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })} (approx, for ${country})`;
-
-  financeResults.style.display = 'block';
-});
-
-// Budget & Forecast Chart (Finance)
-let budgetChart;
-function initBudgetChart() {
-  const ctx = document.getElementById('budgetChart').getContext('2d');
-  budgetChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [
-        {
-          label: 'Forecasted Budget',
-          data: Array.from({ length: 6 }, () => randomInt(5000, 12000))
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
-    }
-  });
-}
-
-// Expenses Distribution (Finance)
-let expensesDistChart;
-function initExpensesDistributionChart() {
-  const ctx = document
-    .getElementById('expensesDistributionChart')
-    .getContext('2d');
-  expensesDistChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Salaries', 'Rent', 'Utilities', 'Marketing', 'Misc'],
-      datasets: [
-        {
-          data: [
-            randomInt(1000,5000),
-            randomInt(1000,5000),
-            randomInt(500,2000),
-            randomInt(1000,4000),
-            randomInt(300,1500)
-          ]
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
-      }
-    }
-  });
-}
-
-// ====== HR Section ======
-const hrJobForm = document.getElementById('hrJobForm');
-const jobsTable = document.getElementById('jobsTable').querySelector('tbody');
-
-hrJobForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const title = document.getElementById('jobTitle').value.trim();
-  const roles = document.getElementById('jobRoles').value.trim();
-  const kpis = document.getElementById('jobKpis').value.trim();
-
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${title}</td>
-    <td>${roles}</td>
-    <td>${kpis}</td>
-  `;
-  jobsTable.appendChild(row);
-
-  hrJobForm.reset();
-});
-function publishJobs() {
-  alert('All new jobs have been published to LinkedIn/Indeed successfully!');
-}
-
-// Applicant tracking
-function qualifyApplicant(btn) {
-  const row = btn.closest('tr');
-  row.querySelector('td:nth-child(2) .badge').textContent = 'Qualified';
-  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-success';
-}
-function rejectApplicant(btn) {
-  const row = btn.closest('tr');
-  row.querySelector('td:nth-child(2) .badge').textContent = 'Rejected';
-  row.querySelector('td:nth-child(2) .badge').className = 'badge bg-danger';
-}
-
-// Employee performance
-function assignBonus(btn) {
-  alert('Bonus assigned successfully!');
-}
-
-// Employee Performance Trend (HR)
-let employeePerformanceChart;
-function initEmployeePerformanceChart() {
-  const ctx = document
-    .getElementById('employeePerformanceChart')
-    .getContext('2d');
-  employeePerformanceChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        {
-          label: 'John Manager',
-          data: [randomInt(50,100), randomInt(50,100), randomInt(50,100), randomInt(50,100)],
-          borderWidth: 2,
-          tension: 0.3
+    function createLineChart(ctx, label) {
+      return new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: label,
+            data: Array.from({ length: 6 }, () => randomInt(5000, 15000)),
+            tension: 0.3,
+            borderWidth: 2
+          }]
         },
-        {
-          label: 'Jane Developer',
-          data: [randomInt(50,100), randomInt(50,100), randomInt(50,100), randomInt(50,100)],
-          borderWidth: 2,
-          tension: 0.3
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      animation: {
-        duration: 1000
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+    function initDashboardCharts() {
+      const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+      revenueChart = createLineChart(revenueCtx, 'Revenue');
+      const expCtx = document.getElementById('expenditureChart').getContext('2d');
+      expenditureChart = createLineChart(expCtx, 'Expenditure');
+    }
+
+    // ======== Marketing: Fake Loading & AI Content ========
+    const spinnerOverlay = document.getElementById('spinnerOverlay');
+    const aiGeneratedContent = document.getElementById('aiGeneratedContent');
+    const savedPopup = document.getElementById('savedPopup');
+
+    function generateMarketingContent() {
+      const userPrompt = document.getElementById('marketingPrompt').value.trim();
+      if (!userPrompt) {
+        alert('Please enter a prompt for your marketing campaign!');
+        return;
+      }
+
+      // Show the spinner inline
+      const miniSpinner = document.getElementById('miniSpinner');
+      miniSpinner.classList.remove('d-none'); // now visible
+
+      // Hide any AI content, if you have that...
+      // document.getElementById('aiGeneratedContent').style.display = 'none';
+
+      setTimeout(() => {
+        // After "fake load," hide spinner again
+        miniSpinner.classList.add('d-none'); // hidden
+        // Show your AI content...
+        // document.getElementById('aiGeneratedContent').style.display = 'block';
+      }, 2000);
+    }
+
+    function resetGeneratedContent() {
+      document.getElementById('marketingPrompt').value = '';
+      aiGeneratedContent.style.display = 'none';
+    }
+
+    function saveGeneratedContent() {
+      aiGeneratedContent.style.display = 'none';
+      // Show bottom-right "Saved to archive" popup
+      savedPopup.classList.add('show');
+      setTimeout(() => {
+        savedPopup.classList.remove('show');
+      }, 3000);
+    }
+
+    // Engagement & Conversion Charts
+    let engagementChart, conversionChart;
+    function initEngagementChart() {
+      const ctx = document.getElementById('engagementChart').getContext('2d');
+      engagementChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Engagement',
+            data: Array.from({ length: 6 }, () => randomInt(50, 150)),
+            borderWidth: 2,
+            tension: 0.3
+          }]
+        },
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+    function initConversionChart() {
+      const ctx = document.getElementById('conversionChart').getContext('2d');
+      conversionChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Conversion Rate',
+            data: Array.from({ length: 6 }, () => randomInt(5, 20)),
+            borderWidth: 2,
+            tension: 0.3
+          }]
+        },
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+
+    // ======== Finance Section ========
+    const financeForm = document.getElementById('financeForm');
+    const financeResults = document.getElementById('financeResults');
+    const netIncome = document.getElementById('netIncome');
+    const taxOwed = document.getElementById('taxOwed');
+
+    financeForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const monthlyRev = parseFloat(document.getElementById('monthlyRevenue').value);
+      const monthlyExp = parseFloat(document.getElementById('monthlyExpenses').value);
+      const country = document.getElementById('taxCountry').value.trim();
+      const net = monthlyRev - monthlyExp;
+      const tax = net * 0.15;
+      netIncome.textContent = '$' + net.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      taxOwed.textContent = `$${tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (approx, for ${country})`;
+      financeResults.style.display = 'block';
+    });
+
+    function generateQuarterlyStatements() {
+      const quarter = document.getElementById('quarterlyStatementInput').value.trim();
+      if (!quarter) {
+        alert('Please enter a quarter (e.g. Q1 2025).');
+        return;
+      }
+      alert(`Generating financial statements for ${quarter}...`);
+    }
+
+    let budgetChart, expensesDistChart;
+    function initBudgetChart() {
+      const ctx = document.getElementById('budgetChart').getContext('2d');
+      budgetChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Forecasted Budget',
+            data: Array.from({ length: 6 }, () => randomInt(5000, 12000))
+          }]
+        },
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+    function initExpensesDistributionChart() {
+      const ctx = document.getElementById('expensesDistributionChart').getContext('2d');
+      expensesDistChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Salaries', 'Rent', 'Utilities', 'Marketing', 'Misc'],
+          datasets: [{
+            data: [randomInt(1000, 5000), randomInt(1000, 5000), randomInt(500, 2000), randomInt(1000, 4000), randomInt(300, 1500)]
+          }]
+        },
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+
+    // ======== Human Resources Section ========
+    const jobsTable = document.getElementById('jobsTable').querySelector('tbody');
+    const applicantTable = document.getElementById('applicantTable').querySelector('tbody');
+
+    function publishJobs() {
+      alert('All new jobs have been published successfully!');
+    }
+    function assignBonus(btn) {
+      alert('Bonus assigned successfully!');
+    }
+
+    function generateJobFromPrompt() {
+      const prompt = document.getElementById('jobPrompt').value.trim();
+      if (!prompt) {
+        alert('Please enter a job description prompt.');
+        return;
+      }
+      // Placeholder for AI-generated job info
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>Software Engineer</td>
+        <td>
+          Enrolled in Bachelor’s degree in Computer Science or equivalent<br>
+          Prior internship experience using Python to develop backend services<br>
+          Experience supporting software development & writing tests<br>
+          Excellent communication skills
+        </td>
+        <td>Increase efficiency by 20%<br>Reduce API call errors</td>
+      `;
+      jobsTable.appendChild(row);
+    }
+
+    // This function is triggered by "Assess qualification (AI)"
+    function assessQualification(btn) {
+      btn.disabled = true;
+      btn.textContent = "Assessing...";
+      // Fake load
+      setTimeout(() => {
+        const percentage = randomInt(50, 95);
+        btn.textContent = `Score: ${percentage}%`;
+        // Show arrow to reveal more details
+        const arrow = document.createElement('i');
+        arrow.className = 'bi bi-caret-right-fill ms-1';
+        arrow.onclick = function() {
+          const details = btn.closest('td').querySelector('.qual-details');
+          if (details.style.display === 'block') {
+            details.style.display = 'none';
+            arrow.className = 'bi bi-caret-right-fill ms-1';
+          } else {
+            details.style.display = 'block';
+            arrow.className = 'bi bi-caret-down-fill ms-1';
+          }
+        };
+        btn.after(arrow);
+
+        // Insert additional context
+        const detailDiv = document.createElement('div');
+        detailDiv.className = 'qual-details';
+        detailDiv.innerHTML = `
+          Applicant has strong background in relevant field,
+          but lacks advanced leadership experience. (Faked Data)
+        `;
+        btn.parentNode.appendChild(detailDiv);
+      }, 1500);
+    }
+
+    // We'll add the new applicant row after user hits "O"
+    function addFakeApplicant() {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>New Applicant</td>
+        <td>Sales Associate</td>
+        <td><span class="badge bg-info">Reviewing</span></td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm">View CV</button>
+          <button class="btn btn-outline-secondary btn-sm">View LinkedIn</button>
+        </td>
+        <td>
+          <button class="btn btn-warning btn-sm" onclick="assessQualification(this)">Assess qualification (AI)</button>
+        </td>
+      `;
+      applicantTable.appendChild(tr);
+    }
+
+    // Let’s show a toast and auto-add the new applicant when pressing "O"
+    const hrNotification = document.getElementById('hrNotification');
+    document.addEventListener('keydown', e => {
+      if (e.key === 'o' || e.key === 'O') {
+        // Show the notification
+        hrNotification.classList.add('show');
+        // Hide after a few seconds
+        setTimeout(() => {
+          hrNotification.classList.remove('show');
+        }, 3000);
+        
+        // Also add the row in HR
+        addFakeApplicant();
+      }
+    });
+
+    // Performance charts
+    let employeePerformanceChart;
+    function initEmployeePerformanceChart() {
+      const ctx = document.getElementById('employeePerformanceChart').getContext('2d');
+      employeePerformanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+          datasets: [
+            {
+              label: 'John Manager',
+              data: [randomInt(50, 100), randomInt(50, 100), randomInt(50, 100), randomInt(50, 100)],
+              borderWidth: 2,
+              tension: 0.3
+            },
+            {
+              label: 'Jane Developer',
+              data: [randomInt(50, 100), randomInt(50, 100), randomInt(50, 100), randomInt(50, 100)],
+              borderWidth: 2,
+              tension: 0.3
+            }
+          ]
+        },
+        options: { responsive: true, animation: { duration: 1000 } }
+      });
+    }
+
+    // ======== Customer Service Section ========
+    let callInProgress = false;
+    const callStatus = document.getElementById('callStatus');
+
+    function startCall() {
+      if (!callInProgress) {
+        callStatus.textContent = 'Calling... AI is answering.';
+        callInProgress = true;
+        setTimeout(() => {
+          callStatus.textContent = 'In Call with AI assistant.';
+        }, 2000);
+      } else {
+        callStatus.textContent = 'Call ended.';
+        callInProgress = false;
       }
     }
-  });
-}
 
-// ====== Customer Service Section ======
-const chatContainer = document.getElementById('chatContainer');
-const chatInput = document.getElementById('chatInput');
+    const faqList = document.getElementById('faqList');
+    function addFaq(event) {
+      event.preventDefault();
+      const question = document.getElementById('faqQuestion').value.trim();
+      if (!question) return;
+      const li = document.createElement('li');
+      li.classList.add('list-group-item');
+      li.textContent = question;
+      faqList.appendChild(li);
+      document.getElementById('faqQuestion').value = '';
+    }
 
-function sendMessage() {
-  const msg = chatInput.value.trim();
-  if (!msg) return;
-  const p = document.createElement('p');
-  p.innerHTML = `<strong>You:</strong> ${msg}`;
-  chatContainer.appendChild(p);
-  chatInput.value = '';
-  // Scroll to bottom
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-}
-
-// Phone AI
-const callStatus = document.getElementById('callStatus');
-let callInProgress = false;
-function startCall() {
-  if (!callInProgress) {
-    callStatus.textContent = 'Calling... AI is answering.';
-    callInProgress = true;
-    setTimeout(() => {
-      callStatus.textContent = 'In Call with AI assistant.';
-    }, 2000);
-  } else {
-    callStatus.textContent = 'Call ended.';
-    callInProgress = false;
-  }
-}
-
-// FAQ management
-const faqList = document.getElementById('faqList');
-function addFaq(event) {
-  event.preventDefault();
-  const question = document.getElementById('faqQuestion').value.trim();
-  const li = document.createElement('li');
-  li.classList.add('list-group-item');
-  li.textContent = question;
-  faqList.appendChild(li);
-  document.getElementById('faqQuestion').value = '';
-}
-
-// ====== Operations Section ======
-function updateDeliveryStatus() {
-  alert('Delivery status updated successfully!');
-}
-function submitQaChecklist(e) {
-  e.preventDefault();
-  alert('QA Checklist submitted successfully!');
-  e.target.reset();
-}
-
-// ====== On Window Load ======
-window.addEventListener('DOMContentLoaded', () => {
-  // Dashboard
-  initDashboardData();
-  initDashboardCharts();
-
-  // Additional Charts
-  initEngagementChart();
-  initBudgetChart();
-  initExpensesDistributionChart();
-  initEmployeePerformanceChart();
-});
-</script>
-
+    // ======== On Window Load (Initialize) ========
+    window.addEventListener('DOMContentLoaded', () => {
+      initDashboardData();
+      initDashboardCharts();
+      initEngagementChart();
+      initConversionChart();
+      initBudgetChart();
+      initExpensesDistributionChart();
+      initEmployeePerformanceChart();
+    });
+  </script>
 </body>
 </html>
