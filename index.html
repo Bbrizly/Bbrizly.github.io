@@ -5,10 +5,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Bassam Kamal</title>
+  <title>Bassam Kamal — Software Engineer</title>
+  <meta name="description" content="Bassam Kamal — Software Engineer, Game Engine Developer, and CS student at UPEI. Portfolio showcasing projects in C++, OpenGL, Flutter, and more.">
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   {% include header.html %}
@@ -17,136 +19,355 @@
     <!-- ABOUT SECTION -->
     <section id="about" data-aos="fade-up">
       <h2>About Me</h2>
-      <p>
-        Welcome! <br>I am a passionate developer with a keen eye for design and functionality. <br>
-        I specialize in programming OpenGL graphics and various applications that bring ideas to life.
-      </p>
+      <div class="about-content">
+        <p>
+          Final-year Computer Science student at UPEI (specialization in Video Games), graduating spring 2026.
+          Currently a Software Engineer at <strong>Iron Fox Games</strong> in Charlottetown, PEI.
+        </p>
+        <p>
+          I build things across the stack — from custom 3D game engines and GPU particle systems in C++/OpenGL,
+          to mobile apps with Flutter, desktop accessibility tools in C#/.NET, and AI-powered platforms with
+          TensorFlow. I care about writing clean, performant code that ships.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">3.8</span>
+            <span class="stat-label">GPA</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">1,379</span>
+            <span class="stat-label">GitHub Contributions (last year)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Languages (EN / AR)</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PROJECTS SECTION -->
     <section id="projects" data-aos="fade-up">
-      <h2>My Projects</h2>
+      <h2>Projects</h2>
 
-      <div class="slideshow-container">
+      <!-- Featured Projects -->
+      <div class="projects-featured">
 
-        <div class="slide fade">
-          <a href="/projects/project1.html">
-            <img src="/assets/images/s1.png" alt="Cityscape">
-            <div class="slide-caption">OpenGL Cityscape</div>
-          </a>
+        <a href="/projects/project3.html" class="project-card featured" data-aos="zoom-in">
+          <img src="/assets/images/gif.gif" alt="Volpe Engine">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">OpenGL</span>
+              <span class="tag">GLSL</span>
+            </div>
+            <h3>Volpe Engine</h3>
+            <p>Custom 3D game engine built from scratch with PBR lighting, dynamic-tree spatial partitioning, frustum culling, localization-aware text rendering, and an instanced particle system with custom GLSL shaders.</p>
+            <span class="project-link"><i class="fab fa-github"></i> View on GitHub</span>
+          </div>
+        </a>
+
+        <div class="project-card featured no-image" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C#</span>
+              <span class="tag">.NET</span>
+              <span class="tag">WPF</span>
+              <span class="tag">Serial</span>
+              <span class="tag">CI/CD</span>
+            </div>
+            <h3>QuadStick Config Manager</h3>
+            <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication for profile flashing, multi-screen configuration workflow, and automated CI/CD pipelines. <strong>Shipped product with real users.</strong></p>
+            <span class="shipped-badge"><i class="fas fa-rocket"></i> Deployed & In Use</span>
+          </div>
         </div>
-        <div class="slide fade">
-          <a href="/projects/project3.html">
-            <img src="/assets/images/gif.gif" alt="Volpe Engine">
-            <div class="slide-caption">Volpe Engine</div>
-          </a>
+
+        <div class="project-card featured no-image" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">Flutter</span>
+              <span class="tag">Dart</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">AWS Lambda</span>
+              <span class="tag">Docker</span>
+            </div>
+            <h3>Location-Based Mobile App</h3>
+            <p>Pokemon Go-style mobile app with real-time map rendering, AR capture mechanics, and cloud-synced user state. RESTful API architecture connecting Flutter frontend to Firebase and AWS Lambda, with CI/CD via GitHub Actions and Docker.</p>
+          </div>
         </div>
-        <div class="slide fade">
-          <a href="/projects/project4.html">
-            <img src="/assets/images/particle2.gif" alt="Particle System">
-            <div class="slide-caption">OpenGL Particle System</div>
-          </a>
+
+        <div class="project-card featured no-image" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">TensorFlow Lite</span>
+              <span class="tag">PyTorch</span>
+            </div>
+            <h3>Adaptiv AI</h3>
+            <p>AI-powered personal fitness coach using computer vision to analyze exercise form in real time. Custom ML models for pose estimation and exercise classification, from training to on-device deployment.</p>
+            <span class="award-badge"><i class="fas fa-trophy"></i> Spark Tank 2.1 Winner</span>
+          </div>
         </div>
-        <div class="slide fade">
-          <a href="/projects/project2.html">
-            <img src="/assets/images/s2.png" alt="Text Renderer">
-            <div class="slide-caption">OpenGL Text-Renderer</div>
-          </a>
-        </div>
-        
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
+
       </div>
-      <br>
-      <!-- Slideshow Dots -->
-      <div class="dots-container">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-      </div>
 
-    <br>
-    <br>
-    <br>
+      <!-- Other Projects -->
+      <div class="projects-grid">
+
+        <div class="project-card" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">Steam API</span>
+              <span class="tag">GLSL</span>
+              <span class="tag">Procedural Gen</span>
+            </div>
+            <h3>Multiplayer Racing Game</h3>
+            <p>Final-year project with Steam-integrated multiplayer, physics-based vehicle mechanics, procedural map generation, and custom GLSL shaders for dynamic environments.</p>
+          </div>
+        </div>
+
+        <a href="/projects/project1.html" class="project-card" data-aos="zoom-in">
+          <img src="/assets/images/s1.png" alt="OpenGL Cityscape">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">OpenGL</span>
+            </div>
+            <h3>OpenGL Cityscape</h3>
+            <p>Procedurally generated city with Voronoi-based layouts, dynamic day/night cycle, and optimized rendering.</p>
+          </div>
+        </a>
+
+        <div class="project-card" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">React</span>
+              <span class="tag">Python</span>
+              <span class="tag">TensorFlow</span>
+              <span class="tag">Firebase</span>
+            </div>
+            <h3>Upstart</h3>
+            <p>AI-driven SaaS platform automating business department workflows with real-time data visualizations and telemetry-style monitoring pipelines.</p>
+            <span class="award-badge"><i class="fas fa-trophy"></i> Entrepreneurship Finalist</span>
+          </div>
+        </div>
+
+        <a href="/projects/project4.html" class="project-card" data-aos="zoom-in">
+          <img src="/assets/images/particle2.gif" alt="Particle System">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">OpenGL</span>
+              <span class="tag">GLSL</span>
+            </div>
+            <h3>OpenGL Particle System</h3>
+            <p>GPU-accelerated particle system with multiple emitter shapes, physics-based effects, and custom shaders.</p>
+          </div>
+        </a>
+
+        <div class="project-card" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">Web</span>
+              <span class="tag">Hackathon</span>
+            </div>
+            <h3>Expiry</h3>
+            <p>Restaurant waste-reduction web app that tracks ingredient expiry dates and suggests usage priorities. Built during UPEI Hackathon.</p>
+          </div>
+        </div>
+
+        <a href="/projects/project2.html" class="project-card" data-aos="zoom-in">
+          <img src="/assets/images/s2.png" alt="Text Renderer">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">OpenGL</span>
+            </div>
+            <h3>OpenGL Text-Renderer</h3>
+            <p>Dynamic text rendering with font-sheet optimization, multi-language support, and word-wrapping.</p>
+          </div>
+        </a>
+
+        <div class="project-card" data-aos="zoom-in">
+          <div class="content">
+            <div class="project-tags">
+              <span class="tag">Game Dev</span>
+              <span class="tag">Game Jam</span>
+            </div>
+            <h3>Cabin Boy</h3>
+            <p>Indie game developed and released at the XP Indie Biz Connect Game Jam. Full development lifecycle from concept to playable release.</p>
+            <span class="award-badge"><i class="fas fa-trophy"></i> Community Choice Award</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- WORK EXPERIENCE SECTION -->
-    <section id="work-experience" data-aos="fade-up">
+    <section id="experience" data-aos="fade-up">
       <h2>Work Experience</h2>
       <div class="work-container">
-
         <div class="job-titles">
-          <button class="job-btn active" data-job="ta">Teaching Assistant</button>
-          <button class="job-btn" data-job="cec">Campus Events Coordinator</button>
+          <button class="job-btn active" data-job="ironfox">Iron Fox Games</button>
+          <button class="job-btn" data-job="ta">Teaching Assistant</button>
         </div>
-        
+
         <div class="job-details">
-          <div class="job-description" id="ta">
-            <h3>Computer Science Teaching Assistant</h3>
-            <p>University of Prince Edward Island, Canada 
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               Jan 2025 - Present</p>
+          <div class="job-description" id="ironfox">
+            <h3>Software Engineer</h3>
+            <p class="job-meta">Iron Fox Games, Charlottetown PEI &mdash; Sep 2025 to Present</p>
+            <p class="job-note">Started as full-time internship Jun 2025</p>
             <ul>
-              <li>Clarified course material and debugged code.</li>
-              <li>Guided students in programming challenges.</li>
-              <li>Held midterm revision & One-on-one tutoring sessions</li>
+              <li>Engineered internal web tooling using JSONForms and Zod schema validation, reducing manual configuration errors across the development pipeline</li>
+              <li>Implemented, tested, and debugged C++ gameplay systems shipped in production builds</li>
+              <li>Built and maintained CI/CD pipelines with GitHub Actions and Docker, automating build and deployment workflows</li>
+              <li>Collaborated within an Agile team, participating in sprint planning, code reviews, and cross-functional standups</li>
+              <li>Diagnosed and resolved complex bugs across JavaScript web tooling and C++ game systems in production environments</li>
             </ul>
           </div>
-          <div class="job-description hidden" id="cec">
-            <h3>Campus Events Coordinator</h3>
-            <p>UofCanada UPEI Campus
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              Jan 2023 - July 2024</p>
+          <div class="job-description hidden" id="ta">
+            <h3>Teaching Assistant & CS Help Center Admin</h3>
+            <p class="job-meta">University of Prince Edward Island &mdash; Jan 2025 to Jun 2025</p>
             <ul>
-              <li>Led tech workshops on Git and Python.</li>
-              <li>Automated event scheduling with Python scripts.</li>
+              <li>Managed the CS Help Center, providing one-on-one debugging assistance to 50+ students across introductory and intermediate CS courses</li>
+              <li>Graded assignments and provided detailed feedback on code quality, algorithms, and data structures</li>
+              <li>Translated complex technical concepts into accessible explanations for students at varying skill levels</li>
+              <li>Administered help center scheduling, resource allocation, and student intake processes</li>
             </ul>
           </div>
         </div>
       </div>
+    </section>
 
-    <!-- Grid of Project Cards -->
-    <div class="projects">
-      <a href="/projects/project1.html" class="project-card" data-aos="zoom-in">
-        <img src="/assets/images/s1.png" alt="Project 1">
-        <div class="content">
-          <h3>OpenGL Cityscape</h3>
-          <p>An optimized, procedurally generated city with a day &amp; night cycle. Built with OpenGL &amp; C++.</p>
+    <!-- SKILLS SECTION -->
+    <section id="skills" data-aos="fade-up">
+      <h2>Technical Skills</h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3><i class="fas fa-code"></i> Languages</h3>
+          <div class="skill-tags">
+            <span>C++</span>
+            <span>C#</span>
+            <span>C</span>
+            <span>JavaScript</span>
+            <span>Java</span>
+            <span>Python</span>
+            <span>SQL</span>
+            <span>GLSL</span>
+            <span>Dart</span>
+            <span>Angular</span>
+          </div>
         </div>
-      </a>
-
-      <a href="/projects/project3.html" class="project-card" data-aos="zoom-in">
-        <img src="/assets/images/gif.gif" alt="Project 3">
-        <div class="content">
-          <h3>Volpe Engine</h3>
-          <p>A culling-based, memory-efficient game engine with custom pipeline and scene management.</p>
+        <div class="skill-category">
+          <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
+          <div class="skill-tags">
+            <span>OpenGL</span>
+            <span>Flutter</span>
+            <span>Firebase</span>
+            <span>AWS Lambda</span>
+            <span>.NET / WPF</span>
+            <span>React</span>
+            <span>TensorFlow</span>
+            <span>Docker</span>
+            <span>GitHub Actions</span>
+            <span>JSONForms</span>
+            <span>Zod</span>
+            <span>Visual Studio</span>
+          </div>
         </div>
-      </a>
-
-      <a href="/projects/project4.html" class="project-card" data-aos="zoom-in">
-        <img src="/assets/images/particle2.gif" alt="Project 4">
-        <div class="content">
-          <h3>OpenGL Particle System</h3>
-          <p>GPU-accelerated particle system with physics-based effects and custom shaders.</p>
+        <div class="skill-category">
+          <h3><i class="fas fa-cogs"></i> Technical Areas</h3>
+          <div class="skill-tags">
+            <span>Game Engine Programming</span>
+            <span>Graphics / Rendering</span>
+            <span>CI/CD Pipelines</span>
+            <span>Testing & Debugging</span>
+            <span>Procedural Generation</span>
+            <span>Performance Optimization</span>
+            <span>REST APIs</span>
+            <span>Serial Communication</span>
+            <span>Technical Tooling</span>
+          </div>
         </div>
-      </a>
+      </div>
+    </section>
 
-      <a href="/projects/project2.html" class="project-card" data-aos="zoom-in">
-        <img src="/assets/images/s2.png" alt="Project 2">
-        <div class="content">
-          <h3>OpenGL Text-Renderer</h3>
-          <p>Dynamic text rendering with font-sheet optimization for custom textboxes.</p>
+    <!-- AWARDS SECTION -->
+    <section id="awards" data-aos="fade-up">
+      <h2>Awards & Recognition</h2>
+      <div class="awards-list">
+        <div class="award-item">
+          <div class="award-icon"><i class="fas fa-trophy"></i></div>
+          <div class="award-info">
+            <h3>Winner, Spark Tank 2.1</h3>
+            <p>PEI IT Alliance's The Foundry &mdash; Adaptiv AI &mdash; 2025</p>
+          </div>
         </div>
-      </a>
-    </div>
-  </section>
-</section>
+        <div class="award-item">
+          <div class="award-icon"><i class="fas fa-medal"></i></div>
+          <div class="award-info">
+            <h3>Finalist, 2025 Panther Pitch</h3>
+            <p>UPEI Entrepreneurship Program &mdash; Adaptiv AI</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon"><i class="fas fa-medal"></i></div>
+          <div class="award-info">
+            <h3>Finalist, Harry W. MacLauchlan Entrepreneurship Program</h3>
+            <p>UPEI &mdash; Upstart</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon"><i class="fas fa-gamepad"></i></div>
+          <div class="award-info">
+            <h3>Community Choice Award</h3>
+            <p>XP Indie Biz Connect Game Jam &mdash; Cabin Boy</p>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon"><i class="fas fa-star"></i></div>
+          <div class="award-info">
+            <h3>UPEI Welcome Week Leadership Award</h3>
+            <p>University of Prince Edward Island</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- EDUCATION SECTION -->
+    <section id="education" data-aos="fade-up">
+      <h2>Education</h2>
+      <div class="education-card">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="edu-info">
+          <h3>Bachelor of Science in Computer Science</h3>
+          <p class="edu-specialization">Specialization in Video Games</p>
+          <p class="edu-school">University of Prince Edward Island (UPEI)</p>
+          <p class="edu-dates">September 2022 &mdash; April 2026</p>
+          <p class="edu-gpa">GPA: 3.8</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
     <section id="contact" data-aos="fade-up">
-      <h2>Contact Me</h2>
-      <p>Reach out via email at <a href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>.</p>
-      
-      <button id="surprise-btn">Click for Surprise</button>
+      <h2>Get In Touch</h2>
+      <p>I'm always open to discussing new opportunities, projects, or ideas.</p>
+      <div class="contact-links">
+        <a href="mailto:bassamkamal.py@gmail.com" class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>bassamkamal.py@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/bassam-k/" target="_blank" class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <span>linkedin.com/in/bassam-k</span>
+        </a>
+        <a href="https://github.com/Bbrizly" target="_blank" class="contact-item">
+          <i class="fab fa-github"></i>
+          <span>github.com/bbrizly</span>
+        </a>
+      </div>
     </section>
   </main>
 
@@ -155,7 +376,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="/assets/js/myscripts.js"></script>
   <script>
-    AOS.init();
+    AOS.init({ duration: 700, once: true });
   </script>
 </body>
 </html>
