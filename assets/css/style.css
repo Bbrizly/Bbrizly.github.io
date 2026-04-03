@@ -128,29 +128,16 @@ section h2::after {
   color: #c8d6e5;
   margin-bottom: 15px;
 }
-.about-stats {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
-.stat {
-  text-align: center;
-}
-.stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0dcaf0;
-}
-.stat-label {
-  font-size: 0.85rem;
-  color: #a0b4c8;
-  margin-top: 4px;
-}
 
 /* Projects Section */
+.projects-note {
+  text-align: center;
+  color: #7a8fa3;
+  font-size: 0.85rem;
+  margin-top: -20px;
+  margin-bottom: 25px;
+}
+
 .projects-featured {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -257,8 +244,8 @@ section h2::after {
 .award-badge {
   display: inline-block;
   margin-top: 12px;
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
+  background: rgba(13, 202, 240, 0.15);
+  color: #0dcaf0;
   font-size: 0.8rem;
   font-weight: 600;
   padding: 5px 12px;
@@ -418,7 +405,7 @@ section h2::after {
 .award-icon {
   flex-shrink: 0;
   font-size: 1.4rem;
-  color: #f59e0b;
+  color: #0dcaf0;
   width: 40px;
   text-align: center;
 }
