@@ -3,7 +3,7 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #141e30, #243b55);
+  background: #141e30;
   color: #fff;
   scroll-behavior: smooth;
 }
@@ -26,14 +26,11 @@ a:hover {
   color: #00ffff;
 }
 
-/* Header */
+/* Header - NOT sticky */
 header {
   background: linear-gradient(to right, #0d131f, #14212f);
   padding: 40px 20px 0;
   text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 header .header-content {
   padding-bottom: 20px;
@@ -89,15 +86,125 @@ nav a.active {
   text-decoration: none;
 }
 
-/* Main Layout */
+/* ==================== */
+/* HERO SHOWCASE        */
+/* ==================== */
+.hero {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.showcase {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  min-height: 350px;
+  max-height: 550px;
+  overflow: hidden;
+  background: #0a0f1a;
+}
+
+.showcase-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  will-change: opacity;
+}
+.showcase-slide.active {
+  opacity: 1;
+}
+
+.showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 15, 26, 0.15) 0%,
+    rgba(10, 15, 26, 0.0) 40%,
+    rgba(10, 15, 26, 0.0) 60%,
+    rgba(20, 30, 48, 0.85) 100%
+  );
+}
+
+.showcase-label {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.showcase-dots {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+.showcase-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.showcase-dot.active {
+  background: #0dcaf0;
+  transform: scale(1.2);
+}
+.showcase-dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.showcase-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #0dcaf0;
+  width: 0%;
+  z-index: 3;
+  transition: none;
+}
+.showcase-progress.running {
+  transition: width linear;
+}
+
+/* Hero text below the showcase */
+.hero-text {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 50px;
+  text-align: center;
+}
+.hero-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #c8d6e5;
+  margin-bottom: 12px;
+}
+
+/* ==================== */
+/* MAIN LAYOUT          */
+/* ==================== */
 main {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 0 20px 40px;
 }
 
 section {
   margin-bottom: 80px;
+  padding-top: 20px;
 }
 section h2 {
   color: #0dcaf0;
@@ -116,20 +223,20 @@ section h2::after {
   border-radius: 2px;
 }
 
-/* About Section */
-.about-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-.about-content p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #c8d6e5;
-  margin-bottom: 15px;
+/* Alternating section backgrounds for visual rhythm */
+.alt-section {
+  background: rgba(255, 255, 255, 0.02);
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  border-radius: 0;
 }
 
-/* Projects Section */
+/* ==================== */
+/* PROJECTS SECTION     */
+/* ==================== */
 .projects-note {
   text-align: center;
   color: #7a8fa3;
@@ -152,8 +259,8 @@ section h2::after {
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
@@ -164,8 +271,8 @@ section h2::after {
 }
 .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(13, 202, 240, 0.15);
-  border-color: rgba(13, 202, 240, 0.3);
+  box-shadow: 0 8px 30px rgba(13, 202, 240, 0.12);
+  border-color: rgba(13, 202, 240, 0.25);
   color: #fff;
   text-decoration: none;
 }
@@ -184,20 +291,30 @@ section h2::after {
   flex-direction: column;
 }
 .project-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: #fff;
   margin-bottom: 8px;
 }
 .project-card.featured h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 .project-card p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #a0b4c8;
   line-height: 1.6;
   flex: 1;
 }
+
+/* No-image cards get a subtle top accent */
+.project-card.no-image {
+  border-top: 2px solid rgba(13, 202, 240, 0.3);
+}
 .project-card.no-image .content {
+  padding: 24px;
+}
+
+/* Cards without images and without .no-image class (text-only regular cards) */
+.project-card:not([class*="no-image"]):not(:has(img)) .content {
   padding: 24px;
 }
 
@@ -208,7 +325,7 @@ section h2::after {
   margin-bottom: 10px;
 }
 .tag {
-  background: rgba(13, 202, 240, 0.15);
+  background: rgba(13, 202, 240, 0.12);
   color: #0dcaf0;
   font-size: 0.72rem;
   padding: 3px 10px;
@@ -230,7 +347,7 @@ section h2::after {
 .shipped-badge {
   display: inline-block;
   margin-top: 12px;
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(16, 185, 129, 0.12);
   color: #10b981;
   font-size: 0.8rem;
   font-weight: 600;
@@ -244,7 +361,7 @@ section h2::after {
 .award-badge {
   display: inline-block;
   margin-top: 12px;
-  background: rgba(13, 202, 240, 0.15);
+  background: rgba(13, 202, 240, 0.12);
   color: #0dcaf0;
   font-size: 0.8rem;
   font-weight: 600;
@@ -255,7 +372,9 @@ section h2::after {
   margin-right: 5px;
 }
 
-/* Work Experience */
+/* ==================== */
+/* WORK EXPERIENCE      */
+/* ==================== */
 .work-container {
   max-width: 900px;
   margin: 0 auto;
@@ -271,7 +390,7 @@ section h2::after {
 .job-titles .job-btn {
   display: block;
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid transparent;
   border-left: 3px solid transparent;
   color: #a0b4c8;
@@ -286,7 +405,7 @@ section h2::after {
 }
 .job-titles .job-btn.active,
 .job-titles .job-btn:hover {
-  background: rgba(0, 255, 255, 0.08);
+  background: rgba(0, 255, 255, 0.06);
   border-left-color: #0dcaf0;
   color: #0dcaf0;
 }
@@ -340,7 +459,9 @@ section h2::after {
   margin-bottom: 8px;
 }
 
-/* Skills Section */
+/* ==================== */
+/* SKILLS SECTION       */
+/* ==================== */
 .skills-container {
   max-width: 900px;
   margin: 0 auto;
@@ -368,8 +489,8 @@ section h2::after {
   gap: 10px;
 }
 .skill-tags span {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #c8d6e5;
   font-size: 0.88rem;
   padding: 8px 18px;
@@ -381,7 +502,9 @@ section h2::after {
   color: #0dcaf0;
 }
 
-/* Awards Section */
+/* ==================== */
+/* AWARDS SECTION       */
+/* ==================== */
 .awards-list {
   max-width: 700px;
   margin: 0 auto;
@@ -393,14 +516,14 @@ section h2::after {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   padding: 18px 24px;
   transition: border-color 0.3s ease;
 }
 .award-item:hover {
-  border-color: rgba(13, 202, 240, 0.25);
+  border-color: rgba(13, 202, 240, 0.2);
 }
 .award-icon {
   flex-shrink: 0;
@@ -421,14 +544,16 @@ section h2::after {
   margin: 0;
 }
 
-/* Education Section */
+/* ==================== */
+/* EDUCATION SECTION    */
+/* ==================== */
 .education-card {
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   align-items: flex-start;
   gap: 24px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 30px;
@@ -467,7 +592,9 @@ section h2::after {
   margin: 0;
 }
 
-/* Contact Section */
+/* ==================== */
+/* CONTACT SECTION      */
+/* ==================== */
 #contact {
   text-align: center;
 }
@@ -486,8 +613,8 @@ section h2::after {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   padding: 14px 24px;
   border-radius: 8px;
   color: #c8d6e5;
@@ -496,7 +623,7 @@ section h2::after {
   text-decoration: none;
 }
 .contact-item:hover {
-  border-color: rgba(13, 202, 240, 0.4);
+  border-color: rgba(13, 202, 240, 0.35);
   color: #0dcaf0;
   transform: translateY(-2px);
   text-decoration: none;
@@ -506,7 +633,9 @@ section h2::after {
   color: #0dcaf0;
 }
 
-/* Footer */
+/* ==================== */
+/* FOOTER               */
+/* ==================== */
 footer {
   background: rgba(0, 0, 0, 0.9);
   padding: 20px 0;
@@ -515,7 +644,9 @@ footer {
   text-align: center;
 }
 
-/* Project Page Layout (individual project pages) */
+/* ==================== */
+/* PROJECT DETAIL PAGES */
+/* ==================== */
 .project-header {
   text-indent: 30px;
   display: flex;
@@ -561,7 +692,6 @@ footer {
 .project-page header {
   margin-bottom: 20px;
   text-align: center;
-  position: static;
 }
 .project-page .project-images {
   margin-top: 30px;
@@ -592,12 +722,10 @@ footer {
   display: none;
 }
 
-/* Responsive */
+/* ==================== */
+/* RESPONSIVE           */
+/* ==================== */
 @media (max-width: 768px) {
-  header {
-    padding: 24px 15px 0;
-    position: static;
-  }
   header h1 {
     font-size: 2rem;
   }
@@ -608,12 +736,31 @@ footer {
     font-size: 0.78rem;
     padding: 5px 10px;
   }
+
+  .showcase {
+    height: 40vh;
+    min-height: 250px;
+  }
+  .showcase-label {
+    font-size: 1.1rem;
+    bottom: 30px;
+    left: 20px;
+  }
+  .showcase-dots {
+    right: 20px;
+    bottom: 12px;
+  }
+  .hero-text {
+    padding: 30px 15px 40px;
+  }
+
   .projects-featured {
     grid-template-columns: 1fr;
   }
   .projects-grid {
     grid-template-columns: 1fr;
   }
+
   .work-container {
     flex-direction: column;
     align-items: stretch;
@@ -637,9 +784,7 @@ footer {
     border-left-color: transparent;
     border-bottom-color: #0dcaf0;
   }
-  .about-stats {
-    gap: 30px;
-  }
+
   .contact-links {
     flex-direction: column;
     align-items: center;
@@ -653,6 +798,12 @@ footer {
   .award-item {
     padding: 14px 18px;
   }
+  .alt-section {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -664,5 +815,9 @@ footer {
   }
   .project-card h3 {
     font-size: 1.05rem;
+  }
+  .showcase {
+    height: 35vh;
+    min-height: 220px;
   }
 }

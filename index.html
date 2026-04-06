@@ -15,23 +15,47 @@
 <body>
   {% include header.html %}
 
-  <main>
-    <!-- ABOUT SECTION -->
-    <section id="about" data-aos="fade-up">
-      <h2>About Me</h2>
-      <div class="about-content">
-        <p>
-          Final-year Computer Science student at UPEI with a specialization in Video Games, graduating spring 2026.
-          Currently a Software Engineer at <strong>Iron Fox Games</strong> in Charlottetown, PEI.
-        </p>
-        <p>
-          I build things across the stack, from custom 3D game engines and GPU particle systems in C++/OpenGL,
-          to mobile apps with Flutter, desktop accessibility tools in C#/.NET, and AI-powered platforms with
-          TensorFlow. I care about writing clean, performant code that ships.
-        </p>
+  <!-- HERO SHOWCASE -->
+  <section class="hero" id="about">
+    <div class="showcase">
+      <div class="showcase-slide active" style="background-image: url('/assets/images/gif.gif')">
+        <div class="showcase-overlay"></div>
+        <span class="showcase-label">Volpe Engine</span>
       </div>
-    </section>
+      <div class="showcase-slide" style="background-image: url('/assets/images/particle2.gif')">
+        <div class="showcase-overlay"></div>
+        <span class="showcase-label">Particle System</span>
+      </div>
+      <div class="showcase-slide" style="background-image: url('/assets/images/s1.png')">
+        <div class="showcase-overlay"></div>
+        <span class="showcase-label">Procedural Cityscape</span>
+      </div>
+      <div class="showcase-slide" style="background-image: url('/assets/images/s2.png')">
+        <div class="showcase-overlay"></div>
+        <span class="showcase-label">Text Rendering System</span>
+      </div>
+      <div class="showcase-dots">
+        <span class="showcase-dot active"></span>
+        <span class="showcase-dot"></span>
+        <span class="showcase-dot"></span>
+        <span class="showcase-dot"></span>
+      </div>
+      <div class="showcase-progress"></div>
+    </div>
+    <div class="hero-text">
+      <p>
+        Final-year Computer Science student at UPEI with a specialization in Video Games, graduating spring 2026.
+        Currently a Software Engineer at <strong>Iron Fox Games</strong> in Charlottetown, PEI.
+      </p>
+      <p>
+        I build things across the stack, from custom 3D game engines and GPU particle systems in C++/OpenGL,
+        to mobile apps with Flutter, desktop accessibility tools in C#/.NET, and AI-powered platforms with
+        TensorFlow. I care about writing clean, performant code that ships.
+      </p>
+    </div>
+  </section>
 
+  <main>
     <!-- PROJECTS SECTION -->
     <section id="projects" data-aos="fade-up">
       <h2>Projects</h2>
@@ -228,7 +252,7 @@
     </section>
 
     <!-- SKILLS SECTION -->
-    <section id="skills" data-aos="fade-up">
+    <section id="skills" class="alt-section" data-aos="fade-up">
       <h2>Technical Skills</h2>
       <div class="skills-container">
         <div class="skill-category">
@@ -316,7 +340,7 @@
     </section>
 
     <!-- EDUCATION SECTION -->
-    <section id="education" data-aos="fade-up">
+    <section id="education" class="alt-section" data-aos="fade-up">
       <h2>Education</h2>
       <div class="education-card">
         <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
