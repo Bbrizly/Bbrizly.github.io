@@ -163,168 +163,153 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
   </section>
 
   <main id="main">
-    <!-- PROJECTS SECTION -->
-    <section id="projects" data-aos="fade-up">
-      <h2>Projects</h2>
+    <!-- PROJECTS -->
+    <section class="projects-v2" id="projects" data-aos="fade-up">
+      <div class="projects-head">
+        <h2>Projects</h2>
+        <p class="projects-sub">Filter to focus on what matters.</p>
+      </div>
 
-      <!-- Featured Projects -->
-      <div class="projects-featured">
+      <div class="filter-row" role="group" aria-label="Filter projects by category">
+        <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">All <span class="filter-count" data-count="all">0</span></button>
+        <button type="button" class="filter-chip" data-filter="games-graphics" aria-pressed="false">Games &amp; Graphics <span class="filter-count" data-count="games-graphics">0</span></button>
+        <button type="button" class="filter-chip" data-filter="ai-ml" aria-pressed="false">AI / ML <span class="filter-count" data-count="ai-ml">0</span></button>
+        <button type="button" class="filter-chip" data-filter="accessibility" aria-pressed="false">Accessibility <span class="filter-count" data-count="accessibility">0</span></button>
+        <button type="button" class="filter-chip" data-filter="mobile-web" aria-pressed="false">Mobile &amp; Web <span class="filter-count" data-count="mobile-web">0</span></button>
+        <button type="button" class="filter-chip" data-filter="shipped" aria-pressed="false">Shipped <span class="filter-count" data-count="shipped">0</span></button>
+      </div>
 
-        <a href="/projects/project3.html" class="project-card featured" data-aos="zoom-in">
-          <video autoplay muted loop playsinline poster="/assets/images/s1.webp" aria-label="Volpe Engine demo">
+      <p class="filter-status visually-hidden" aria-live="polite" data-filter-status></p>
+
+      <div class="projects-grid-v2">
+
+        <a href="/projects/project3.html" class="project-card project-card-featured" data-tags="games-graphics">
+          <video class="card-media" autoplay muted loop playsinline poster="/assets/images/s1.webp" aria-label="Volpe Engine demo">
             <source src="/assets/images/gif.mp4" type="video/mp4">
           </video>
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C++</span>
-              <span class="tag">OpenGL</span>
-              <span class="tag">GLSL</span>
+          <div class="card-body">
+            <div class="card-tags">
+              <span>C++</span><span>OpenGL</span><span>GLSL</span><span>PBR</span>
             </div>
             <h3>Volpe Engine</h3>
             <p>Custom 3D game engine built from scratch with PBR lighting, dynamic-tree spatial partitioning, frustum culling, localization-aware text rendering, and an instanced particle system with custom GLSL shaders.</p>
-            <span class="project-link"><i class="fab fa-github" aria-hidden="true"></i> View on GitHub</span>
+            <span class="card-badge badge-ship"><i class="fab fa-github" aria-hidden="true"></i> Open source</span>
           </div>
         </a>
 
-        <div class="project-card featured no-image" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">Flutter</span>
-              <span class="tag">Dart</span>
-              <span class="tag">Firebase</span>
-              <span class="tag">AWS Lambda</span>
-              <span class="tag">Docker</span>
-            </div>
-            <h3>Pokemon Go Mobile Game</h3>
+        <div class="project-card no-image" data-tags="ai-ml accessibility">
+          <div class="card-stack-tile" data-stack-color="ai">
+            <span class="card-stack-glyph">// AI · COMPUTER VISION</span>
+            <span class="card-stack-name">Adaptiv AI</span>
+            <span class="card-stack-tags"><span>Python</span><span>TF Lite</span><span>PyTorch</span></span>
+          </div>
+          <div class="card-body">
+            <p>AI fitness coach using on-device pose estimation to analyze exercise form in real time. Custom ML models for pose estimation and exercise classification, from training to on-device deployment.</p>
+            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Spark Tank 2.1 Winner</span>
+          </div>
+        </div>
+
+        <div class="project-card no-image" data-tags="accessibility shipped">
+          <div class="card-stack-tile" data-stack-color="accessibility">
+            <span class="card-stack-glyph">// ACCESSIBILITY · DESKTOP</span>
+            <span class="card-stack-name">QuadStick Config</span>
+            <span class="card-stack-tags"><span>C#</span><span>.NET</span><span>WPF</span><span>Serial</span></span>
+          </div>
+          <div class="card-body">
+            <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication for profile flashing, multi-screen configuration workflow, and automated CI/CD pipelines.</p>
+            <span class="card-badge badge-ship"><i class="fas fa-rocket" aria-hidden="true"></i> Deployed &amp; in use</span>
+          </div>
+        </div>
+
+        <div class="project-card no-image" data-tags="mobile-web games-graphics">
+          <div class="card-stack-tile" data-stack-color="mobile">
+            <span class="card-stack-glyph">// MOBILE · AR · CLOUD</span>
+            <span class="card-stack-name">Pokemon Go Mobile Game</span>
+            <span class="card-stack-tags"><span>Flutter</span><span>Firebase</span><span>AWS</span><span>Docker</span></span>
+          </div>
+          <div class="card-body">
             <p>Pokemon Go-style mobile game with real-time map rendering, AR capture mechanics, and cloud-synced user state. RESTful API architecture connecting Flutter frontend to Firebase and AWS Lambda, with CI/CD via GitHub Actions and Docker.</p>
           </div>
         </div>
 
-        <div class="project-card featured no-image" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">Python</span>
-              <span class="tag">TensorFlow Lite</span>
-              <span class="tag">PyTorch</span>
-            </div>
-            <h3>Adaptiv AI</h3>
-            <p>AI-powered personal fitness coach using computer vision to analyze exercise form in real time. Custom ML models for pose estimation and exercise classification, from training to on-device deployment.</p>
-            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Spark Tank 2.1 Winner</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Other Projects -->
-      <div class="projects-grid">
-
-        <div class="project-card" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C++</span>
-              <span class="tag">Steam API</span>
-              <span class="tag">GLSL</span>
-              <span class="tag">Procedural Gen</span>
-            </div>
-            <h3>Multiplayer Racing Game</h3>
-            <p>Final-year project with Steam-integrated multiplayer, physics-based vehicle mechanics, procedural map generation, and custom GLSL shaders for dynamic environments.</p>
-          </div>
-        </div>
-
-        <div class="project-card no-image" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C#</span>
-              <span class="tag">.NET</span>
-              <span class="tag">WPF</span>
-              <span class="tag">Serial</span>
-              <span class="tag">CI/CD</span>
-            </div>
-            <h3>QuadStick Config Manager</h3>
-            <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication for profile flashing, multi-screen configuration workflow, and automated CI/CD pipelines.</p>
-            <span class="shipped-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Deployed &amp; In Use</span>
-          </div>
-        </div>
-
-        <a href="/projects/project1.html" class="project-card" data-aos="zoom-in">
-          <picture>
+        <a href="/projects/project1.html" class="project-card" data-tags="games-graphics">
+          <picture class="card-media">
             <source srcset="/assets/images/s1.webp" type="image/webp">
             <img src="/assets/images/s1.png" alt="OpenGL Cityscape" width="1919" height="1009" loading="lazy">
           </picture>
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C++</span>
-              <span class="tag">OpenGL</span>
-            </div>
+          <div class="card-body">
+            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>Procedural</span></div>
             <h3>OpenGL Cityscape</h3>
             <p>Procedurally generated city with Voronoi-based layouts, dynamic day/night cycle, and optimized rendering.</p>
           </div>
         </a>
 
-        <div class="project-card" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">React</span>
-              <span class="tag">Python</span>
-              <span class="tag">TensorFlow</span>
-              <span class="tag">Firebase</span>
-            </div>
-            <h3>Upstart</h3>
-            <p>AI-driven SaaS platform automating business department workflows with real-time data visualizations and telemetry-style monitoring pipelines.</p>
-            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Panther Pitch Finalist</span>
-          </div>
-        </div>
-
-        <a href="/projects/project4.html" class="project-card" data-aos="zoom-in">
-          <video autoplay muted loop playsinline poster="/assets/images/particle2.webp" aria-label="GPU particle system">
+        <a href="/projects/project4.html" class="project-card" data-tags="games-graphics">
+          <video class="card-media" autoplay muted loop playsinline poster="/assets/images/particle2.webp" aria-label="GPU particle system">
             <source src="/assets/images/particle2.mp4" type="video/mp4">
           </video>
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C++</span>
-              <span class="tag">OpenGL</span>
-              <span class="tag">GLSL</span>
-            </div>
-            <h3>OpenGL Particle System</h3>
+          <div class="card-body">
+            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span></div>
+            <h3>GPU Particle System</h3>
             <p>GPU-accelerated particle system with multiple emitter shapes, physics-based effects, and custom shaders.</p>
           </div>
         </a>
 
-        <div class="project-card" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">Web</span>
-              <span class="tag">Hackathon</span>
-            </div>
-            <h3>Expiry</h3>
-            <p>Restaurant waste-reduction web app that tracks ingredient expiry dates and suggests usage priorities. Built during UPEI Hackathon.</p>
+        <div class="project-card no-image" data-tags="games-graphics">
+          <div class="card-stack-tile" data-stack-color="games">
+            <span class="card-stack-glyph">// MULTIPLAYER · STEAM</span>
+            <span class="card-stack-name">Multiplayer Racing</span>
+            <span class="card-stack-tags"><span>C++</span><span>Steam</span><span>GLSL</span><span>Procedural</span></span>
+          </div>
+          <div class="card-body">
+            <p>Final-year project with Steam-integrated multiplayer, physics-based vehicle mechanics, procedural map generation, and custom GLSL shaders for dynamic environments.</p>
           </div>
         </div>
 
-        <a href="/projects/project2.html" class="project-card" data-aos="zoom-in">
-          <picture>
+        <div class="project-card no-image" data-tags="ai-ml mobile-web">
+          <div class="card-stack-tile" data-stack-color="ai">
+            <span class="card-stack-glyph">// SAAS · AI · TELEMETRY</span>
+            <span class="card-stack-name">Upstart</span>
+            <span class="card-stack-tags"><span>React</span><span>Python</span><span>TensorFlow</span><span>Firebase</span></span>
+          </div>
+          <div class="card-body">
+            <p>AI-driven SaaS platform automating business department workflows with real-time data visualizations and telemetry-style monitoring pipelines.</p>
+            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Panther Pitch Finalist</span>
+          </div>
+        </div>
+
+        <a href="/projects/project2.html" class="project-card" data-tags="games-graphics">
+          <picture class="card-media">
             <source srcset="/assets/images/s2.webp" type="image/webp">
             <img src="/assets/images/s2.png" alt="OpenGL text renderer" width="1272" height="745" loading="lazy">
           </picture>
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">C++</span>
-              <span class="tag">OpenGL</span>
-            </div>
-            <h3>OpenGL Text-Renderer</h3>
+          <div class="card-body">
+            <div class="card-tags"><span>C++</span><span>OpenGL</span></div>
+            <h3>OpenGL Text Renderer</h3>
             <p>Dynamic text rendering with font-sheet optimization, multi-language support, and word-wrapping.</p>
           </div>
         </a>
 
-        <div class="project-card" data-aos="zoom-in">
-          <div class="content">
-            <div class="project-tags">
-              <span class="tag">Game Dev</span>
-              <span class="tag">Game Jam</span>
-            </div>
-            <h3>Cabin Boy</h3>
+        <div class="project-card no-image" data-tags="mobile-web">
+          <div class="card-stack-tile" data-stack-color="mobile">
+            <span class="card-stack-glyph">// HACKATHON · WASTE</span>
+            <span class="card-stack-name">Expiry</span>
+            <span class="card-stack-tags"><span>Web</span><span>Hackathon</span></span>
+          </div>
+          <div class="card-body">
+            <p>Restaurant waste-reduction web app that tracks ingredient expiry dates and suggests usage priorities. Built during UPEI Hackathon.</p>
+          </div>
+        </div>
+
+        <div class="project-card no-image" data-tags="games-graphics">
+          <div class="card-stack-tile" data-stack-color="games">
+            <span class="card-stack-glyph">// INDIE GAME · JAM RELEASE</span>
+            <span class="card-stack-name">Cabin Boy</span>
+            <span class="card-stack-tags"><span>Game Dev</span><span>Game Jam</span></span>
+          </div>
+          <div class="card-body">
             <p>Indie game developed and released at the XP Indie Biz Connect Game Jam. Full development lifecycle from concept to playable release.</p>
-            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Community Choice Award</span>
+            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Community Choice Award</span>
           </div>
         </div>
 
