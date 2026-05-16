@@ -15,7 +15,7 @@ Convert the site from a "scrollable resume with pictures" into a portfolio that,
 3. About content reorganized from one paragraph into three icon-prefixed scannable lines.
 4. Projects gain a filter row with a small intentional taxonomy plus a "no-image" card variant so text-only projects don't read as empty.
 5. Awards reformatted as a continuous marquee strip (with guards: slow speed, hover-pause, static fallback under `prefers-reduced-motion`).
-6. The two old hero CTAs ("View Projects" duplicate of the section below, "Download Resume" duplicate of the header icon) are removed and replaced with two new CTAs ("See projects ↓" primary, "Resume" secondary) that serve different purposes from the old ones (primary scroll action plus secondary direct-resume).
+6. The original `.hero-cta` block (which contained "View Projects" plus "Download Resume") is replaced wholesale. The new hero has a redesigned button pair: a primary blue "See projects ↓" that scrolls to `#projects`, and a secondary frosted "Resume" that links to the same PDF as the header's resume icon. The header's small resume icon stays as the always-visible access point. The hero's secondary button is intentional duplication for first-viewport visibility; the old buttons were removed because they were styled identically to each other (both heavy CTAs side by side competing for attention) and the eyebrow stat line below them was wrapping awkwardly.
 
 ## Hero
 
@@ -27,7 +27,7 @@ Convert the site from a "scrollable resume with pictures" into a portfolio that,
 - Rotated `-12deg`
 - Alternating scroll directions, varied speeds (50s, 65s, 75s, 55s, 60s, 70s linear infinite)
 - Tile content: project screenshot/video frame with label overlay
-- Thumbnail sources: real images from `assets/images/*` (webp with png fallback) for each project that has media. Tiles for projects without media use the styled gradient placeholder from the no-image card variant so the mosaic is visually consistent. No CSS-only gradient placeholders ship to production.
+- Thumbnail sources: real images from `assets/images/*` (webp with png fallback) for each project that has media. Tiles for projects without media reuse the styled gradient stack-tile from the no-image card variant (gradient + monospace glyph + project name) so every mosaic tile reads as a distinct project rather than a placeholder. No bare untextured CSS gradients ship to production.
 - The mosaic is decorative. The whole `.mosaic-bg` wrapper carries `aria-hidden="true"` and all child `<img>` elements use `alt=""`. Screen readers skip the mosaic entirely. The about block on the left carries the actual identity content.
 
 **Frosted glass (Apple-style, locked values):**
@@ -104,13 +104,14 @@ Total: 11 projects. Expiry was missing from the prior version of this spec and i
 Volpe gets an "Open source" badge. Adaptiv AI and Upstart get award badges. QuadStick gets a "Deployed & in use" badge. The other projects show no badge.
 
 **Filter chip behavior:**
-- Rendered as `<button role="tab" aria-pressed="false">` (active chip has `aria-pressed="true"`)
-- Exactly one active at a time (radio semantics)
-- Clicking applies `display: none` to non-matching cards. The featured card (Volpe) loses its `span-2` class when filtered out of the active set and is restored on `All`. When the active filter hides Volpe entirely, the next-most-featurable card with media steps into the span-2 slot (priority order: Adaptiv AI, OpenGL Cityscape, GPU Particle System).
-- Card-to-tag association is declared via `data-tags="games-graphics accessibility"` on each `.card`. Filter JS reads this and toggles a `.is-hidden` class (CSS handles `display: none` via that class so the animation hook stays clean).
-- Counts in the chip labels are computed at page load from the same `data-tags` attributes, not hand-written, to prevent drift.
-- The chip row container gets `aria-label="Filter projects by category"`. After a filter is applied, an `aria-live="polite"` element (visually hidden) announces "Showing N of 11 projects in {category}".
-- Keyboard: arrow keys move between chips per WAI-ARIA tablist pattern, Enter/Space activate.
+- Rendered as plain `<button type="button" aria-pressed="false">` toggle buttons (no `role="tab"`). Active chip has `aria-pressed="true"`. This is the WAI-ARIA "toggle button group" pattern, not the tablist pattern (these filter content in place, they don't switch panels).
+- Exactly one active at a time (managed in JS: clicking a chip clears `aria-pressed` on all siblings and sets it on the clicked one).
+- The chip row container gets `role="group"` and `aria-label="Filter projects by category"`.
+- Clicking applies `display: none` to non-matching cards. The featured card (Volpe) loses its `span-2` class when filtered out of the active set and is restored on `All`. When the active filter hides Volpe entirely, the next visible card *that has a real image* steps into the span-2 slot. Priority among image-bearing projects: OpenGL Cityscape, GPU Particle System, OpenGL Text Renderer. No-image cards never get promoted to featured because the wider 16:8 ratio would stretch the styled stack-tile awkwardly.
+- Card-to-tag association is declared via `data-tags="games-graphics accessibility"` on each `.project-card`. Filter JS reads this and toggles a `.is-hidden` class (CSS handles `display: none` via that class so the animation hook stays clean).
+- Counts in the chip labels are computed at page load from the `data-tags` attributes and written into the DOM before paint. Counts render as static text once computed to avoid flicker.
+- After a filter is applied, an `aria-live="polite"` element (visually hidden) announces "Showing N of 11 projects in {category}".
+- Keyboard: Tab moves focus into the group, then Tab again exits (standard button-group focus model). Enter/Space activates a chip. No arrow-key navigation (would require tablist semantics we deliberately don't claim).
 - Reduced motion: filter transitions disabled, cards swap instantly.
 
 **Grid:** three columns. Featured (Volpe) spans 2 columns with a wider 16:8 image. Remaining cards 1 column each.
@@ -173,13 +174,13 @@ Section background: same dark `#060912` as the hero, so the awards bookend the p
 - Ink: `#e6ecf4` (primary on dark)
 - Ink muted: `#cfd8e3`, dim: `#9bb5d6`
 - Body type: Poppins (already loaded), 300/400/500/600/700
-- No em dashes anywhere (project style)
+- No em dashes in homepage chrome and section copy (project style for visible homepage text). Project Markdown files keep their existing punctuation.
 - Accent stays blue across the site; no warm accents except award badge cream
 
 ## Implementation notes
 
 **Files touched:**
-- `index.html` — hero replacement, about lines, projects markup, awards marquee, remove deprecated sections. Each project `.card` gets a `data-tags="games-graphics accessibility"` attribute that drives both the filter behavior and the filter-chip counts.
+- `index.html` — hero replacement, about lines, projects markup, awards marquee, remove deprecated sections. The existing `.project-card` class stays as the project card root selector; each `.project-card` gains a `data-tags="games-graphics accessibility"` attribute that drives both the filter behavior and the filter-chip counts. The "no-image" card variant is `.project-card.no-image`. New CSS attaches to these existing class hooks rather than introducing a new `.card` selector.
 - `_includes/header.html` — remove `<nav>` block
 - `assets/css/style.css` — replace hero, projects, awards styles; introduce CSS variables; new card variants
 - `assets/js/myscripts.js` — remove old showcase carousel logic and section-nav scroll logic; add filter-chip behavior (toggle active state, hide/show cards by `data-tags` membership, recompute featured slot, announce result count via `aria-live`); marquees are pure CSS, no JS
@@ -188,7 +189,8 @@ Section background: same dark `#060912` as the hero, so the awards bookend the p
 **Accessibility:**
 - Honor `prefers-reduced-motion`: pause both the hero mosaic and the awards marquee
 - Frosted glass needs a `@supports not (backdrop-filter: blur(10px))` fallback that uses a solid `rgba(6,9,18,0.85)` panel
-- Filter chips use proper `<button>` elements with `aria-pressed` state
+- `mask-image` is used on the awards marquee edges and on the tablet filter-chip overflow row. Both need a `@supports not (mask-image: linear-gradient(90deg, transparent, #000))` fallback that simply omits the edge fade (the content still works without it). Safari needs the `-webkit-mask-image` prefix on every `mask-image` declaration.
+- Filter chips use plain `<button type="button">` elements with `aria-pressed` state (toggle button group pattern, not tablist)
 - Skip link kept; section IDs remain since the section-nav removal still allows direct linking
 
 **Performance:**
@@ -216,7 +218,7 @@ Three explicit breakpoints. The transition between them must not require any JS.
 
 **Phone (<640px):**
 - Mosaic hides entirely (`display: none` for the mosaic, dark gradient background only). Glass blur becomes a solid `rgba(6,9,18,0.92)` panel (no `backdrop-filter`).
-- H1 scales to 36px. About lines drop the icon-tile prefix, become plain lines with `→` separators (saves horizontal space).
+- H1 scales to 36px. About lines drop the icon-tile prefix and stack as plain text rows separated by a small vertical gap (12px). The desktop's "(meta)" sub-line collapses onto the same line as its parent, separated by `·`. No new glyphs are introduced.
 - Project grid collapses to 1 column. Featured card becomes a regular 1-column card.
 - Filter chips: horizontal scroll as on tablet.
 - Awards marquee continues at the same 80s speed but card width shrinks to 240px and the icon tile shrinks to 48px.
