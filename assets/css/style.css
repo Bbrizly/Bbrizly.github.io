@@ -92,30 +92,6 @@ header .social-links a:hover {
   transform: translateY(-2px);
 }
 
-/* Nav */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 0;
-  flex-wrap: wrap;
-}
-nav a {
-  color: #a0b4c8;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 4px;
-  transition: color 0.3s ease, background 0.3s ease;
-  text-decoration: none;
-}
-nav a:hover,
-nav a.active {
-  color: #00ffff;
-  background: rgba(0, 255, 255, 0.1);
-  text-decoration: none;
-}
-
 /* ==================== */
 /* HERO SHOWCASE        */
 /* ==================== */
