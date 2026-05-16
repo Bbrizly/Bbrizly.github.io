@@ -1594,3 +1594,104 @@ footer {
   /* Hide the duplicated set under reduced motion (first 4 cards only) */
   .awards-track .award-card:nth-child(n+5) { display: none; }
 }
+
+/* ==========================================================================
+   Responsive — Tablet (640–1023px)
+   ========================================================================== */
+@media (max-width: 1023px) {
+  .hero-v2 {
+    height: auto;
+    min-height: 640px;
+  }
+  .hero-content {
+    width: 100%;
+    padding: 48px 32px 40px;
+  }
+  .hero-name { font-size: 48px; }
+  .mosaic-bg {
+    top: auto;
+    bottom: 0;
+    height: 280px;
+    transform: rotate(-8deg);
+  }
+  .mosaic-tile { width: 240px; height: 150px; }
+  /* Single softer glass layer; mobile-Safari can't handle the 3-stack well */
+  .glass-2, .glass-3 { display: none; }
+  .glass-1 {
+    width: 100%;
+    backdrop-filter: blur(32px) saturate(120%);
+    -webkit-backdrop-filter: blur(32px) saturate(120%);
+    background: linear-gradient(180deg,
+      rgba(6, 9, 18, 0.85) 0%,
+      rgba(6, 9, 18, 0.6) 65%,
+      rgba(6, 9, 18, 0.2) 100%);
+    mask-image: linear-gradient(180deg,
+      #000 0%, #000 55%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(180deg,
+      #000 0%, #000 55%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+  }
+
+  .projects-v2 { padding: 70px 32px; }
+  .projects-grid-v2 { grid-template-columns: repeat(2, 1fr); }
+  .project-card-featured { grid-column: span 2; }
+
+  /* Filter chip row becomes a horizontal scroller with edge fade */
+  .filter-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 8px;
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+  .filter-chip { flex: none; }
+
+  .awards-head { padding: 0 32px; }
+  .awards-track { padding: 0 32px; }
+  .award-card { width: 280px; }
+}
+
+/* ==========================================================================
+   Responsive — Phone (<640px)
+   ========================================================================== */
+@media (max-width: 639px) {
+  .hero-v2 { min-height: 560px; }
+  .hero-content { padding: 36px 22px 32px; }
+  .hero-name { font-size: 36px; margin-bottom: 18px; }
+  .hero-eyebrow { margin-bottom: 12px; }
+
+  /* Hide the mosaic entirely on phone; solid dark panel only */
+  .mosaic-bg { display: none; }
+  .glass-1 {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(6, 9, 18, 0.92);
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  /* About lines drop the icon tile, become plain stacked rows */
+  .about-line { gap: 0; flex-direction: column; align-items: stretch; }
+  .about-ico { display: none; }
+  .about-text { padding-top: 0; }
+  .about-meta { display: inline; margin-top: 0; }
+  .about-meta::before { content: ' · '; color: var(--ink-dim); }
+
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas a { text-align: center; }
+
+  .projects-v2 { padding: 56px 22px; }
+  .projects-head h2 { font-size: 28px; }
+  .projects-grid-v2 { grid-template-columns: 1fr; }
+  .project-card-featured { grid-column: span 1; }
+  .project-card-featured .card-media { aspect-ratio: 16 / 10; }
+  .project-card-featured.no-image .card-stack-tile { aspect-ratio: 16 / 10; }
+
+  .awards-v2 { padding: 56px 0 70px; }
+  .awards-head { padding: 0 22px; }
+  .awards-head h2 { font-size: 26px; }
+  .awards-track { padding: 0 22px; gap: 16px; }
+  .award-card { width: 240px; padding: 16px 18px; gap: 14px; }
+  .award-icon { width: 48px; height: 48px; font-size: 20px; }
+  .award-info h3 { font-size: 14px; }
+}
