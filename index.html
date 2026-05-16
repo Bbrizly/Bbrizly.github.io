@@ -1,71 +1,179 @@
 ---
+title: "Software Engineer & Game Engine Developer"
+description: "Software Engineer at Iron Fox Games. Computer Science graduate (UPEI, 2026), specialization in Video Games. I build custom 3D game engines, mobile apps, accessibility tools, and ML systems."
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Bassam Kamal</title>
-  <meta name="description" content="Bassam Kamal - Software Engineer, Game Engine Developer, CS student at UPEI.">
+  <meta name="theme-color" content="#141e30">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate icon" href="/assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  {% seo %}
+  {% feed_meta %}
 </head>
 <body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
   {% include header.html %}
 
-  <!-- HERO SHOWCASE -->
-  <section class="hero" id="about">
-    <div class="showcase">
-      <div class="showcase-slide active">
-        <img src="/assets/images/gif.gif" alt="Volpe Engine">
-        <span class="showcase-label">Volpe Engine</span>
+  <!-- HERO -->
+  <section class="hero-v2" id="about" aria-label="About">
+
+    <!-- Decorative project mosaic (hidden from assistive tech) -->
+    <div class="mosaic-bg" aria-hidden="true">
+      <div class="mosaic-reel reel-a">
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cityscape"></a>
+        <a class="mosaic-tile" data-thumb="text-renderer"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <!-- Loop pair: duplicate the set so the keyframe end aligns visually -->
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cityscape"></a>
+        <a class="mosaic-tile" data-thumb="text-renderer"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
       </div>
-      <div class="showcase-slide">
-        <img src="/assets/images/particle2.gif" alt="Particle System">
-        <span class="showcase-label">Particle System</span>
+      <div class="mosaic-reel reel-b">
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="racing"></a>
+        <a class="mosaic-tile" data-thumb="expiry"></a>
+        <a class="mosaic-tile" data-thumb="pokemon"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="racing"></a>
+        <a class="mosaic-tile" data-thumb="expiry"></a>
+        <a class="mosaic-tile" data-thumb="pokemon"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
       </div>
-      <div class="showcase-slide">
-        <img src="/assets/images/s1.png" alt="Procedural Cityscape">
-        <span class="showcase-label">Procedural Cityscape</span>
+      <div class="mosaic-reel reel-c">
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
       </div>
-      <div class="showcase-slide">
-        <img src="/assets/images/s2.png" alt="Text Rendering System">
-        <span class="showcase-label">Text Rendering System</span>
+      <div class="mosaic-reel reel-d">
+        <a class="mosaic-tile" data-thumb="cityscape"></a>
+        <a class="mosaic-tile" data-thumb="text-renderer"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="cityscape"></a>
+        <a class="mosaic-tile" data-thumb="text-renderer"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
       </div>
-      <div class="showcase-dots">
-        <span class="showcase-dot active"></span>
-        <span class="showcase-dot"></span>
-        <span class="showcase-dot"></span>
-        <span class="showcase-dot"></span>
+      <div class="mosaic-reel reel-e">
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="racing"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="pokemon"></a>
+        <a class="mosaic-tile" data-thumb="expiry"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="racing"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="pokemon"></a>
+        <a class="mosaic-tile" data-thumb="expiry"></a>
       </div>
-      <div class="showcase-progress"></div>
+      <div class="mosaic-reel reel-f">
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+        <a class="mosaic-tile" data-thumb="upstart"></a>
+        <a class="mosaic-tile" data-thumb="adaptiv"></a>
+        <a class="mosaic-tile" data-thumb="volpe"></a>
+        <a class="mosaic-tile" data-thumb="quadstick"></a>
+        <a class="mosaic-tile" data-thumb="particle"></a>
+        <a class="mosaic-tile" data-thumb="cabin-boy"></a>
+      </div>
     </div>
-    <div class="hero-text">
-      <p>
-        Final-year Computer Science student at UPEI with a specialization in Video Games, graduating spring 2026.
-        Currently a Software Engineer at <strong>Iron Fox Games</strong> in Charlottetown, PEI.
-      </p>
-      <p>
-        I build things across the stack, from custom 3D game engines and GPU particle systems in C++/OpenGL,
-        to mobile apps with Flutter, desktop accessibility tools in C#/.NET, and AI-powered platforms with
-        TensorFlow. I care about writing clean, performant code that ships.
-      </p>
+
+    <!-- Frosted glass layers (3-stack for soft Apple-style falloff) -->
+    <div class="glass glass-3" aria-hidden="true"></div>
+    <div class="glass glass-2" aria-hidden="true"></div>
+    <div class="glass glass-1" aria-hidden="true"></div>
+
+    <!-- Foreground identity panel -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">Portfolio · 2026</p>
+      <h2 class="hero-name">Bassam Kamal</h2>
+
+      <ul class="about-lines">
+        <li class="about-line">
+          <span class="about-ico" aria-hidden="true">SE</span>
+          <span class="about-text">
+            <strong>Software Engineer</strong> at Iron Fox Games
+            <span class="about-meta">Charlottetown PEI · Shipping production C++ and web tooling</span>
+          </span>
+        </li>
+        <li class="about-line">
+          <span class="about-ico" aria-hidden="true">CS</span>
+          <span class="about-text">
+            <strong>B.Sc. Computer Science</strong> · UPEI 2026
+            <span class="about-meta">Specialization in Video Games</span>
+          </span>
+        </li>
+        <li class="about-line">
+          <span class="about-ico" aria-hidden="true">&#8596;</span>
+          <span class="about-text">
+            <strong>I build</strong> custom 3D engines, ML systems, and accessibility tools
+          </span>
+        </li>
+      </ul>
+
+      <div class="hero-ctas">
+        <a href="#projects" class="cta-primary"><i class="fas fa-arrow-down" aria-hidden="true"></i> See projects</a>
+        <a href="/documents/Bassam's tech resume.pdf" class="cta-secondary" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-arrow-down" aria-hidden="true"></i> Resume</a>
+      </div>
     </div>
+
   </section>
 
-  <main>
+  <main id="main">
     <!-- PROJECTS SECTION -->
     <section id="projects" data-aos="fade-up">
       <h2>Projects</h2>
-      <p class="projects-note">1,379 GitHub contributions in the last year</p>
 
       <!-- Featured Projects -->
       <div class="projects-featured">
 
         <a href="/projects/project3.html" class="project-card featured" data-aos="zoom-in">
-          <img src="/assets/images/gif.gif" alt="Volpe Engine">
+          <video autoplay muted loop playsinline poster="/assets/images/s1.webp" aria-label="Volpe Engine demo">
+            <source src="/assets/images/gif.mp4" type="video/mp4">
+          </video>
           <div class="content">
             <div class="project-tags">
               <span class="tag">C++</span>
@@ -74,7 +182,7 @@
             </div>
             <h3>Volpe Engine</h3>
             <p>Custom 3D game engine built from scratch with PBR lighting, dynamic-tree spatial partitioning, frustum culling, localization-aware text rendering, and an instanced particle system with custom GLSL shaders.</p>
-            <span class="project-link"><i class="fab fa-github"></i> View on GitHub</span>
+            <span class="project-link"><i class="fab fa-github" aria-hidden="true"></i> View on GitHub</span>
           </div>
         </a>
 
@@ -101,7 +209,7 @@
             </div>
             <h3>Adaptiv AI</h3>
             <p>AI-powered personal fitness coach using computer vision to analyze exercise form in real time. Custom ML models for pose estimation and exercise classification, from training to on-device deployment.</p>
-            <span class="award-badge"><i class="fas fa-trophy"></i> Spark Tank 2.1 Winner</span>
+            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Spark Tank 2.1 Winner</span>
           </div>
         </div>
 
@@ -134,12 +242,15 @@
             </div>
             <h3>QuadStick Config Manager</h3>
             <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication for profile flashing, multi-screen configuration workflow, and automated CI/CD pipelines.</p>
-            <span class="shipped-badge"><i class="fas fa-rocket"></i> Deployed & In Use</span>
+            <span class="shipped-badge"><i class="fas fa-rocket" aria-hidden="true"></i> Deployed &amp; In Use</span>
           </div>
         </div>
 
         <a href="/projects/project1.html" class="project-card" data-aos="zoom-in">
-          <img src="/assets/images/s1.png" alt="OpenGL Cityscape">
+          <picture>
+            <source srcset="/assets/images/s1.webp" type="image/webp">
+            <img src="/assets/images/s1.png" alt="OpenGL Cityscape" width="1919" height="1009" loading="lazy">
+          </picture>
           <div class="content">
             <div class="project-tags">
               <span class="tag">C++</span>
@@ -160,12 +271,14 @@
             </div>
             <h3>Upstart</h3>
             <p>AI-driven SaaS platform automating business department workflows with real-time data visualizations and telemetry-style monitoring pipelines.</p>
-            <span class="award-badge"><i class="fas fa-trophy"></i> Panther Pitch Finalist</span>
+            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Panther Pitch Finalist</span>
           </div>
         </div>
 
         <a href="/projects/project4.html" class="project-card" data-aos="zoom-in">
-          <img src="/assets/images/particle2.gif" alt="Particle System">
+          <video autoplay muted loop playsinline poster="/assets/images/particle2.webp" aria-label="GPU particle system">
+            <source src="/assets/images/particle2.mp4" type="video/mp4">
+          </video>
           <div class="content">
             <div class="project-tags">
               <span class="tag">C++</span>
@@ -189,7 +302,10 @@
         </div>
 
         <a href="/projects/project2.html" class="project-card" data-aos="zoom-in">
-          <img src="/assets/images/s2.png" alt="Text Renderer">
+          <picture>
+            <source srcset="/assets/images/s2.webp" type="image/webp">
+            <img src="/assets/images/s2.png" alt="OpenGL text renderer" width="1272" height="745" loading="lazy">
+          </picture>
           <div class="content">
             <div class="project-tags">
               <span class="tag">C++</span>
@@ -208,7 +324,7 @@
             </div>
             <h3>Cabin Boy</h3>
             <p>Indie game developed and released at the XP Indie Biz Connect Game Jam. Full development lifecycle from concept to playable release.</p>
-            <span class="award-badge"><i class="fas fa-trophy"></i> Community Choice Award</span>
+            <span class="award-badge"><i class="fas fa-trophy" aria-hidden="true"></i> Community Choice Award</span>
           </div>
         </div>
 
@@ -219,15 +335,15 @@
     <section id="experience" data-aos="fade-up">
       <h2>Work Experience</h2>
       <div class="work-container">
-        <div class="job-titles">
-          <button class="job-btn active" data-job="ironfox">Iron Fox Games</button>
-          <button class="job-btn" data-job="ta">Teaching Assistant</button>
+        <div class="job-titles" role="tablist" aria-label="Work experience">
+          <button class="job-btn active" data-job="ironfox" role="tab" aria-selected="true">Iron Fox Games</button>
+          <button class="job-btn" data-job="ta" role="tab" aria-selected="false">Teaching Assistant</button>
         </div>
 
         <div class="job-details">
-          <div class="job-description" id="ironfox">
+          <div class="job-description" id="ironfox" role="tabpanel">
             <h3>Software Engineer</h3>
-            <p class="job-meta">Iron Fox Games, Charlottetown PEI | Sep 2025 to Present</p>
+            <p class="job-meta">Iron Fox Games, Charlottetown PEI · Sep 2025 – Present</p>
             <p class="job-note">Started as full-time internship Jun 2025</p>
             <ul>
               <li>Engineered internal web tooling using JSONForms and Zod schema validation, reducing manual configuration errors across the development pipeline</li>
@@ -237,9 +353,9 @@
               <li>Diagnosed and resolved complex bugs across JavaScript web tooling and C++ game systems in production environments</li>
             </ul>
           </div>
-          <div class="job-description hidden" id="ta">
-            <h3>Teaching Assistant & CS Help Center Admin</h3>
-            <p class="job-meta">University of Prince Edward Island | Jan 2025 to Jun 2025</p>
+          <div class="job-description hidden" id="ta" role="tabpanel">
+            <h3>Teaching Assistant &amp; CS Help Center Admin</h3>
+            <p class="job-meta">University of Prince Edward Island · Jan 2025 – Jun 2025</p>
             <ul>
               <li>Managed the CS Help Center, providing one-on-one debugging assistance to 50+ students across introductory and intermediate CS courses</li>
               <li>Graded assignments and provided detailed feedback on code quality, algorithms, and data structures</li>
@@ -256,7 +372,7 @@
       <h2>Technical Skills</h2>
       <div class="skills-container">
         <div class="skill-category">
-          <h3><i class="fas fa-code"></i> Languages</h3>
+          <h3><i class="fas fa-code" aria-hidden="true"></i> Languages</h3>
           <div class="skill-tags">
             <span>C++</span>
             <span>C#</span>
@@ -271,7 +387,7 @@
           </div>
         </div>
         <div class="skill-category">
-          <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
+          <h3><i class="fas fa-tools" aria-hidden="true"></i> Frameworks &amp; Tools</h3>
           <div class="skill-tags">
             <span>OpenGL</span>
             <span>Flutter</span>
@@ -288,12 +404,12 @@
           </div>
         </div>
         <div class="skill-category">
-          <h3><i class="fas fa-cogs"></i> Technical Areas</h3>
+          <h3><i class="fas fa-cogs" aria-hidden="true"></i> Technical Areas</h3>
           <div class="skill-tags">
             <span>Game Engine Programming</span>
             <span>Graphics / Rendering</span>
             <span>CI/CD Pipelines</span>
-            <span>Testing & Debugging</span>
+            <span>Testing &amp; Debugging</span>
             <span>Procedural Generation</span>
             <span>Performance Optimization</span>
             <span>REST APIs</span>
@@ -306,31 +422,31 @@
 
     <!-- AWARDS SECTION -->
     <section id="awards" data-aos="fade-up">
-      <h2>Awards & Recognition</h2>
+      <h2>Awards &amp; Recognition</h2>
       <div class="awards-list">
         <div class="award-item">
-          <div class="award-icon"><i class="fas fa-trophy"></i></div>
+          <div class="award-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
           <div class="award-info">
             <h3>Winner, Spark Tank 2.1</h3>
-            <p>PEI IT Alliance's The Foundry | Adaptiv AI | 2025</p>
+            <p>PEI IT Alliance's The Foundry · Adaptiv AI · 2025</p>
           </div>
         </div>
         <div class="award-item">
-          <div class="award-icon"><i class="fas fa-medal"></i></div>
+          <div class="award-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
           <div class="award-info">
             <h3>Finalist, Panther Pitch / Harry W. MacLauchlan Entrepreneurship Program</h3>
-            <p>UPEI | Upstart</p>
+            <p>UPEI · Upstart</p>
           </div>
         </div>
         <div class="award-item">
-          <div class="award-icon"><i class="fas fa-gamepad"></i></div>
+          <div class="award-icon"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
           <div class="award-info">
             <h3>Community Choice Award</h3>
-            <p>XP Indie Biz Connect Game Jam | Cabin Boy</p>
+            <p>XP Indie Biz Connect Game Jam · Cabin Boy</p>
           </div>
         </div>
         <div class="award-item">
-          <div class="award-icon"><i class="fas fa-star"></i></div>
+          <div class="award-icon"><i class="fas fa-star" aria-hidden="true"></i></div>
           <div class="award-info">
             <h3>Welcome Week Leadership Award</h3>
             <p>University of Prince Edward Island</p>
@@ -343,12 +459,12 @@
     <section id="education" class="alt-section" data-aos="fade-up">
       <h2>Education</h2>
       <div class="education-card">
-        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="edu-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
         <div class="edu-info">
           <h3>Bachelor of Science in Computer Science</h3>
           <p class="edu-specialization">Specialization in Video Games</p>
           <p class="edu-school">University of Prince Edward Island (UPEI)</p>
-          <p class="edu-dates">September 2022 - April 2026</p>
+          <p class="edu-dates">September 2022 – April 2026</p>
           <p class="edu-gpa">GPA: 3.8</p>
         </div>
       </div>
@@ -360,15 +476,15 @@
       <p>Always open to new opportunities and ideas.</p>
       <div class="contact-links">
         <a href="mailto:bassamkamal.py@gmail.com" class="contact-item">
-          <i class="fas fa-envelope"></i>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
           <span>bassamkamal.py@gmail.com</span>
         </a>
-        <a href="https://www.linkedin.com/in/bassam-k/" target="_blank" class="contact-item">
-          <i class="fab fa-linkedin"></i>
+        <a href="https://www.linkedin.com/in/bassam-k/" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
           <span>linkedin.com/in/bassam-k</span>
         </a>
-        <a href="https://github.com/Bbrizly" target="_blank" class="contact-item">
-          <i class="fab fa-github"></i>
+        <a href="https://github.com/Bbrizly" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <i class="fab fa-github" aria-hidden="true"></i>
           <span>github.com/bbrizly</span>
         </a>
       </div>
@@ -380,7 +496,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="/assets/js/myscripts.js"></script>
   <script>
-    AOS.init({ duration: 700, once: true });
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      AOS.init({ duration: 700, once: true, disable: reduceMotion });
+    })();
   </script>
 </body>
 </html>
