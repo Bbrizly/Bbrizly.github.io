@@ -1695,3 +1695,43 @@ footer {
   .award-icon { width: 48px; height: 48px; font-size: 20px; }
   .award-info h3 { font-size: 14px; }
 }
+
+/* ==========================================================================
+   Motion preferences and feature fallbacks
+   ========================================================================== */
+
+/* Stop the hero mosaic and remove filter-card transitions under reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-reel { animation: none !important; }
+  .project-card { transition: none; }
+  .project-card:hover { transform: none; }
+  .hero-ctas a { transition: none; }
+  .hero-ctas a:hover { transform: none; }
+}
+
+/* backdrop-filter unsupported: fall back to solid tinted panel */
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-1 {
+    background: rgba(6, 9, 18, 0.85) !important;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .glass-2, .glass-3 { display: none; }
+  .cta-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* mask-image unsupported: drop the edge fade. Content still works. */
+@supports not (mask-image: linear-gradient(90deg, transparent, #000)) {
+  .awards-marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .filter-row {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
