@@ -1237,3 +1237,233 @@ footer {
 }
 
 .cta-secondary:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+
+/* ==========================================================================
+   PROJECTS v2
+   ========================================================================== */
+.projects-v2 {
+  padding: 90px 64px;
+  background: var(--bg-light);
+  color: #1a2436;
+}
+
+.projects-head { margin-bottom: 28px; }
+.projects-head h2 {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1a2436;
+  margin: 0 0 6px;
+}
+.projects-sub {
+  font-size: 14px;
+  color: #6b7a90;
+  margin: 0;
+}
+
+/* Filter chips ------------------------------------------------------------- */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.filter-chip {
+  font-family: inherit;
+  padding: 9px 18px;
+  font-size: 13px;
+  border-radius: 22px;
+  border: 1px solid #d4dce9;
+  color: #4a5670;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.filter-chip:hover { border-color: var(--accent); color: var(--accent); }
+.filter-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.filter-chip[aria-pressed="true"] {
+  background: #1a2436;
+  color: #fff;
+  border-color: #1a2436;
+}
+.filter-count {
+  opacity: 0.55;
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* Projects grid ------------------------------------------------------------ */
+.projects-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--surface-card);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--surface-card-border);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(26, 36, 54, 0.12);
+}
+.project-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.project-card-featured { grid-column: span 2; }
+
+.project-card.is-hidden { display: none; }
+
+/* Card media (image / video) ---------------------------------------------- */
+.card-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #1e3a8a, #0a0f1a);
+  object-fit: cover;
+}
+.card-media img,
+.card-media source { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project-card-featured .card-media { aspect-ratio: 16 / 8; }
+
+/* Card body --------------------------------------------------------------- */
+.card-body {
+  padding: 20px 22px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.card-tags span {
+  font-size: 10.5px;
+  padding: 4px 10px;
+  background: #eef4ff;
+  color: var(--accent);
+  border-radius: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.card-body h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a2436;
+  letter-spacing: -0.01em;
+}
+.card-body p {
+  font-size: 14px;
+  color: #5a6680;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.card-badge {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.card-badge i { margin-right: 4px; }
+.badge-award { background: #fff5e1; color: #8a6312; border-color: #ecd9a7; }
+.badge-ship  { background: #e8f7ed; color: #1f6e3a; border-color: #b9e2c8; }
+
+/* No-image card variant (styled stack tile) ------------------------------- */
+.project-card.no-image .card-stack-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  padding: 26px 30px;
+  background: linear-gradient(135deg, #1a2436 0%, #0a0f1a 100%);
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+}
+.project-card-featured.no-image .card-stack-tile { aspect-ratio: 16 / 8; }
+.project-card.no-image .card-stack-tile::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(123, 167, 255, 0.05) 0 2px, transparent 2px 18px);
+}
+.card-stack-glyph {
+  position: relative; z-index: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent-light);
+  margin-bottom: 14px;
+}
+.card-stack-name {
+  position: relative; z-index: 1;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.card-stack-tags {
+  position: relative; z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.card-stack-tags span {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: rgba(123, 167, 255, 0.12);
+  color: var(--accent-light);
+  border: 1px solid rgba(123, 167, 255, 0.25);
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Per-domain colorways for the no-image stack tile */
+.card-stack-tile[data-stack-color="games"]         { background: linear-gradient(135deg, #1a2436 0%, #0a0f1a 100%); }
+.card-stack-tile[data-stack-color="accessibility"] { background: linear-gradient(135deg, #1a2e2a 0%, #0a0f1a 100%); }
+.card-stack-tile[data-stack-color="accessibility"] .card-stack-glyph { color: #7ad1b0; }
+.card-stack-tile[data-stack-color="accessibility"] .card-stack-tags span {
+  background: rgba(122, 209, 176, 0.12);
+  color: #7ad1b0;
+  border-color: rgba(122, 209, 176, 0.25);
+}
+.card-stack-tile[data-stack-color="ai"]            { background: linear-gradient(135deg, #2a2348 0%, #0a0f1a 100%); }
+.card-stack-tile[data-stack-color="ai"] .card-stack-glyph { color: #b09ee0; }
+.card-stack-tile[data-stack-color="ai"] .card-stack-tags span {
+  background: rgba(176, 158, 224, 0.12);
+  color: #b09ee0;
+  border-color: rgba(176, 158, 224, 0.25);
+}
+.card-stack-tile[data-stack-color="mobile"]        { background: linear-gradient(135deg, #1e3a55 0%, #0a0f1a 100%); }
+.card-stack-tile[data-stack-color="mobile"] .card-stack-glyph { color: #8ec5e8; }
+.card-stack-tile[data-stack-color="mobile"] .card-stack-tags span {
+  background: rgba(142, 197, 232, 0.12);
+  color: #8ec5e8;
+  border-color: rgba(142, 197, 232, 0.25);
+}
