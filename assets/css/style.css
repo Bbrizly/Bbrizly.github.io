@@ -967,3 +967,273 @@ footer {
 .hero-stats span {
   margin: 0 8px;
 }
+
+/* ==========================================================================
+   HERO v2 (split layout with frosted glass + tilted project mosaic)
+   ========================================================================== */
+.hero-v2 {
+  position: relative;
+  height: 680px;
+  background: var(--bg-dark);
+  overflow: hidden;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+/* Mosaic background -------------------------------------------------------- */
+.mosaic-bg {
+  position: absolute;
+  top: -120px;
+  bottom: -120px;
+  left: -8%;
+  right: -8%;
+  transform: rotate(-12deg);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  z-index: 1;
+}
+
+.mosaic-reel {
+  display: flex;
+  gap: 22px;
+  flex: none;
+  will-change: transform;
+}
+
+.mosaic-tile {
+  position: relative;
+  flex: none;
+  width: 320px;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e3a8a, #0a0f1a);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+}
+
+/* Per-thumb gradient placeholders (real images can replace these later) */
+.mosaic-tile[data-thumb="volpe"]         { background: linear-gradient(135deg, #1e3a8a, #0a0f1a); }
+.mosaic-tile[data-thumb="particle"]      { background: linear-gradient(135deg, #2d4a76, #0a0f1a); }
+.mosaic-tile[data-thumb="cityscape"]     { background: linear-gradient(135deg, #3a5e9e, #0a0f1a); }
+.mosaic-tile[data-thumb="text-renderer"] { background: linear-gradient(135deg, #0f1b33, #243b55); }
+.mosaic-tile[data-thumb="adaptiv"]       { background: linear-gradient(135deg, #4a3a7e, #0a0f1a); }
+.mosaic-tile[data-thumb="quadstick"]     { background: linear-gradient(135deg, #2d6e5e, #0a0f1a); }
+.mosaic-tile[data-thumb="cabin-boy"]     { background: linear-gradient(135deg, #7e3a5a, #0a0f1a); }
+.mosaic-tile[data-thumb="upstart"]       { background: linear-gradient(135deg, #1e5a8a, #0a0f1a); }
+.mosaic-tile[data-thumb="racing"]        { background: linear-gradient(135deg, #2d4a76, #0a0f1a); }
+.mosaic-tile[data-thumb="expiry"]        { background: linear-gradient(135deg, #3a5e9e, #0a0f1a); }
+.mosaic-tile[data-thumb="pokemon"]       { background: linear-gradient(135deg, #0f1b33, #243b55); }
+
+.mosaic-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 14px);
+}
+
+.mosaic-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 50%);
+}
+
+/* Keyframes: each row scrolls in alternating directions at varied speeds.
+   Translate range is -50% because each reel duplicates its content once. */
+@keyframes mosaic-scroll-l { 0% { transform: translateX(0); }    100% { transform: translateX(-50%); } }
+@keyframes mosaic-scroll-r { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+.reel-a { animation: mosaic-scroll-l 50s linear infinite; }
+.reel-b { animation: mosaic-scroll-r 65s linear infinite; transform: translateX(-200px); }
+.reel-c { animation: mosaic-scroll-l 75s linear infinite; }
+.reel-d { animation: mosaic-scroll-r 55s linear infinite; transform: translateX(-150px); }
+.reel-e { animation: mosaic-scroll-l 60s linear infinite; }
+.reel-f { animation: mosaic-scroll-r 70s linear infinite; transform: translateX(-300px); }
+
+/* Frosted-glass stack ------------------------------------------------------ */
+/* Three layers: glass-3 widest/softest, glass-1 narrowest/strongest.
+   The mask gradient stops are computed from --softness so we can re-tune the
+   single value in :root and the falloff curve updates everywhere. */
+.glass {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.glass-3 {
+  width: calc(var(--falloff) * 1% + 20%);
+  backdrop-filter: blur(calc(var(--blur) * 0.15)) saturate(110%);
+  -webkit-backdrop-filter: blur(calc(var(--blur) * 0.15)) saturate(110%);
+  background: linear-gradient(90deg,
+    rgba(6, 9, 18, calc(var(--tint) * 0.08)) 0%,
+    rgba(6, 9, 18, 0) 100%);
+  mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.15) 92%,
+    rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.15) 92%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+.glass-2 {
+  width: calc(var(--falloff) * 1% + 5%);
+  backdrop-filter: blur(calc(var(--blur) * 0.45)) saturate(125%);
+  -webkit-backdrop-filter: blur(calc(var(--blur) * 0.45)) saturate(125%);
+  background: linear-gradient(90deg,
+    rgba(6, 9, 18, calc(var(--tint) * 0.45)) 0%,
+    rgba(6, 9, 18, calc(var(--tint) * 0.3)) 45%,
+    rgba(6, 9, 18, 0) 100%);
+  mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.25) 85%,
+    rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.25) 85%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+.glass-1 {
+  width: calc(var(--width) * 1%);
+  backdrop-filter: blur(calc(var(--blur) * 1px)) saturate(145%);
+  -webkit-backdrop-filter: blur(calc(var(--blur) * 1px)) saturate(145%);
+  background: linear-gradient(90deg,
+    rgba(6, 9, 18, var(--tint)) 0%,
+    rgba(6, 9, 18, calc(var(--tint) * 0.8)) 40%,
+    rgba(6, 9, 18, calc(var(--tint) * 0.4)) 70%,
+    rgba(6, 9, 18, calc(var(--tint) * 0.1)) 88%,
+    rgba(6, 9, 18, 0) 100%);
+  mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+    #000 0%,
+    #000 calc((100 - var(--softness)) * 1%),
+    rgba(0, 0, 0, 0.3) 80%,
+    rgba(0, 0, 0, 0) 100%);
+}
+
+/* Foreground content ------------------------------------------------------- */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  width: 58%;
+  height: 100%;
+  padding: 70px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  margin: 0 0 18px;
+}
+
+.hero-name {
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0 0 28px;
+  color: #fff;
+}
+
+.about-lines {
+  list-style: none;
+  margin: 0 0 30px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 16px;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+.about-ico {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(123, 167, 255, 0.12);
+  border: 1px solid rgba(123, 167, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-light);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.about-text {
+  padding-top: 4px;
+}
+
+.about-text strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.about-meta {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin-top: 2px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+}
+
+.hero-ctas a {
+  padding: 13px 26px;
+  font-size: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.15s ease;
+}
+
+.hero-ctas a:hover { transform: translateY(-1px); }
+
+.cta-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(59, 111, 229, 0.4);
+}
+
+.cta-primary:hover { color: #fff; background: #2f5cd6; }
+
+.cta-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.cta-secondary:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
