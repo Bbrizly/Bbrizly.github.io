@@ -1,9 +1,16 @@
 ---
 layout: project
 title: "OpenGL Cityscape"
+eyebrow: "Project · 2024"
+subtitle: "Procedural city generated from a Voronoi diagram. Roofs use fan triangulation, buildings use array textures, and the whole scene runs on a day/night cycle."
+tech:
+  - C++
+  - OpenGL
+  - Voronoi
+  - Procedural Gen
 github_link: "https://github.com/Bbrizly/Cityscape"
+hero_image: "/assets/images/s1.webp"
 images:
-  - "/assets/images/s1.webp"
   - "/assets/images/z1.webp"
   - "/assets/images/z2.webp"
   - "/assets/images/z3.webp"

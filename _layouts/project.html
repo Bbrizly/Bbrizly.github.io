@@ -19,51 +19,98 @@
 
   {% seo %}
 </head>
-<body>
+<body class="project-body">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="container">
-    {% include header.html %}
+  <nav class="project-topbar">
+    <a href="/#projects" class="back-btn">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i> <span>Back to projects</span>
+    </a>
+    {% if page.github_link %}
+      <a href="{{ page.github_link }}" target="_blank" rel="noopener noreferrer" class="topbar-github">
+        <i class="fab fa-github" aria-hidden="true"></i> <span>View on GitHub</span>
+      </a>
+    {% endif %}
+    {% if page.steam_link %}
+      <a href="{{ page.steam_link }}" target="_blank" rel="noopener noreferrer" class="topbar-steam">
+        <i class="fab fa-steam" aria-hidden="true"></i> <span>View on Steam</span>
+      </a>
+    {% endif %}
+    {% if page.external_link %}
+      <a href="{{ page.external_link }}" target="_blank" rel="noopener noreferrer" class="topbar-ext">
+        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>{{ page.external_label | default: 'Visit site' }}</span>
+      </a>
+    {% endif %}
+  </nav>
 
-    <main id="main">
-      <article class="project-page" data-aos="fade-up">
+  <main id="main">
+    <article class="project-page" data-aos="fade-up">
 
-        <a href="/#projects" class="back-btn">
-          <i class="fas fa-arrow-left" aria-hidden="true"></i> Go Back
-        </a>
-
-        <header class="project-header">
-          <h1>{{ page.title }}</h1>
-          {% if page.github_link %}
-            <a href="{{ page.github_link }}" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View source on GitHub">
-              <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-          {% endif %}
-        </header>
-
-        <section class="project-content">
-          {{ content | markdownify }}
-        </section>
-
-        {% if page.images %}
-        <section class="project-images" data-aos="fade-up">
-          {% for image in page.images %}
-            {% assign ext = image | split: '.' | last | downcase %}
-            {% if ext == 'mp4' or ext == 'webm' %}
-              <video autoplay muted loop playsinline aria-label="{{ page.title }} demo">
-                <source src="{{ image }}" type="video/{{ ext }}">
-              </video>
-            {% else %}
-              <img src="{{ image }}" alt="{{ page.title }} screenshot" loading="lazy">
-            {% endif %}
-          {% endfor %}
-        </section>
+      <header class="project-hero">
+        {% if page.eyebrow %}<p class="project-eyebrow">{{ page.eyebrow }}</p>{% endif %}
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}<p class="project-subtitle">{{ page.subtitle }}</p>{% endif %}
+        {% if page.tech %}
+          <div class="project-tech">
+            {% for t in page.tech %}<span>{{ t }}</span>{% endfor %}
+          </div>
         {% endif %}
-      </article>
-    </main>
+      </header>
 
-    {% include footer.html %}
-  </div>
+      {% if page.hero_image %}
+        {% assign hero_ext = page.hero_image | split: '.' | last | downcase %}
+        {% if hero_ext == 'mp4' or hero_ext == 'webm' %}
+          <video class="project-hero-media" autoplay muted loop playsinline aria-label="{{ page.title }} demo">
+            <source src="{{ page.hero_image }}" type="video/{{ hero_ext }}">
+          </video>
+        {% else %}
+          <img class="project-hero-media" src="{{ page.hero_image }}" alt="{{ page.title }} cover">
+        {% endif %}
+      {% endif %}
+
+      <section class="project-content">
+        {{ content | markdownify }}
+      </section>
+
+      {% if page.pdf or page.pptx %}
+        <section class="project-pdf">
+          <h2>Slides</h2>
+          <div class="deck-downloads">
+            {% if page.pdf %}
+              <a class="deck-download pdf-download" href="{{ page.pdf }}" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-file-pdf" aria-hidden="true"></i> Download PDF
+              </a>
+            {% endif %}
+            {% if page.pptx %}
+              <a class="deck-download pptx-download" href="{{ page.pptx }}" download>
+                <i class="fas fa-file-powerpoint" aria-hidden="true"></i> Download .pptx <span class="deck-note">with animations</span>
+              </a>
+            {% endif %}
+          </div>
+          {% if page.pdf %}
+            <iframe src="{{ page.pdf }}" class="pdf-embed" loading="lazy" title="{{ page.title }} slides"></iframe>
+          {% endif %}
+        </section>
+      {% endif %}
+
+      {% if page.images %}
+      <section class="project-images" data-aos="fade-up">
+        {% for image in page.images %}
+          {% assign ext = image | split: '.' | last | downcase %}
+          {% if ext == 'mp4' or ext == 'webm' %}
+            <video autoplay muted loop playsinline aria-label="{{ page.title }} demo">
+              <source src="{{ image }}" type="video/{{ ext }}">
+            </video>
+          {% else %}
+            <img src="{{ image }}" alt="{{ page.title }} screenshot" loading="lazy">
+          {% endif %}
+        {% endfor %}
+      </section>
+      {% endif %}
+    </article>
+  </main>
+
+  {% include footer.html %}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="/assets/js/myscripts.js"></script>

@@ -1,9 +1,14 @@
 ---
 layout: project
-title: "OpenGL Text-Renderer"
+title: "OpenGL Text Renderer"
+eyebrow: "Project · 2024"
+subtitle: "Text renderer that runs on font sheets and array textures. Does word wrap with hyphenation, shrinks to fit a box, truncates with ellipsis, and pulls localized strings from a CSV."
+tech:
+  - C++
+  - OpenGL
+  - GLSL
 github_link: "https://github.com/Bbrizly/OpenGL-Text-Renderer"
-images:
-  - "/assets/images/s2.webp"
+hero_image: "/assets/images/s2.webp"
 ---
 
 This **OpenGL-based Text-Renderer** uses a Font-sheet approach to dynamically shrink text to fit textboxes. 
@@ -31,7 +36,7 @@ This **OpenGL-based Text-Renderer** uses a Font-sheet approach to dynamically sh
    - This keeps it flexible for adding or removing text boxes at runtime.
 
 You get a **scalable** text-rendering system that can handle multiple fonts, multiple languages, on-the-fly changes, and robust 
-word-wrapping/truncation — **all** driven by array textures for efficiency.
+word-wrapping/truncation. **All** of it runs through array textures for efficiency.
 
 - **Highlights**:
   - Dynamic word-wrapping

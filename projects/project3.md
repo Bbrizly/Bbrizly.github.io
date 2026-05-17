@@ -1,9 +1,15 @@
 ---
 layout: project
 title: "Volpe Engine"
+eyebrow: "Engine · 2024"
+subtitle: "Small 3D engine I built from scratch in C++. Scene graph with quad and octree culling, PBR lighting, an array-texture text renderer, and a GPU-instanced particle system."
+tech:
+  - C++
+  - OpenGL
+  - GLSL
+  - PBR
 github_link: "https://github.com/Bbrizly/Volpe-Engine"
-images:
-  - "/assets/images/gif.mp4"
+hero_image: "/assets/images/gif.mp4"
 ---
 
 **Volpe Engine** is an optimized game engine featuring:
@@ -13,10 +19,10 @@ images:
 
 ## Overview
 
-Volpe Engine aims to provide a small but complete environment for real–time 3D rendering. Key features include:
+Volpe Engine aims to provide a small but complete environment for real-time 3D rendering. Key features include:
 
--   **Scene Graph & Node**: Nodes can have parent–child relationships, maintain local transforms, and propagate updates.
--   **Camera**: Supports multiple camera styles—First Person and Orbit—through an abstract `Camera` interface.
+-   **Scene Graph & Node**: Nodes can have parent-child relationships, maintain local transforms, and propagate updates.
+-   **Camera**: Supports multiple camera styles (First Person and Orbit) through an abstract `Camera` interface.
 -   **Quad & Oct Tree**: The engine dynamically switches between a **QuadTree** for 2D spatial partitioning (XZ plane) and an **Octree** for full 3D space division.
 -   **Camera Frustum Culling**: Uses **AABB (Axis-Aligned Bounding Boxes)** and **Sphere Bounding Volumes** to determine if objects are within the camera’s view, optimizing rendering.
 -   **Dynamic Node Lighting**: Nodes are automatically assigned to active lights within their spatial partition, allowing for **dynamic light updates** based on object position.
@@ -40,7 +46,7 @@ A user-defined class that ties the scene, cameras, and quadtree together. In **V
 
 ### **`Scene` Singleton**
 
-Central to Volpe Engine is the **Scene**. It maintains a list of top–level scene `Node` objects, an active camera, and a `QuadTree` for culling. Typical usage:
+Central to Volpe Engine is the **Scene**. It maintains a list of top-level scene `Node` objects, an active camera, and a `QuadTree` for culling. Typical usage:
 
 1.  **Populate** the scene by adding `DebugCube` (or other) nodes.
 2.  **BuildQuadTree** once the scene is initialized.

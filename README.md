@@ -1,207 +1,112 @@
 # Bbrizly.github.io
 
-Personal portfolio site for Bassam Kamal. Built with **Jekyll** (static site generator) and deployed via **GitHub Pages** at <https://bbrizly.github.io>.
+Personal portfolio. Jekyll, hosted on GitHub Pages at https://bbrizly.github.io.
 
-> TL;DR — edit `index.html` for the homepage, drop images into `assets/images/`, push to `main`, GitHub Pages rebuilds automatically.
+Push to `main`, the site rebuilds in ~30 seconds.
 
----
-
-## 1. Stack & how it works
-
-| Layer | What it is | Where |
-|---|---|---|
-| Static site generator | **Jekyll 4** (Ruby) | `Gemfile`, `_config.yml` |
-| Templating | **Liquid** (`{% %}` / `{{ }}` tags) | `_layouts/`, `_includes/`, `.md` files |
-| Theme base | `minima` gem (lightly used) | `Gemfile` |
-| Styles | Plain CSS, single file | `assets/css/style.css` |
-| JS | Vanilla JS, single file | `assets/js/myscripts.js` |
-| Animations | [AOS](https://michalsnik.github.io/aos/) (CDN) | loaded in `index.html` + `_layouts/project.html` |
-| Icons | Font Awesome 6 (CDN) | same |
-| Font | Poppins (Google Fonts, CDN) | `index.html` |
-| Hosting | GitHub Pages (auto-deploys from `main`) | — |
-
-**How a request flows:**
-1. `index.html` is the homepage. Its `---\n---` front matter (the empty YAML block at the top) tells Jekyll “process this file”.
-2. Jekyll runs the file through Liquid, substituting `{% include header.html %}` and `{% include footer.html %}` from `_includes/`.
-3. Each `.md` file in `projects/` declares `layout: project`, so Jekyll wraps its markdown content inside `_layouts/project.html` and outputs it as `/projects/projectN.html`.
-4. The whole built site lands in `_site/` (gitignored / not edited by hand).
-
----
-
-## 2. Project layout
-
-```
-.
-├── _config.yml              # Site title, URL, theme
-├── Gemfile / Gemfile.lock   # Ruby dependencies (Jekyll, minima)
-├── index.html               # ← The homepage (hero, projects grid, exp, skills, …)
-├── _includes/
-│   ├── header.html          # Top bar: name, social links, nav menu
-│   └── footer.html          # Footer copyright
-├── _layouts/
-│   └── project.html         # Wrapper template for every project sub-page
-├── projects/
-│   ├── project1.md          # OpenGL Cityscape  → /projects/project1.html
-│   ├── project2.md          # OpenGL Text-Renderer
-│   ├── project3.md          # Volpe Engine
-│   └── project4.md          # OpenGL Particle System
-├── assets/
-│   ├── css/style.css        # All styles
-│   ├── js/myscripts.js      # Slideshow, tabs, smooth scroll, active-nav
-│   └── images/              # All images & GIFs referenced by the site
-├── documents/
-│   └── Bassam's tech resume.pdf  # Linked from the header resume icon
-├── _site/                   # Build output — DO NOT EDIT (regenerated)
-└── vendor/                  # Locally bundled gems (gitignore-able)
-```
-
----
-
-## 3. Local development
-
-### One-time setup (macOS)
-
-The `Gemfile.lock` pins **Bundler 2.6.6**, which needs **Ruby ≥ 3.1**. macOS ships an old Ruby 2.6, so use Homebrew’s Ruby:
+## Run locally
 
 ```bash
-brew install ruby                                      # if not already installed
-echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+bundle install                            # one time
+bundle exec jekyll serve --livereload     # http://127.0.0.1:4000
 ```
 
-Verify:
-```bash
-ruby -v       # should be 3.x or 4.x
-bundle -v     # should be 2.6.6
-```
+Needs Ruby 3.1+. Mac ships with 2.6, so `brew install ruby` and add `/opt/homebrew/opt/ruby/bin` to your PATH.
 
-Install gems:
-```bash
-bundle install
-```
+## Where things live
 
-### Run / build
+| File | What it controls |
+|---|---|
+| `index.html` | Homepage: hero, project cards, work history, awards, skills |
+| `projects/*.md` | One Markdown file per project detail page |
+| `_layouts/project.html` | Frame every project page sits inside |
+| `_includes/footer.html` | Footer on every page |
+| `assets/images/` | All images, videos, GIFs |
+| `assets/css/style.css` | All styles |
+| `documents/` | Resume PDF, slide decks, anything downloadable |
 
-```bash
-bundle exec jekyll serve --livereload   # dev server → http://127.0.0.1:4000
-bundle exec jekyll build                # one-shot build → _site/
-```
+Never edit `_site/`. Jekyll rewrites it on every save.
 
-Other useful flags:
-- `--port 4001` if 4000 is busy
-- `--drafts` to include drafts (none currently used)
+## Add a new project
 
----
-
-## 4. Common edits — recipes
-
-### Change the rotating hero images
-`index.html`, `<section class="hero">` block. Each slide is a `<div class="showcase-slide">` with an `<img src="/assets/images/...">` and a `<span class="showcase-label">`. The number of `<span class="showcase-dot">` elements must match the number of slides.
-
-### Change profile copy / intro paragraph
-`index.html`, `<div class="hero-text">` (right under the showcase).
-
-### Change name, subtitle, social links, nav, resume link
-`_includes/header.html`. Resume PDF lives in `documents/`; if you rename it, update the link there.
-
-### Edit / add a project card on the homepage
-`index.html` has two grids:
-- **Featured** (`.projects-featured`) — top 3 large cards.
-- **Other** (`.projects-grid`) — the rest.
-
-A card looks like this. Wrap it in `<a href="…">` only if it links to a sub-page; otherwise use a `<div>`.
-
-```html
-<a href="/projects/project5.html" class="project-card" data-aos="zoom-in">
-  <img src="/assets/images/myshot.png" alt="My Project">
-  <div class="content">
-    <div class="project-tags">
-      <span class="tag">C++</span>
-      <span class="tag">Vulkan</span>
-    </div>
-    <h3>My Project</h3>
-    <p>One-line description of what it does.</p>
-    <span class="project-link"><i class="fab fa-github"></i> View on GitHub</span>
-  </div>
-</a>
-```
-
-Useful card modifiers:
-- `class="project-card featured"` → larger card, used in the top grid.
-- `class="project-card no-image"` or `featured no-image` → text-only card with a cyan accent border.
-- `<span class="award-badge"><i class="fas fa-trophy"></i> Some Award</span>` → cyan award pill.
-- `<span class="shipped-badge"><i class="fas fa-rocket"></i> Deployed & In Use</span>` → green “shipped” pill.
-
-### Add a new project sub-page
-1. Create `projects/project5.md`:
-   ```markdown
+1. Create `projects/your-slug.md`:
+   ```yaml
    ---
    layout: project
-   title: "My New Project"
-   github_link: "https://github.com/Bbrizly/MyRepo"
+   title: "Your Project"
+   eyebrow: "Engine · 2025"
+   subtitle: "One or two sentences."
+   tech: [C++, OpenGL, GLSL]
+   github_link: "https://github.com/you/repo"
+   hero_image: "/assets/images/cover.webp"
    images:
-     - "/assets/images/myshot1.png"
-     - "/assets/images/myshot2.png"
+     - "/assets/images/shot-1.webp"
+     - "/assets/images/clip.mp4"
    ---
 
-   Markdown body goes here. Use normal markdown — headings, lists, links, images.
+   Markdown body. Use `##` for sections.
    ```
-2. Link to it from `index.html` with `href="/projects/project5.html"` (note: `.html`, not `.md` — Jekyll converts it).
-3. The images listed in front matter render in a gallery at the bottom of the page automatically (`_layouts/project.html`).
+2. Add a card in `index.html` inside `.projects-grid-v2`. Copy an existing card as the template. The card's `href="/projects/your-slug.html"` (Jekyll converts `.md` to `.html`).
 
-### Change images
-Drop any new file into `assets/images/` and reference it as `/assets/images/yourfile.png`. Supported: PNG, JPG, GIF, WebP. Big GIFs (`gif.gif`, `particle2.gif`) are several MB — consider compressing or converting to MP4 if performance matters.
+## Project card knobs (homepage)
 
-### Edit work experience tabs
-`index.html`, `<section id="experience">`. Each tab is one `<button class="job-btn" data-job="ID">` paired with one `<div class="job-description" id="ID">`. The `data-job` and `id` must match. JS handles the toggling.
+- **Filter chip mapping**: `data-tags="games-graphics ai-ml accessibility mobile-web"` (space-separated). Drives which filter button shows the card. Counts recompute automatically.
+- **No-image card tile color**: `<div class="card-stack-tile" data-stack-color="games|ai|accessibility|mobile">`.
+- **Badges**:
+  ```html
+  <span class="card-badge badge-award"><i class="fas fa-trophy"></i> Some award</span>
+  <span class="card-badge badge-ship"><i class="fas fa-rocket"></i> Deployed</span>
+  ```
 
-### Edit skills, awards, education, contact
-All inline in `index.html` under their respective `<section>` blocks. Self-explanatory once you open the file.
+## Add images, videos, GIFs
 
-### Restyle the site
-All CSS is in `assets/css/style.css`. The accent color is `#0dcaf0` (cyan); the background is `#141e30`. Search-and-replace those if you want a new palette.
+Drop the file in `assets/images/`. Use `.webp` for screenshots (much smaller than `.png`). Then in the project's `.md`:
 
----
+- **Top-of-page hero**: `hero_image: "/assets/images/file.webp"`
+- **Gallery at bottom**: add to `images: [...]`
+- **Inline mid-article**: `![alt](/assets/images/file.webp)` in the body
 
-## 5. Deployment
+`.mp4` and `.webm` autoplay muted on loop, both in hero and gallery slots.
 
-Just push to `main`:
+## Add a slide deck
 
-```bash
-git add .
-git commit -m "Update portfolio"
-git push
+Save the PDF in `documents/`. If the deck has animations or embedded GIFs, save the `.pptx` next to it so they survive.
+
+```yaml
+pdf: "/documents/talk.pdf"
+pptx: "/documents/talk.pptx"   # optional, only when animations matter
 ```
 
-GitHub Pages picks it up automatically and rebuilds the site (usually within ~30 seconds). Live URL: <https://bbrizly.github.io>.
+The page auto-renders a download chip for each plus an inline PDF viewer that lazy-loads.
 
-`_config.yml` settings that matter for deployment:
-- `url: "https://bbrizly.github.io"` — used by `jekyll-seo-tag` for absolute URLs.
-- `baseurl: ""` — empty because the site is at the domain root, not a sub-path.
+## Topbar buttons on a project page
 
----
+Set the field, the button appears:
 
-## 6. Troubleshooting
+| Field | Button |
+|---|---|
+| `github_link:` | View on GitHub |
+| `steam_link:` | View on Steam |
+| `external_link:` | Visit site (override label with `external_label:`) |
 
-**`Could not find 'bundler' (2.6.6) … bundler requires Ruby version >= 3.1.0`**
-You’re on system Ruby 2.6. Install Homebrew Ruby and update your PATH (see Setup above).
+## Update the resume
 
-**Port 4000 already in use**
-`bundle exec jekyll serve --port 4001`
+Replace `documents/Bassam's tech resume.pdf` with a new file of the same name. Every link picks it up.
 
-**Changes to `_config.yml` aren’t showing up**
-Jekyll only reads `_config.yml` on startup. Stop the server (`Ctrl-C`) and restart it.
+## Deploy
 
-**Sass deprecation warnings on build**
-They come from the old `minima` theme using legacy `@import` / `lighten()` / `darken()`. They’re warnings, not errors — safe to ignore.
+```bash
+git add . && git commit -m "Update" && git push
+```
 
-**A new project page returns 404 locally**
-Make sure the file is `projects/projectN.md` (not in a subfolder), the front matter starts with `---` on the very first line, and you’re linking to `.html`, not `.md`.
+GitHub Pages rebuilds automatically.
 
----
+## When stuff breaks
 
-## 7. Conventions
+- **CSS not updating**: hard refresh (Cmd+Shift+R).
+- **New page is 404**: confirm the `.md` has `---` frontmatter and `layout: project`. Jekyll silently skips files without it.
+- **Image broken**: paths must start with `/` (e.g., `/assets/images/foo.webp`).
+- **Build error**: read the last line of Jekyll output. Usually a YAML typo in frontmatter.
+- **Port 4000 busy**: `--port 4001`.
 
-- Keep image filenames short and lowercase; reference them with absolute paths (`/assets/images/foo.png`) so they work on both the homepage and project sub-pages.
-- All Liquid logic stays in `_layouts/` and `_includes/`. Keep `index.html` as plain HTML where possible.
-- Don’t commit `_site/`, `.jekyll-cache/`, or `vendor/` (they’re build artifacts / local-only).
+For exhaustive recipes (every frontmatter field, every card variant, color tokens, filter chip internals) see `EDITING-GUIDE.md`.
