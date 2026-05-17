@@ -1,6 +1,42 @@
 title: "Bassam Kamal"
-description: "Software Engineer | Game Engine Developer | CS @ UPEI"
-url: "https://bbrizly.github.io" 
-baseurl: ""                     
+tagline: "Software Engineer & Game Engine Developer"
+description: "Software Engineer at Iron Fox Games. Computer Science graduate (UPEI, 2026), specialization in Video Games. I build custom 3D game engines, mobile apps, accessibility tools, and ML systems."
+url: "https://bbrizly.github.io"
+baseurl: ""
+
+author:
+  name: "Bassam Kamal"
+  email: "bassamkamal.py@gmail.com"
+
+social:
+  name: "Bassam Kamal"
+  links:
+    - https://github.com/Bbrizly
+    - https://www.linkedin.com/in/bassam-k/
+
+# Used by jekyll-seo-tag for Open Graph / Twitter share previews
+logo: /assets/favicon.svg
+twitter:
+  card: summary_large_image
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/s1.png
+
 markdown: kramdown
-theme: minima  # or any other Jekyll-compatible theme, if desired
+theme: minima
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+
+exclude:
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - package-lock.json
+  - assets/temporary
+  - "Screenshot 2026-04-05 at 9.33.26 PM.png"

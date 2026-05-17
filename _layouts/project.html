@@ -3,52 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ page.title }}</title>
+  <meta name="theme-color" content="#141e30">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate icon" href="/assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
   <link href="/assets/css/style.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  {% seo %}
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <div class="container">
     {% include header.html %}
-  
-    <main>
+
+    <main id="main">
       <article class="project-page" data-aos="fade-up">
 
         <a href="/#projects" class="back-btn">
-          <i class="fas fa-arrow-left"></i> Go Back
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> Go Back
         </a>
-        
+
         <header class="project-header">
           <h1>{{ page.title }}</h1>
           {% if page.github_link %}
-            <a href="{{ page.github_link }}" target="_blank" class="github-link">
-              <i class="fab fa-github"></i> 
+            <a href="{{ page.github_link }}" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View source on GitHub">
+              <i class="fab fa-github" aria-hidden="true"></i>
             </a>
           {% endif %}
         </header>
-  
+
         <section class="project-content">
           {{ content | markdownify }}
         </section>
-  
+
         {% if page.images %}
         <section class="project-images" data-aos="fade-up">
           {% for image in page.images %}
-            <img src="{{ image }}" alt="{{ page.title }} image">
+            {% assign ext = image | split: '.' | last | downcase %}
+            {% if ext == 'mp4' or ext == 'webm' %}
+              <video autoplay muted loop playsinline aria-label="{{ page.title }} demo">
+                <source src="{{ image }}" type="video/{{ ext }}">
+              </video>
+            {% else %}
+              <img src="{{ image }}" alt="{{ page.title }} screenshot" loading="lazy">
+            {% endif %}
           {% endfor %}
         </section>
         {% endif %}
       </article>
     </main>
-  
+
     {% include footer.html %}
   </div>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="/assets/js/myscripts.js"></script>
   <script>
-    AOS.init();
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      AOS.init({ disable: reduceMotion });
+    })();
   </script>
 </body>
 </html>

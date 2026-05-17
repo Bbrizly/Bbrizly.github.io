@@ -3,7 +3,7 @@ layout: project
 title: "Volpe Engine"
 github_link: "https://github.com/Bbrizly/Volpe-Engine"
 images:
-  - "/assets/images/gif.gif"
+  - "/assets/images/gif.mp4"
 ---
 
 **Volpe Engine** is an optimized game engine featuring:

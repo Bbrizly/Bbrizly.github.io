@@ -3,10 +3,10 @@ layout: project
 title: "OpenGL Cityscape"
 github_link: "https://github.com/Bbrizly/Cityscape"
 images:
-  - "/assets/images/s1.png"
-  - "/assets/images/z1.png"
-  - "/assets/images/z2.png"
-  - "/assets/images/z3.png"
+  - "/assets/images/s1.webp"
+  - "/assets/images/z1.webp"
+  - "/assets/images/z2.webp"
+  - "/assets/images/z3.webp"
 ---
 
 Here is a detailed blog post about **OpenGL Cityscape**.

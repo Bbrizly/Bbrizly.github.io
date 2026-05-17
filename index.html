@@ -27,8 +27,6 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 <body>
   <a class="skip-link" href="#about">Skip to content</a>
 
-  {% include header.html %}
-
   <!-- HERO -->
   <section class="hero-v2" id="about" aria-label="About">
 
@@ -167,7 +165,6 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
     <section class="projects-v2" id="projects" data-aos="fade-up">
       <div class="projects-head">
         <h2>Projects</h2>
-        <p class="projects-sub">Filter to focus on what matters.</p>
       </div>
 
       <div class="filter-row" role="group" aria-label="Filter projects by category">
@@ -183,52 +180,50 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 
       <div class="projects-grid-v2">
 
-        <a href="/projects/project3.html" class="project-card project-card-featured" data-tags="games-graphics">
+        <a href="/projects/project3.html" class="project-card" data-tags="games-graphics">
           <video class="card-media" autoplay muted loop playsinline poster="/assets/images/s1.webp" aria-label="Volpe Engine demo">
             <source src="/assets/images/gif.mp4" type="video/mp4">
           </video>
           <div class="card-body">
-            <div class="card-tags">
-              <span>C++</span><span>OpenGL</span><span>GLSL</span><span>PBR</span>
-            </div>
             <h3>Volpe Engine</h3>
-            <p>Custom 3D game engine built from scratch with PBR lighting, dynamic-tree spatial partitioning, frustum culling, localization-aware text rendering, and an instanced particle system with custom GLSL shaders.</p>
+            <p>Custom 3D game engine built from scratch with PBR lighting, dynamic-tree spatial partitioning, frustum culling, and an instanced particle system with custom GLSL shaders.</p>
+            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span><span>PBR</span></div>
             <span class="card-badge badge-ship"><i class="fab fa-github" aria-hidden="true"></i> Open source</span>
           </div>
         </a>
 
         <div class="project-card no-image" data-tags="ai-ml accessibility">
           <div class="card-stack-tile" data-stack-color="ai">
-            <span class="card-stack-glyph">// AI · COMPUTER VISION</span>
             <span class="card-stack-name">Adaptiv AI</span>
-            <span class="card-stack-tags"><span>Python</span><span>TF Lite</span><span>PyTorch</span></span>
           </div>
           <div class="card-body">
-            <p>AI fitness coach using on-device pose estimation to analyze exercise form in real time. Custom ML models for pose estimation and exercise classification, from training to on-device deployment.</p>
+            <h3>Adaptiv AI</h3>
+            <p>AI fitness coach using on-device pose estimation to analyze exercise form in real time. Custom ML models from training to on-device deployment.</p>
+            <div class="card-tags"><span>Python</span><span>TF Lite</span><span>PyTorch</span></div>
             <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Spark Tank 2.1 Winner</span>
           </div>
         </div>
 
         <div class="project-card no-image" data-tags="accessibility shipped">
           <div class="card-stack-tile" data-stack-color="accessibility">
-            <span class="card-stack-glyph">// ACCESSIBILITY · DESKTOP</span>
             <span class="card-stack-name">QuadStick Config</span>
-            <span class="card-stack-tags"><span>C#</span><span>.NET</span><span>WPF</span><span>Serial</span></span>
           </div>
           <div class="card-body">
-            <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication for profile flashing, multi-screen configuration workflow, and automated CI/CD pipelines.</p>
+            <h3>QuadStick Config</h3>
+            <p>Desktop application for quadriplegic gamers to configure accessibility hardware controllers. Real-time serial port communication and automated CI/CD pipelines.</p>
+            <div class="card-tags"><span>C#</span><span>.NET</span><span>WPF</span><span>Serial</span></div>
             <span class="card-badge badge-ship"><i class="fas fa-rocket" aria-hidden="true"></i> Deployed &amp; in use</span>
           </div>
         </div>
 
         <div class="project-card no-image" data-tags="mobile-web games-graphics">
           <div class="card-stack-tile" data-stack-color="mobile">
-            <span class="card-stack-glyph">// MOBILE · AR · CLOUD</span>
-            <span class="card-stack-name">Pokemon Go Mobile Game</span>
-            <span class="card-stack-tags"><span>Flutter</span><span>Firebase</span><span>AWS</span><span>Docker</span></span>
+            <span class="card-stack-name">Pokemon Go Game</span>
           </div>
           <div class="card-body">
-            <p>Pokemon Go-style mobile game with real-time map rendering, AR capture mechanics, and cloud-synced user state. RESTful API architecture connecting Flutter frontend to Firebase and AWS Lambda, with CI/CD via GitHub Actions and Docker.</p>
+            <h3>Pokemon Go Mobile Game</h3>
+            <p>Pokemon Go-style mobile game with real-time map rendering, AR capture mechanics, and cloud-synced user state. Flutter frontend to AWS Lambda and Firebase.</p>
+            <div class="card-tags"><span>Flutter</span><span>Firebase</span><span>AWS</span><span>Docker</span></div>
           </div>
         </div>
 
@@ -238,9 +233,9 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
             <img src="/assets/images/s1.png" alt="OpenGL Cityscape" width="1919" height="1009" loading="lazy">
           </picture>
           <div class="card-body">
-            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>Procedural</span></div>
             <h3>OpenGL Cityscape</h3>
             <p>Procedurally generated city with Voronoi-based layouts, dynamic day/night cycle, and optimized rendering.</p>
+            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>Procedural</span></div>
           </div>
         </a>
 
@@ -249,31 +244,31 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
             <source src="/assets/images/particle2.mp4" type="video/mp4">
           </video>
           <div class="card-body">
-            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span></div>
             <h3>GPU Particle System</h3>
             <p>GPU-accelerated particle system with multiple emitter shapes, physics-based effects, and custom shaders.</p>
+            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span></div>
           </div>
         </a>
 
         <div class="project-card no-image" data-tags="games-graphics">
           <div class="card-stack-tile" data-stack-color="games">
-            <span class="card-stack-glyph">// MULTIPLAYER · STEAM</span>
             <span class="card-stack-name">Multiplayer Racing</span>
-            <span class="card-stack-tags"><span>C++</span><span>Steam</span><span>GLSL</span><span>Procedural</span></span>
           </div>
           <div class="card-body">
-            <p>Final-year project with Steam-integrated multiplayer, physics-based vehicle mechanics, procedural map generation, and custom GLSL shaders for dynamic environments.</p>
+            <h3>Multiplayer Racing</h3>
+            <p>Final-year project with Steam-integrated multiplayer, physics-based vehicle mechanics, procedural map generation, and custom GLSL shaders.</p>
+            <div class="card-tags"><span>C++</span><span>Steam</span><span>GLSL</span><span>Procedural</span></div>
           </div>
         </div>
 
         <div class="project-card no-image" data-tags="ai-ml mobile-web">
           <div class="card-stack-tile" data-stack-color="ai">
-            <span class="card-stack-glyph">// SAAS · AI · TELEMETRY</span>
             <span class="card-stack-name">Upstart</span>
-            <span class="card-stack-tags"><span>React</span><span>Python</span><span>TensorFlow</span><span>Firebase</span></span>
           </div>
           <div class="card-body">
+            <h3>Upstart</h3>
             <p>AI-driven SaaS platform automating business department workflows with real-time data visualizations and telemetry-style monitoring pipelines.</p>
+            <div class="card-tags"><span>React</span><span>Python</span><span>TensorFlow</span><span>Firebase</span></div>
             <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Panther Pitch Finalist</span>
           </div>
         </div>
@@ -284,31 +279,31 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
             <img src="/assets/images/s2.png" alt="OpenGL text renderer" width="1272" height="745" loading="lazy">
           </picture>
           <div class="card-body">
-            <div class="card-tags"><span>C++</span><span>OpenGL</span></div>
             <h3>OpenGL Text Renderer</h3>
             <p>Dynamic text rendering with font-sheet optimization, multi-language support, and word-wrapping.</p>
+            <div class="card-tags"><span>C++</span><span>OpenGL</span></div>
           </div>
         </a>
 
         <div class="project-card no-image" data-tags="mobile-web">
           <div class="card-stack-tile" data-stack-color="mobile">
-            <span class="card-stack-glyph">// HACKATHON · WASTE</span>
             <span class="card-stack-name">Expiry</span>
-            <span class="card-stack-tags"><span>Web</span><span>Hackathon</span></span>
           </div>
           <div class="card-body">
+            <h3>Expiry</h3>
             <p>Restaurant waste-reduction web app that tracks ingredient expiry dates and suggests usage priorities. Built during UPEI Hackathon.</p>
+            <div class="card-tags"><span>Web</span><span>Hackathon</span></div>
           </div>
         </div>
 
         <div class="project-card no-image" data-tags="games-graphics">
           <div class="card-stack-tile" data-stack-color="games">
-            <span class="card-stack-glyph">// INDIE GAME · JAM RELEASE</span>
             <span class="card-stack-name">Cabin Boy</span>
-            <span class="card-stack-tags"><span>Game Dev</span><span>Game Jam</span></span>
           </div>
           <div class="card-body">
+            <h3>Cabin Boy</h3>
             <p>Indie game developed and released at the XP Indie Biz Connect Game Jam. Full development lifecycle from concept to playable release.</p>
+            <div class="card-tags"><span>Game Dev</span><span>Game Jam</span></div>
             <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Community Choice Award</span>
           </div>
         </div>
@@ -352,178 +347,44 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
       </div>
     </section>
 
-    <!-- SKILLS SECTION -->
-    <section id="skills" class="alt-section" data-aos="fade-up">
-      <h2>Technical Skills</h2>
-      <div class="skills-container">
-        <div class="skill-category">
-          <h3><i class="fas fa-code" aria-hidden="true"></i> Languages</h3>
-          <div class="skill-tags">
-            <span>C++</span>
-            <span>C#</span>
-            <span>C</span>
-            <span>JavaScript</span>
-            <span>Java</span>
-            <span>Python</span>
-            <span>SQL</span>
-            <span>GLSL</span>
-            <span>Dart</span>
-            <span>Angular</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3><i class="fas fa-tools" aria-hidden="true"></i> Frameworks &amp; Tools</h3>
-          <div class="skill-tags">
-            <span>OpenGL</span>
-            <span>Flutter</span>
-            <span>Firebase</span>
-            <span>AWS Lambda</span>
-            <span>.NET / WPF</span>
-            <span>React</span>
-            <span>TensorFlow</span>
-            <span>Docker</span>
-            <span>GitHub Actions</span>
-            <span>JSONForms</span>
-            <span>Zod</span>
-            <span>Visual Studio</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3><i class="fas fa-cogs" aria-hidden="true"></i> Technical Areas</h3>
-          <div class="skill-tags">
-            <span>Game Engine Programming</span>
-            <span>Graphics / Rendering</span>
-            <span>CI/CD Pipelines</span>
-            <span>Testing &amp; Debugging</span>
-            <span>Procedural Generation</span>
-            <span>Performance Optimization</span>
-            <span>REST APIs</span>
-            <span>Serial Communication</span>
-            <span>Technical Tooling</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- AWARDS MARQUEE -->
+    <!-- AWARDS -->
     <section class="awards-v2" id="awards" data-aos="fade-up">
       <div class="awards-head">
         <h2>Awards &amp; Recognition</h2>
-        <p class="awards-sub">Hover to pause.</p>
       </div>
-      <div class="awards-marquee">
-        <div class="awards-track">
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="gold"><i class="fas fa-trophy" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2025 · PEI</p>
-              <h3>Winner · Spark Tank 2.1</h3>
-              <p class="award-venue">PEI IT Alliance · The Foundry · Adaptiv AI</p>
-            </div>
+      <div class="awards-grid">
+        <div class="award-card">
+          <div class="award-icon" data-icon-color="gold"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+          <div class="award-info">
+            <p class="award-when">2025 · PEI</p>
+            <h3>Winner · Spark Tank 2.1</h3>
+            <p class="award-venue">PEI IT Alliance · The Foundry · Adaptiv AI</p>
           </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="silver"><i class="fas fa-medal" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2025 · UPEI</p>
-              <h3>Finalist · Panther Pitch</h3>
-              <p class="award-venue">Harry W. MacLauchlan Entrepreneurship Program · Upstart</p>
-            </div>
-          </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="blue"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2024 · PEI</p>
-              <h3>Community Choice</h3>
-              <p class="award-venue">XP Indie Biz Connect Game Jam · Cabin Boy</p>
-            </div>
-          </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="green"><i class="fas fa-star" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2022 · UPEI</p>
-              <h3>Welcome Week Leadership</h3>
-              <p class="award-venue">University of Prince Edward Island</p>
-            </div>
-          </div>
-
-          <!-- Loop duplicate for seamless 50% translation -->
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="gold"><i class="fas fa-trophy" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2025 · PEI</p>
-              <h3>Winner · Spark Tank 2.1</h3>
-              <p class="award-venue">PEI IT Alliance · The Foundry · Adaptiv AI</p>
-            </div>
-          </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="silver"><i class="fas fa-medal" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2025 · UPEI</p>
-              <h3>Finalist · Panther Pitch</h3>
-              <p class="award-venue">Harry W. MacLauchlan Entrepreneurship Program · Upstart</p>
-            </div>
-          </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="blue"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2024 · PEI</p>
-              <h3>Community Choice</h3>
-              <p class="award-venue">XP Indie Biz Connect Game Jam · Cabin Boy</p>
-            </div>
-          </div>
-
-          <div class="award-card">
-            <div class="award-icon" data-icon-color="green"><i class="fas fa-star" aria-hidden="true"></i></div>
-            <div class="award-info">
-              <p class="award-when">2022 · UPEI</p>
-              <h3>Welcome Week Leadership</h3>
-              <p class="award-venue">University of Prince Edward Island</p>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION SECTION -->
-    <section id="education" class="alt-section" data-aos="fade-up">
-      <h2>Education</h2>
-      <div class="education-card">
-        <div class="edu-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
-        <div class="edu-info">
-          <h3>Bachelor of Science in Computer Science</h3>
-          <p class="edu-specialization">Specialization in Video Games</p>
-          <p class="edu-school">University of Prince Edward Island (UPEI)</p>
-          <p class="edu-dates">September 2022 – April 2026</p>
-          <p class="edu-gpa">GPA: 3.8</p>
+        <div class="award-card">
+          <div class="award-icon" data-icon-color="silver"><i class="fas fa-medal" aria-hidden="true"></i></div>
+          <div class="award-info">
+            <p class="award-when">2025 · UPEI</p>
+            <h3>Finalist · Panther Pitch</h3>
+            <p class="award-venue">Harry W. MacLauchlan Entrepreneurship Program · Upstart</p>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" data-aos="fade-up">
-      <h2>Get In Touch</h2>
-      <p>Always open to new opportunities and ideas.</p>
-      <div class="contact-links">
-        <a href="mailto:bassamkamal.py@gmail.com" class="contact-item">
-          <i class="fas fa-envelope" aria-hidden="true"></i>
-          <span>bassamkamal.py@gmail.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/bassam-k/" target="_blank" rel="noopener noreferrer" class="contact-item">
-          <i class="fab fa-linkedin" aria-hidden="true"></i>
-          <span>linkedin.com/in/bassam-k</span>
-        </a>
-        <a href="https://github.com/Bbrizly" target="_blank" rel="noopener noreferrer" class="contact-item">
-          <i class="fab fa-github" aria-hidden="true"></i>
-          <span>github.com/bbrizly</span>
-        </a>
+        <div class="award-card">
+          <div class="award-icon" data-icon-color="blue"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
+          <div class="award-info">
+            <p class="award-when">2024 · PEI</p>
+            <h3>Community Choice</h3>
+            <p class="award-venue">XP Indie Biz Connect Game Jam · Cabin Boy</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon" data-icon-color="green"><i class="fas fa-star" aria-hidden="true"></i></div>
+          <div class="award-info">
+            <p class="award-when">2022 · UPEI</p>
+            <h3>Welcome Week Leadership</h3>
+            <p class="award-venue">University of Prince Edward Island</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
