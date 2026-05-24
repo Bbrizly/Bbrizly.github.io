@@ -39,7 +39,19 @@ Fix: move the ray origin to the player centre and run a multi-pass body filter t
 
 A raw raycast is too punishing at high speed. The aim assist fires extra rays in a structured pattern around the central aim direction. **5 rings, 8 directions per ring, 40 samples per crosshair.** First sample that hits a valid surface wins.
 
-{% comment %} IMAGE: the 5-ring 8-direction sample pattern with the crosshair in the centre. Easier to read as a real diagram than as ASCII. {% endcomment %}
+```
+       •   •   •          • = assist sample
+     •           •        × = central crosshair
+   •       •       •
+ •     •       •     •
+•    •     ×     •    •
+ •     •       •     •
+   •       •       •
+     •           •
+       •   •   •
+```
+
+Eight compass directions per ring (N, NE, E, SE, S, SW, W, NW), each scaled to its ring's radius.
 
 ```
 for ring in 1..5:

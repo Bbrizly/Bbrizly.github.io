@@ -15,12 +15,26 @@ Screen-space ray marching with Henyey-Greenstein scattering. Researched from gra
 
 ### How a pixel gets its colour
 
-Each pixel fires one ray that takes 48 sample steps through the scene depth. At each step:
+```
+camera
+   │
+   ▼
+┌──────┐
+│ ray  │ (one per pixel)
+└──┬───┘
+   │
+   ▼ 48 sample steps along the ray
+   ●───●───●───●───●───●───●───●───●───●───●───●─...
+   │   │   │   │   │   │   │   │   │   │   │
+   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼
+  density at each sample
+    = height term × ground proximity × 3D wind noise
 
-- Density comes from a height term, a ground-proximity term, and a 3D wind-driven noise field.
-- Scattered light comes from the Henyey-Greenstein phase function evaluated per light per step.
+  light at each sample
+    = sum over lights of Henyey-Greenstein( angle_to_light )
 
-The final pixel is the integral of density times light along the ray, clamped where the depth buffer says a solid surface stops the ray.
+  pixel = integrate density × light along ray, clamped by depth buffer
+```
 
 Sample count adapts from 16 (low) to 96 (ultra). 48 is the default.
 
@@ -64,6 +78,17 @@ Each version taught me what the next one had to fix.
 ## Trail renderer
 
 A glowing ribbon behind each player. Ring buffer of points, rebuilt into a triangle strip every frame on the CPU. Old points expire on a lifetime so the buffer stays bounded.
+
+```
+   [P0][P1][P2][P3][P4][P5][P6][P7][P8] ... [PN]
+    ↑                                          ↑
+    oldest point                       newest point (player pos)
+
+each frame:
+    push player position
+    drop points older than lifetime
+    rebuild triangle strip mesh from the live window
+```
 
 ### Acceleration drives the glow
 

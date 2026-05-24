@@ -57,6 +57,21 @@ Fix: tie both recording and playback to a fixed time base aligned to the race-st
 
 A deque of camera commands that play in order. When one finishes, the next pops.
 
+```
+queue (front to back):
+   [ MoveTo intro start  ]
+   [ MoveToWithLookAt    ]
+   [ FOVChange wide      ]
+   [ Wait 1.0s           ]
+   [ TransitionToPlayer  ]
+
+each frame:
+   front_command.Update(dt)
+   if front_command.IsFinished():
+       pop()
+       front_command.Start()   // next one
+```
+
 ### Seven command types
 
 | Command            | What it does                                          |
@@ -121,9 +136,26 @@ A runtime overlay shows culled vs rendered counts. That overlay is how the major
 
 Tracy profiling showed scene initialization was the single biggest performance bottleneck in the engine. Loading a scene froze the game for several seconds every time.
 
-The fix moves heavy resource loading onto a dedicated thread. The main thread keeps rendering the load screen at full frame rate and reads a `0.0` to `1.0` progress float to animate the bar. The freeze went away. Single biggest perceived performance improvement in the project.
+### Before
 
-{% comment %} IMAGE: the loading screen with the progress bar mid-load. {% endcomment %}
+```
+main thread:
+   ████████████████████████████████   load assets   (multi-second freeze)
+                                       render starts
+```
+
+### After
+
+```
+main thread:
+   ░░░░  load screen + render every frame  ░░░░
+loader thread:
+   ████████████████████████████████   load assets   (off the main thread)
+
+main reads progress (0.0 to 1.0 float) and animates the load bar
+```
+
+Single biggest perceived performance improvement in the project.
 
 ## Performance overhaul (Tracy-driven)
 

@@ -35,6 +35,17 @@ Everything from "noise stack" to "HeightTile" runs on a worker thread. Both uplo
 
 Layered Perlin noise. Each octave adds a finer level of detail on top of the last.
 
+```
+octave 1:  ████████████████████████   big rolling hills (low freq, high amp)
+octave 2:  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           hills with bumps  (2x freq, 0.5x amp)
+octave 3:  ▒▒▒▒▒▒▒▒                   ridges            (4x freq, 0.25x amp)
+octave 4:  ░░░░                       grit              (8x freq, 0.125x amp)
+                          sum
+                           │
+                           ▼
+                  final height value
+```
+
 - Lacunarity = 2.0 (each layer doubles in frequency)
 - Persistence = 0.5 (each layer halves in amplitude)
 
@@ -91,6 +102,23 @@ All visible chunks pack into one InstanceBuffer with their world position, atlas
 LOD does not change the mesh. It changes the index stride. Stride 1 hits every vertex for full detail. Stride 2 skips every other vertex, which cuts triangles to a quarter.
 
 ```
+stride 1 (full detail, near camera)
+  •───•───•───•───•───•───•
+  │ \ │ \ │ \ │ \ │ \ │ \ │
+  •───•───•───•───•───•───•
+  │ \ │ \ │ \ │ \ │ \ │ \ │
+  •───•───•───•───•───•───•
+
+stride 2 (quarter triangles, mid range)
+  •───────•───────•───────•
+  │   \   │   \   │   \   │
+  │       │       │       │
+  •───────•───────•───────•
+  │   \   │   \   │   \   │
+  •───────•───────•───────•
+```
+
+```
 for chunk in visible_chunks:
     stride = lod_for_distance(camera, chunk)
     index_buffer = shared_index_buffers[stride]
@@ -98,8 +126,6 @@ for chunk in visible_chunks:
 ```
 
 Vertex buffer untouched. Only the index buffer swaps. Cheap to change per chunk per frame.
-
-{% comment %} IMAGE: wireframe of two adjacent chunks at stride 1 vs stride 2 to show the triangle density drop. {% endcomment %}
 
 ## Physics
 
