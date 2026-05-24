@@ -22,7 +22,7 @@ pptx: "/documents/splat-ii-dev-log.pptx"
 
 ## Overview
 
-Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where players swing through a procedurally generated city using dual grappling hooks, race their own ghost or other players over Steam, and try to reach the black hole at the end of the map. Built by a team of three (Bassam, Ahmed, Ben) over the school year.
+Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where players swing through a procedurally generated city using dual grappling hooks, race their own ghost or other players over Steam, and try to reach the black hole at the end of the map.
 
 ## Highlights
 
@@ -33,7 +33,7 @@ Splat II is my final-year capstone, built in C++ on top of a custom engine frame
 
 ## My contribution
 
-Splat II was a team of three. The README's "Who Built What" section lists the full split. The parts I owned end-to-end:
+The systems I owned end-to-end:
 
 - **Player Locomotion**: the largest gameplay component in the project. Dual grappling hooks with independent constraints, ring aim assist (5 rings, 8 directions, 40 samples per crosshair), coyote time with three trackers, spring dynamics with slack accumulation and boost conversion, physics layers, and the bug fix that moved the grapple raycast origin from the camera to the player's centre so it stopped getting stuck inside walls.
 - **Terrain System**: layered Perlin with biome blending, thermal erosion, chunk streaming on worker threads, a shared vertex grid with stride-based LOD, height storage as `uint16` in a GPU texture atlas, and Jolt heightfield collision.

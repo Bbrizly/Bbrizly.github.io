@@ -12,72 +12,43 @@ Every match gets a fresh world from a seed. The terrain has to stream in around 
 ## Pipeline
 
 ```
-   seed
-     │
-     ▼
-  ┌─────────────┐   worker thread
-  │ noise stack │   (Perlin octaves)
-  └──────┬──────┘
-         ▼
-  ┌─────────────┐   worker thread
-  │ biome blend │   (plains + mountains)
-  └──────┬──────┘
-         ▼
-  ┌──────────────┐  worker thread
-  │ erosion pass │  (smooth steep slopes)
-  └──────┬───────┘
-         ▼
-  ┌───────────────────────────┐
-  │ HeightTile (uint16 grid)  │
-  └──────┬─────────────┬──────┘
-         │             │
-         ▼             ▼
-  GPU texture     Jolt heightfield
-  atlas upload    shape register
-         │             │
-         └──────┬──────┘
-                ▼
-          chunk goes live
+seed
+  │
+  ▼
+noise stack ──► biome blend ──► thermal erosion
+                                       │
+                                       ▼
+                                HeightTile (uint16 grid)
+                                       │
+                              ┌────────┴────────┐
+                              ▼                 ▼
+                       GPU atlas upload   Jolt heightfield
+                              │                 │
+                              └────────┬────────┘
+                                       ▼
+                                 chunk goes live
 ```
 
-Both uploads must succeed before the chunk is visible. Either fails, both roll back.
+Everything from "noise stack" to "HeightTile" runs on a worker thread. Both uploads must succeed before the chunk is visible. Either fails, both roll back.
 
 ## Noise stack
 
-Heights come from layered Perlin noise. Each octave adds a finer level of detail on top of the last:
-
-```
-octave 1:  ████████████████████████   big rolling hills (low freq, high amp)
-octave 2:  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           hills with bumps  (2x freq, 0.5x amp)
-octave 3:  ▒▒▒▒▒▒▒▒                   ridges            (4x freq, 0.25x amp)
-octave 4:  ░░░░                       grit              (8x freq, 0.125x amp)
-                          sum
-                           │
-                           ▼
-                  final height value
-```
+Layered Perlin noise. Each octave adds a finer level of detail on top of the last.
 
 - Lacunarity = 2.0 (each layer doubles in frequency)
 - Persistence = 0.5 (each layer halves in amplitude)
 
 Two biome masks (plains, mountains) sample the same noise at different offsets so they do not correlate. They blend by weight to produce smooth transitions instead of hard borders.
 
+{% comment %} IMAGE: side-by-side of raw noise, biome mask, blended terrain. {% endcomment %}
+
 ## Thermal erosion
 
-After the noise pass, a thermal erosion sweep walks the height grid. Where two neighbouring cells have a slope above a threshold, material moves from the higher cell to the lower one.
+After the noise pass, a thermal erosion sweep walks the height grid. Where two neighbouring cells have a slope above a threshold, material moves from the higher cell to the lower one. Rough ridges become weathered slopes.
 
-```
-before erosion:        after erosion:
+Runs once at generation time on the worker thread, so it costs nothing at runtime.
 
-      _/\_                   _/\_
-     /    \                 /    \
-    /  /\  \               /  __  \
-   /  /  \  \             /  /  \  \
-  /  /    \  \           /  /    \  \
- _/__\____/\__\         _/__\____/\__\
-```
-
-Rough ridges become weathered slopes. Runs once at generation time on the worker thread, so it costs nothing at runtime.
+{% comment %} IMAGE: before/after of the erosion pass on the same seed. {% endcomment %}
 
 ## uint16 heights
 
@@ -85,12 +56,10 @@ Each height sample is a 16-bit unsigned integer (0 to 65535). Half the memory of
 
 ## Streaming
 
-TerrainSystem decides which chunks should exist based on what the camera can see. Missing chunks get queued for worker threads. Those threads run the full pipeline above without touching the main thread.
-
-When a chunk finishes, its height data uploads to a GPU texture atlas using `glTexSubImage3D`. An LRU cache evicts the least-recently-used chunk when the atlas fills.
+TerrainSystem decides which chunks should exist based on what the camera can see. Missing chunks get queued for worker threads.
 
 ```
-camera moves forward
+camera moves
     │
     ▼
 visible set changes ──► missing chunks queued
@@ -98,7 +67,6 @@ visible set changes ──► missing chunks queued
                               ▼
                        worker pool generates
                               │
-                              ▼
               ┌───────────────┴───────────────┐
               ▼                               ▼
        upload to GPU atlas        register Jolt heightfield
@@ -108,41 +76,19 @@ visible set changes ──► missing chunks queued
               chunk live (visible + solid)
 ```
 
+When a chunk finishes, its height data uploads to a GPU texture atlas using `glTexSubImage3D`. An LRU cache evicts the least-recently-used chunk when the atlas fills.
+
 Unload runs in reverse: physics shape first, then visual. A chunk never has collision without a visual.
 
 ## One vertex buffer for the entire world
 
-Every chunk renders from the same shared vertex buffer. The buffer stores only `(x, z)` grid positions as a uint16 pair. **4 bytes per vertex.** The vertex shader looks up the real height from the texture atlas and computes normals by sampling neighbours.
+Every chunk renders from the same shared vertex buffer. The buffer stores only `(x, z)` grid positions as a `uint16` pair. **4 bytes per vertex.** The vertex shader looks up the real height from the texture atlas and computes normals by sampling neighbours.
 
-```
-shared vertex buffer  ──┐
-                        │
-chunk A instance data ──┼──► one glDrawElementsInstanced call
-chunk B instance data ──┤        renders all visible chunks
-chunk C instance data ──┤
-... etc                 ──┘
-```
+All visible chunks pack into one InstanceBuffer with their world position, atlas layer, height range, and LOD level. One `glDrawElementsInstanced` call draws the entire visible terrain, regardless of chunk count.
 
 ## Stride-based LOD
 
-LOD does not change the mesh. It changes the index stride.
-
-```
-stride 1 (full detail, near camera)
-  •───•───•───•───•───•───•
-  │ \ │ \ │ \ │ \ │ \ │ \ │
-  •───•───•───•───•───•───•
-  │ \ │ \ │ \ │ \ │ \ │ \ │
-  •───•───•───•───•───•───•
-
-stride 2 (quarter triangles, mid range)
-  •───────•───────•───────•
-  │   \   │   \   │   \   │
-  │       │       │       │
-  •───────•───────•───────•
-  │   \   │   \   │   \   │
-  •───────•───────•───────•
-```
+LOD does not change the mesh. It changes the index stride. Stride 1 hits every vertex for full detail. Stride 2 skips every other vertex, which cuts triangles to a quarter.
 
 ```
 for chunk in visible_chunks:
@@ -153,14 +99,8 @@ for chunk in visible_chunks:
 
 Vertex buffer untouched. Only the index buffer swaps. Cheap to change per chunk per frame.
 
+{% comment %} IMAGE: wireframe of two adjacent chunks at stride 1 vs stride 2 to show the triangle density drop. {% endcomment %}
+
 ## Physics
 
-TerrainPhysics builds Jolt heightfield shapes directly from the same height data. Same numbers feed both the renderer and the collision system, so what you see is exactly what you collide with.
-
-## Files
-
-- `wolf/terrain/TerrainSystem.h` (chunk lifecycle + streaming)
-- `wolf/terrain/TerrainGenerator.h` (Perlin, biomes, erosion)
-- `wolf/terrain/TerrainRenderer.h` (shared grid, atlas, stride LOD, instancing)
-- `wolf/terrain/TerrainPhysics.h` (Jolt heightfield)
-- `wolf/terrain/TerrainBuildingSystem.h` (see [Buildings](/projects/splat2/buildings/))
+TerrainPhysics builds Jolt heightfield shapes directly from the same height data the renderer uses. Same numbers feed both systems, so what you see is what you collide with.

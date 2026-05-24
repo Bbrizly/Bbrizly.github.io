@@ -13,96 +13,64 @@ Three effects do most of the visual work in Splat II. All three are built from s
 
 Screen-space ray marching with Henyey-Greenstein scattering. Researched from graphics papers, rewritten four times to hit 60 fps.
 
-### Per-pixel ray march
+### How a pixel gets its colour
+
+Each pixel fires one ray that takes 48 sample steps through the scene depth. At each step:
+
+- Density comes from a height term, a ground-proximity term, and a 3D wind-driven noise field.
+- Scattered light comes from the Henyey-Greenstein phase function evaluated per light per step.
+
+The final pixel is the integral of density times light along the ray, clamped where the depth buffer says a solid surface stops the ray.
+
+Sample count adapts from 16 (low) to 96 (ultra). 48 is the default.
+
+### Performance pass
+
+Full resolution was too expensive. Fog is low-frequency so the trick is to render small and reconstruct:
 
 ```
-camera
+half-resolution fog buffer
    │
    ▼
-┌──────┐
-│ ray  │ (one per pixel)
-└──┬───┘
+Halton-jittered ray origins (cuts visible banding)
    │
-   ▼ 48 sample steps along the ray
-   ●───●───●───●───●───●───●───●───●───●───●───●─...
-   │   │   │   │   │   │   │   │   │   │   │
-   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼
-  density at each sample
-    = height term × ground proximity × 3D wind noise
-
-  light at each sample
-    = sum over lights of Henyey-Greenstein( angle_to_light )
-
-  pixel = integrate density × light along ray, clamped by depth buffer
+   ▼
+temporal filter (blend with reprojected previous frame)
+   │
+   ▼
+upscale to full screen
+   │
+   ▼
+composite into the scene
 ```
-
-Settings adapt the sample count from 16 (low quality) up to 96 (ultra). 48 is the default.
-
-### Half resolution with temporal filter
-
-Full resolution was too expensive. Fog is low-frequency anyway, so the trick is to render small and reconstruct.
-
-```
-half-res fog buffer
-     │
-     ▼
-  Halton-jitter ray origins (reduces banding)
-     │
-     ▼
-  temporal filter (blend with last frame's result, reprojected)
-     │
-     ▼
-  upscale to full screen
-     │
-     ▼
-  composite into the scene
-```
-
-Depth buffer is integrated so fog stops at solid surfaces.
 
 ### Player lights scatter inside it
 
-Each player emits a point light. The fog samples those lights at every step, so a player across the map shows up as a glow inside the fog even when their body is hidden behind geometry. Turned out to be one of the strongest readability cues in playtests.
+Each player emits a point light. The fog samples those lights at every step, so a player on the other side of the map shows up as a glow inside the fog even when their body is hidden behind geometry. Turned out to be one of the strongest readability cues in playtests.
 
-{% comment %} IMAGE: a screenshot above the fog line vs inside it, side by side. {% endcomment %}
+{% comment %} IMAGE: above the fog vs inside it, side by side. {% endcomment %}
 
 ### Iteration history
 
-```
-v1   basic exponential fog       too flat, no shape
-v2   layered fog at heights      banding between layers
-v3   thin fog film overlay       no depth, looked like a filter
-v4   full ray-marched volumetric shipped version
-```
+| Version | What it was               | Why it failed                     |
+|---------|---------------------------|-----------------------------------|
+| v1      | Basic exponential fog     | Too flat, no shape                |
+| v2      | Layered fog at heights    | Visible banding between layers    |
+| v3      | Thin fog film overlay     | No depth, looked like a filter    |
+| v4      | Full ray-marched volumetric | Shipped version                 |
 
 Each version taught me what the next one had to fix.
 
 ## Trail renderer
 
-A glowing ribbon behind each player. Ring buffer of points, rebuilt into a triangle strip every frame on the CPU.
-
-### Ring buffer
-
-```
-   [P0][P1][P2][P3][P4][P5][P6][P7][P8] ... [PN]
-    ↑                                          ↑
-    oldest point                       newest point (player pos)
-
-each frame:
-    push player position
-    drop points older than lifetime
-    rebuild triangle strip mesh from the live window
-```
+A glowing ribbon behind each player. Ring buffer of points, rebuilt into a triangle strip every frame on the CPU. Old points expire on a lifetime so the buffer stays bounded.
 
 ### Acceleration drives the glow
 
-Speed is constant most of the time so it makes a bad input. Acceleration spikes on boosts, grapple yanks, and direction changes, so the trail visibly flashes on those events.
+Speed is roughly constant most of the time and makes a bad input. Acceleration spikes on boosts, grapple yanks, and direction changes, so driving the glow off acceleration makes those moments visibly flash.
 
 ```
 glow_intensity = base + k * length(acceleration)
-
-cruising at constant speed  → low glow (subtle)
-boost / grapple yank        → spike (visible flash)
 ```
 
 The shader builds a solid core stripe with soft edges plus a wider glow halo. Smooth turn handling prevents kinks where the path bends sharply.
@@ -111,47 +79,28 @@ The shader builds a solid core stripe with soft edges plus a wider glow halo. Sm
 
 First version covered the screen and obscured the city. I iterated the width curve, alpha falloff, and segment length until the trail read as a path instead of a banner.
 
+{% comment %} IMAGE: a clip of a player looping around a building, trail visible. {% endcomment %}
+
 ## Black hole shader
 
 Replaced the original basic goal object. Fully procedural, no textures.
 
 ### 27 uniforms, grouped
 
-```
-┌─────────────────────────┬───────────────────────────────────┐
-│ spiral arms             │ count, angle, twist rate, density │
-│ halftone dots           │ dot size, screen scale, threshold │
-│ screen-space distortion │ strength, radius, falloff curve   │
-│ colour cycling          │ palette, cycle speed, mix curve   │
-│ phase timing            │ activation, pulse rate, intro/out │
-└─────────────────────────┴───────────────────────────────────┘
-```
+| Group                  | Controls                                         |
+|------------------------|--------------------------------------------------|
+| Spiral arms            | count, angle, twist rate, density                |
+| Halftone dots          | dot size, screen scale, threshold                |
+| Screen-space distortion| strength, radius, falloff curve                  |
+| Colour cycling         | palette, cycle speed, mix curve                  |
+| Phase timing           | activation, pulse rate, intro and outro          |
 
 ### Around the shader
 
-```
-   physics sensor sphere ──► triggers gameplay events
-                                   │
-                                   ▼
-                            (player reached the end)
-
-   ambient particle system
-        │
-        ▼
-   towards-point affector ──► particles swirl into the centre
-                              (long-range visual cue from far away)
-```
+A physics sensor sphere detects when the player enters the gravity well and triggers the end-of-level event. An ambient particle system with a "towards point" affector swirls particles into the centre. The pulled particles double as a long-range visual cue: from across the map you can see where the goal is.
 
 {% comment %} IMAGE: the black hole with the city visibly distorting behind it. {% endcomment %}
 
 ### Workflow
 
-I built the shader in Shadertoy first because iteration is fast there. Once it looked right, I ported it into `blackhole.fsh` / `blackhole.vsh` and tuned inside the engine across a few commits to lock in the spiral animation and the distortion field.
-
-## Files
-
-- `wolf/render/VolumetricFogPass.h`
-- `wolf/components/TrailRendererComponent.h`
-- `wolf/components/BlackHoleComponent.h`
-- `data/shaders/blackhole.fsh`, `blackhole.vsh`
-- `data/shaders/volumetric_fog.fsh`, `volumetric_fog.vsh`
+I built the shader in Shadertoy first because iteration is fast there. Once it looked right, I ported it into the engine and tuned across a few commits to lock in the spiral animation and the distortion field.

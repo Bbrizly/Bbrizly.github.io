@@ -25,17 +25,7 @@ The locomotion code reads input, queries the camera for the aim ray, runs aim as
 
 ## Two hooks, two constraints
 
-Left click fires the left hook, right click fires the right. Each hook runs an independent Jolt distance constraint between the player body and a world-space anchor. Both can be live at the same time. The visual rope mesh is a separate component (Ben built it, I added dual-hook support).
-
-```
-   input ──► aim ray ──► assist ──► hit point
-                                    │
-                                    ▼
-                        spawn distance constraint
-                                    │
-                                    ▼
-                       constraint pulls player toward anchor
-```
+Left click fires the left hook, right click fires the right. Each hook runs an independent Jolt distance constraint between the player body and a world-space anchor. Both can be live at the same time. The visual rope mesh sits in a separate component, and I added dual-hook support to it.
 
 ## The raycast origin bug
 
@@ -43,38 +33,13 @@ First version cast the grapple ray from the camera. Camera sits behind and above
 
 Fix: move the ray origin to the player centre and run a multi-pass body filter that ignores non-grappleable objects on the way out.
 
-```
-   BEFORE                          AFTER
-
-   camera                          camera
-      \                                \
-       \ ray                            \
-        \                                \
-         \                                \
-   ┌──────●─── player                   ┌──────● ───► ray ──► hit
-   │ wall │                             │ wall │
-   └──────┘                             └──────┘
-   ray hits back face                   ray starts at player
-   player snaps into wall               grapple hits the right surface
-```
+{% comment %} IMAGE: side-by-side diagram of the bug. Left panel shows camera ray hitting back face of wall. Right panel shows player-centred ray hitting the correct surface. {% endcomment %}
 
 ## Ring aim assist
 
-A raw raycast is too punishing at high speed. The aim assist fires extra rays in a structured pattern around the central aim direction. **5 rings, 8 directions per ring, 40 samples per crosshair.**
+A raw raycast is too punishing at high speed. The aim assist fires extra rays in a structured pattern around the central aim direction. **5 rings, 8 directions per ring, 40 samples per crosshair.** First sample that hits a valid surface wins.
 
-```
-       •   •   •          • = assist sample
-     •           •        × = central crosshair
-   •       •       •
- •     •       •     •
-•    •     ×     •    •
- •     •       •     •
-   •       •       •
-     •           •
-       •   •   •
-```
-
-Eight compass directions per ring (N, NE, E, SE, S, SW, W, NW), each scaled to a ring radius. The first sample that hits a valid surface wins.
+{% comment %} IMAGE: the 5-ring 8-direction sample pattern with the crosshair in the centre. Easier to read as a real diagram than as ASCII. {% endcomment %}
 
 ```
 for ring in 1..5:
@@ -113,16 +78,9 @@ Short enough that the game does not feel like it is playing for you. Long enough
 
 ## Spring with a slack mechanic
 
-The rope is a spring-damper between the player and the anchor. Standard so far. The extra layer on top:
+The rope is a spring-damper between the player and the anchor. The extra layer on top: hold shift to build slack, release to convert that slack into a forward boost. Players who learn the timing can chain swings with mid-air boosts.
 
-```
-hold shift  ──► slack accumulates in the rope
-release     ──► slack converts to forward boost
-```
-
-When the player holds shift, slack builds at a tunable rate. When they release, that slack pushes them along their velocity vector. Players who learn the timing can chain swings with mid-air boosts.
-
-In code, the spring carries two state values (`springBoost` and `springVelocity`) and the update reads:
+The spring carries two state values (`springBoost` and `springVelocity`):
 
 ```
 spring_accel = K * springBoost - decay * springVelocity
@@ -136,15 +94,13 @@ Tuned so the player accelerates toward the anchor smoothly, never feels rubbery,
 
 Each of the two crosshairs draws in one of three colours so you can read the available shot at a glance.
 
-```
-┌─────────┬─────────────────────────────────────────┐
-│  BLUE   │  hook is ready, target is valid          │
-│ YELLOW  │  coyote time is active (recent valid)    │
-│  GRAY   │  hook is disabled (cooldown or no aim)   │
-└─────────┴─────────────────────────────────────────┘
-```
+| Colour | Meaning                                        |
+|--------|------------------------------------------------|
+| Blue   | hook is ready, target is valid                 |
+| Yellow | coyote time is active (recent valid target)    |
+| Gray   | hook is disabled (cooldown or no valid aim)    |
 
-{% comment %} IMAGE: side by side of the dual crosshair in all three states. {% endcomment %}
+{% comment %} IMAGE: dual crosshair shown in all three states. {% endcomment %}
 
 ## Physics layers
 
@@ -157,10 +113,3 @@ The collision matrix separates player, building, terrain, trigger. The grapple r
 - Collider mismatch on curved buildings between the visual mesh and the physics shape (see [Buildings](/projects/splat2/buildings/)).
 
 None of those are interesting alone. Together they were most of the work.
-
-## Files
-
-- `wolf/components/PlayerLocomotion.h`
-- `src/components/PlayerLocomotion.cpp`
-- `wolf/components/CrosshairComponent.h`
-- `game/Components/GrappelingHook` (rope visual, Ben + dual support by me)

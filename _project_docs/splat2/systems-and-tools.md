@@ -57,49 +57,27 @@ Fix: tie both recording and playback to a fixed time base aligned to the race-st
 
 A deque of camera commands that play in order. When one finishes, the next pops.
 
-```
-queue (front to back):
-   [ MoveTo intro start  ]
-   [ MoveToWithLookAt    ]
-   [ FOVChange wide       ]
-   [ Wait 1.0s           ]
-   [ TransitionToPlayer  ]
-
-each frame:
-   front_command.Update(dt)
-   if front_command.IsFinished():
-       pop()
-       front_command.Start()   // next one
-```
-
 ### Seven command types
 
-```
-MoveTo              interpolate position over time
-MoveToWithLookAt    position and look target at the same time
-LookAt              rotate to face a target, no position change
-Wait                hold for a duration
-FOVChange           animate field of view
-CutTo               teleport instantly
-TransitionToPlayer  smoothly return camera behind the player
-```
+| Command            | What it does                                          |
+|--------------------|-------------------------------------------------------|
+| MoveTo             | Interpolate position over time                        |
+| MoveToWithLookAt   | Position and look target at the same time             |
+| LookAt             | Rotate to face a target, no position change           |
+| Wait               | Hold for a duration                                   |
+| FOVChange          | Animate field of view                                 |
+| CutTo              | Teleport instantly                                    |
+| TransitionToPlayer | Smoothly return camera behind the player              |
 
 Three easing curves are available on the time-based commands.
 
 ### Arc-length parameterization
 
-Without it, a camera moving along a curved path slows in sharp turns and speeds up in straight sections. Looks wrong.
+Without it, a camera moving along a curved path slows down through sharp turns and speeds up through straight sections, which looks wrong. With it, the camera moves at a constant speed regardless of path curvature.
 
-```
-naive parameterization (t = 0..1 over control points)
-   slow ──────► fast ──► slow ──► fast
-        sharp     straight   sharp   straight
+This pairs with the procedural building route system (see [Buildings](/projects/splat2/buildings/)). The opening flyover follows the real player path, not hardcoded waypoints.
 
-arc-length parameterization (t = 0..1 over distance travelled)
-   steady ────► steady ───► steady ───► steady
-```
-
-Pairs with the procedural building route system (see [Buildings](/projects/splat2/buildings/)). The opening flyover follows the real player path, not hardcoded waypoints.
+{% comment %} IMAGE: an opening cutscene clip following the route through the city. {% endcomment %}
 
 ## Culling: three passes
 
@@ -108,15 +86,15 @@ all objects in scene
         │
         ▼
 ┌──────────────────────────┐
-│ 1. octree spatial query  │  skip entire regions cheaply
+│ 1. octree spatial query  │   skip entire regions cheaply
 └────────────┬─────────────┘
              ▼
 ┌──────────────────────────┐
-│ 2. frustum culling       │  AABB vs 6 planes, early-out
+│ 2. frustum culling       │   AABB vs 6 planes, early-out
 └────────────┬─────────────┘
              ▼
 ┌──────────────────────────┐
-│ 3. occlusion culling     │  test against 160x90 depth buffer
+│ 3. occlusion culling     │   test against 160x90 depth buffer
 └────────────┬─────────────┘
              ▼
        visible objects
@@ -143,40 +121,21 @@ A runtime overlay shows culled vs rendered counts. That overlay is how the major
 
 Tracy profiling showed scene initialization was the single biggest performance bottleneck in the engine. Loading a scene froze the game for several seconds every time.
 
-### Before
+The fix moves heavy resource loading onto a dedicated thread. The main thread keeps rendering the load screen at full frame rate and reads a `0.0` to `1.0` progress float to animate the bar. The freeze went away. Single biggest perceived performance improvement in the project.
 
-```
-main thread:
-   ████████████████████████████████   load assets   (multi-second freeze)
-                                       render starts
-```
-
-### After
-
-```
-main thread:
-   ░░░░  load screen + render every frame  ░░░░
-loader thread:
-   ████████████████████████████████   load assets   (off the main thread)
-
-main reads progress (0.0 to 1.0 float) and animates the load bar
-```
-
-Largest perceived performance improvement in the project.
+{% comment %} IMAGE: the loading screen with the progress bar mid-load. {% endcomment %}
 
 ## Performance overhaul (Tracy-driven)
 
-Tracy profiling pointed at these and I fixed each:
+Tracy profiling pointed at these issues and I fixed each:
 
-```
-finding                                        fix
-─────────────────────────────────────────────────────────────────────
-building instancing broken in one path         instance everything
-YAML save files hitching on load               trimmed write surface
-coloring logic redundant per frame on terrain  cached per chunk
-per-building culling slower than rendering     coarsened to chunk level
-scene init blocking main thread                background loader (above)
-```
+| Finding                                          | Fix                              |
+|--------------------------------------------------|----------------------------------|
+| Building instancing broken in one path           | Instance everything correctly    |
+| YAML save files hitching on load                 | Trimmed write surface            |
+| Coloring logic redundant per frame on terrain    | Cached per chunk                 |
+| Per-building culling slower than rendering       | Coarsened to chunk granularity   |
+| Scene init blocking main thread                  | Background loader (above)        |
 
 GPU instancing for buildings dropped draw calls by around 70%.
 
@@ -186,7 +145,7 @@ Five shadow quality levels, resolution scale, vsync, fps cap, culling distance, 
 
 ## Steam integration
 
-Ben built the networking core (sockets, peer transport). I built the Steam wrapper.
+I built the Steam manager that wraps lobbies, leaderboards, and presence into a single module.
 
 ```
 Game
@@ -206,47 +165,22 @@ Tutorial: step-based progression. Each step has a start position, a video overla
 
 Three gameplay gate components, all event-driven through the physics collision system:
 
-```
-SpeedBoostGateComponent    +30% speed on contact
-CheckpointGateComponent    tracks race progress, doubles as tutorial trigger
-DeathBlockComponent        hazard zone, respawn to last checkpoint with cooldown
-```
+| Component                | Behaviour                                                  |
+|--------------------------|------------------------------------------------------------|
+| SpeedBoostGateComponent  | +30% speed on contact                                      |
+| CheckpointGateComponent  | Tracks race progress, doubles as tutorial step trigger     |
+| DeathBlockComponent      | Hazard zone, respawn to last checkpoint with cooldown      |
 
 ## Systems brought in from earlier years
 
 Four systems I built in previous years and integrated into Splat II:
 
-```
-Particle System
-   5 emitter shapes (point, sphere, donut, cone, box)
-   stackable affector pipeline (gravity, wind, fade, towards-point)
-   YAML serialization, editor-authored
-   fixed a transparency bug on integration:
-       project particles to view space, sort by Z, then upload
+**Particle System.** Five emitter shapes (point, sphere, donut, cone, box), a stackable affector pipeline (gravity, wind, fade, towards-point), YAML serialization so effects are authored in the editor. Fixed a transparency bug on integration: project particles to view space, sort by Z, then upload.
 
-Text Renderer
-   glyph atlases + screen-space text boxes
-   fixed an aspect-ratio bug where text drifted on window resize
-   converted into a component so any GameObject can have text
+**Text Renderer.** Glyph atlases plus screen-space text boxes. Fixed an aspect-ratio bug where text drifted on window resize. Converted into a component so any GameObject can have text.
 
-Debug Renderer
-   immediate-mode 3D primitives (lines, spheres, boxes, OBBs)
-   named layers, togglable independently
-   the system that made culling, physics, terrain,
-   and building bugs findable instead of guessable
+**Debug Renderer.** Immediate-mode 3D primitives (lines, spheres, boxes, OBBs) with named togglable layers. This is the system that made culling, physics, terrain, and building bugs findable instead of guessable.
 
-Bounding Volume System
-   AABB, OBB, sphere implementations
-   wired into every object type in the engine
-   wireframe visualizer drawn in real time
-```
+**Bounding Volume System.** AABB, OBB, and sphere implementations wired into every object type in the engine, plus a wireframe visualizer drawn in real time.
 
 Each one needed minor adjustments to fit Splat II. None close to a rewrite.
-
-## Files
-
-- `wolf/components/GhostRecorderComponent.h` / `GhostPlaybackComponent.h`
-- `game/Components/CutSceneManager` and `CameraCommands`
-- `wolf/culling/` (frustum, occlusion, octree)
-- `wolf/BackgroundLoader.h`
-- `wolf/ParticleSystem/`, `wolf/TextRendering/`, `wolf/DebugRender/`
