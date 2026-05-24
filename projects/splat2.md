@@ -3,55 +3,54 @@ layout: project
 project_key: splat2
 project_home: true
 title: "Splat II"
-eyebrow: "Final-year project · 2025"
-subtitle: "Final-year capstone. Multiplayer arcade racer on Steam. Physics-driven vehicles, procedural tracks generated per match, and custom GLSL shaders for the environment."
+eyebrow: "Final-year capstone · 2025"
+subtitle: "Multiplayer racing game on Steam. You fly through a procedural city at high speed with dual grappling hooks, racing your own ghost or your friends. Built in C++ on a custom engine."
 tech:
   - "C++"
-  - Steam SDK
+  - OpenGL
+  - Jolt Physics
   - GLSL
+  - Steam Networking
   - Procedural Gen
-github_link: ""
-# steam_link: "https://store.steampowered.com/app/..."
-# hero_image: "/assets/images/splat2-cover.webp"
+github_link: "https://github.com/splatstudios/Splat_II"
 
 # Slide deck. PDF is static (animated GIFs in the deck flatten to first frame).
-# The .pptx is kept alongside so the animations survive for anyone who opens
-# it in PowerPoint or Keynote.
+# The .pptx keeps the animations.
 pdf: "/documents/splat-ii-dev-log.pdf"
 pptx: "/documents/splat-ii-dev-log.pptx"
-
-# Drop video clips or screenshots here. .mp4 / .webm render as autoplaying
-# muted loops, anything else renders as an image.
-# images:
-#   - "/assets/images/splat2-clip-1.mp4"
-#   - "/assets/images/splat2-screen-1.webp"
 ---
 
 ## Overview
 
-Splat II is a final-year capstone project: a multiplayer arcade racer built in C++ on top of a custom rendering pipeline with Steam integration for matchmaking, lobby invites, and friend joins.
+Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where players swing through a procedurally generated city using dual grappling hooks, race their own ghost or other players over Steam, and try to reach the black hole at the end of the map. Built by a team of three (Bassam, Ahmed, Ben) over the school year.
 
 ## Highlights
 
-- **Steam multiplayer** through the Steam SDK: lobby creation, friend invites, peer-to-peer networking with the Steam relay backbone.
-- **Physics-based vehicle handling** tuned for arcade feel rather than simulation realism. Wheel-by-wheel suspension, configurable drift slip, and weight-transfer effects.
-- **Procedural map generation**: each match generates a unique track from a seed. Useful for keeping practice sessions fresh and for making leaderboards seed-locked rather than memorization-locked.
-- **Custom GLSL shaders** for the dynamic environment: time-of-day lighting, road wetness/reflections, and dust kick-up tied to vehicle speed.
+- **Dual grappling hook movement** with spring physics, ring-based aim assist, and coyote time forgiveness.
+- **Procedural city** generated per match from a seed: layered Perlin terrain with biome blending and thermal erosion, GPU-instanced buildings (flat, curved, arched), and a route system that guarantees every map is finishable.
+- **Volumetric fog** built from graphics papers: screen-space ray marching with Henyey-Greenstein scattering, half-res with temporal filtering.
+- **Ghost replay**, cutscene system with arc-length parameterization, and a black hole shader with 27 uniforms driving spiral arms, halftone stylization, and screen distortion.
 
 ## My contribution
 
-I owned the engine, rendering, and physics side of the project end to end. The systems I built and maintained:
+Splat II was a team of three. The README's "Who Built What" section lists the full split. The parts I owned end-to-end:
 
-- **Physics**: vehicle dynamics, wheel-by-wheel suspension, drift slip, weight transfer, and collision response, plus the supporting physics tooling the team tuned cars with.
-- **Player locomotion**: the input layer and vehicle controller that defines how the car actually feels to drive.
-- **World generation**: the procedural map system that builds a unique track per match seed.
-- **Rendering and engine work**: the rendering pipeline, scene wiring, and the underlying engine systems the rest of the team built features on top of.
-- **Visual effects**: in-game VFX layered onto the rendering pipeline (speed/dust, lighting cues, environmental effects).
-- **Tools**: editor and debug tooling used to iterate on tracks, vehicles, and physics tuning.
-- **Steam networking**: iterated heavily on lobby creation, matchmaking, and the peer-to-peer relay flow.
+- **Player Locomotion**: the largest gameplay component in the project. Dual grappling hooks with independent constraints, ring aim assist (5 rings, 8 directions, 40 samples per crosshair), coyote time with three trackers, spring dynamics with slack accumulation and boost conversion, physics layers, and the bug fix that moved the grapple raycast origin from the camera to the player's centre so it stopped getting stuck inside walls.
+- **Terrain System**: layered Perlin with biome blending, thermal erosion, chunk streaming on worker threads, a shared vertex grid with stride-based LOD, height storage as `uint16` in a GPU texture atlas, and Jolt heightfield collision.
+- **Procedural Buildings**: the biggest component in the project. Flat, curved, and arched building generation. The curvature struct that drives the vertex-shader bend, plus the CPU convex hull colliders that match it. Building placement rules, landmark injection, the sine-wave route system, and anti-splat building handling.
+- **Volumetric Fog**: research-driven implementation. Screen-space ray marching, Henyey-Greenstein phase, height + ground + wind-noise density, half-res + temporal filter. Took four iterations to reach 60 fps.
+- **Trail Renderer**: built from scratch. Ring buffer of points, CPU mesh rebuild every frame, glow driven by acceleration not speed so boosts visibly flash.
+- **Black Hole Shader**: replaced the original basic goal object. Procedural spirals, halftone dots, distortion, physics sensor, particles pulled inward via "towards point" affector.
+- **Ghost Replay**: position, rotation, and both grapple anchors recorded at 30 Hz to raw binary. Auto-keeps the faster of new vs old run.
+- **Cutscene System**: seven camera command types in a queue, three easing curves, arc-length parameterization so the camera moves at constant speed along the procedural building routes.
+- **Culling, Bounding Volumes, GPU Instancing, Occlusion Culling**: built from scratch. The occlusion pass downsamples depth to 160x90 and tests projected bounding boxes against it. Instancing cut building draw calls by around 70%.
+- **Jolt Physics Setup**: 65k bodies max, multithreaded job system on N-1 cores, 60 Hz fixed timestep with accumulator, sphere colliders, distance constraints, heightfield shapes, collision layer system, and Jolt's debug visualizer wired into our editor.
+- **Settings, Tutorial, Gameplay Gates** (Speed boost, Checkpoint, Death block), **Crosshair**, **Background Loader** (the single biggest perceived performance win in the project), **Steam Manager** wrapper (lobbies, leaderboards, presence).
 
-I also pulled in a large amount of work from my previous years and integrated it into the engine so the team could use it from day one: my own GPU particle system, my own OpenGL text renderer (font sheets, word wrap, ellipsis, multi-language), my own colouring system, and my own tech / debug renderer for visualising physics, collisions, and engine state.
+I also brought four systems forward from previous years and integrated them: my **Particle System** (five emitter shapes, affector pipeline, YAML serialization), my **Text Renderer**, my **Debug Renderer** (the system that made every spatial bug findable instead of guessable), and my **bounding volume system**.
+
+Click any deep-dive in the sidebar for the details.
 
 ## Dev log
 
-The dev log walks through architecture decisions, system breakdowns, and lessons learned. The PowerPoint version keeps the animated clips that show the systems in motion; the PDF gives you the static read.
+The dev log walks through the architecture decisions, system breakdowns, and lessons learned across the year. The PowerPoint keeps the animated clips that show the systems in motion; the PDF gives you the static read.
