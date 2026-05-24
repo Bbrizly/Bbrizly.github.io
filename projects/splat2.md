@@ -5,6 +5,7 @@ project_home: true
 title: "Splat II"
 eyebrow: "Final-year capstone · 2025"
 subtitle: "Multiplayer racing game on Steam. You fly through a procedural city at high speed with dual grappling hooks, racing your own ghost or your friends. Built in C++ on a custom engine."
+hero_image: "/assets/images/splat2/splat2-gameplay.gif"
 tech:
   - "C++"
   - OpenGL

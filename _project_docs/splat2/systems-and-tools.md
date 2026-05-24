@@ -92,7 +92,7 @@ Without it, a camera moving along a curved path slows down through sharp turns a
 
 This pairs with the procedural building route system (see [Buildings](/projects/splat2/buildings/)). The opening flyover follows the real player path, not hardcoded waypoints.
 
-{% comment %} IMAGE: an opening cutscene clip following the route through the city. {% endcomment %}
+![In-engine editor view with debug overlays, hierarchy, and inspector](/assets/images/splat2/systems-editor-ui.png)
 
 ## Culling: three passes
 
@@ -131,6 +131,9 @@ for each object surviving frustum:
 Three bounding-volume types (AABB, OBB, sphere) feed the pipeline. Each computes from geometry and updates on transform change.
 
 A runtime overlay shows culled vs rendered counts. That overlay is how the major culling bug got found.
+
+![Culling pass running in my older engine, used to validate the algorithm before porting](/assets/images/splat2/systems-culling-old-engine.gif)
+![All debug overlays active over a wireframe city: colliders, route, bounding volumes](/assets/images/splat2/systems-debug-overlays.png)
 
 ## Background loader
 
@@ -171,6 +174,10 @@ Tracy profiling pointed at these issues and I fixed each:
 
 GPU instancing for buildings dropped draw calls by around 70%.
 
+![Tracy capture overview](/assets/images/splat2/systems-tracy-overview.png)
+![Top CPU zones, sorted by average ms per frame](/assets/images/splat2/systems-tracy-cpu-zones.png)
+![Top GPU passes, sorted by average ms per frame](/assets/images/splat2/systems-tracy-gpu-passes.png)
+
 ## Settings
 
 Five shadow quality levels, resolution scale, vsync, fps cap, culling distance, audio volume. Persists to YAML between sessions. The same settings drive performance scaling: dropping shadow quality or resolution scale reduces GPU load.
@@ -209,7 +216,11 @@ Four systems I built in previous years and integrated into Splat II:
 
 **Particle System.** Five emitter shapes (point, sphere, donut, cone, box), a stackable affector pipeline (gravity, wind, fade, towards-point), YAML serialization so effects are authored in the editor. Fixed a transparency bug on integration: project particles to view space, sort by Z, then upload.
 
+![Particle system: emitter shapes and affector pipeline](/assets/images/splat2/systems-particle-system.gif)
+
 **Text Renderer.** Glyph atlases plus screen-space text boxes. Fixed an aspect-ratio bug where text drifted on window resize. Converted into a component so any GameObject can have text.
+
+![Text renderer drawing screen-space labels from a glyph atlas](/assets/images/splat2/systems-text-renderer.png)
 
 **Debug Renderer.** Immediate-mode 3D primitives (lines, spheres, boxes, OBBs) with named togglable layers. This is the system that made culling, physics, terrain, and building bugs findable instead of guessable.
 
