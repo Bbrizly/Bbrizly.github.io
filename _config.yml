@@ -19,11 +19,21 @@ logo: /assets/favicon.svg
 twitter:
   card: summary_large_image
 
+collections:
+  project_docs:
+    output: true
+    permalink: /projects/:path/
+
 defaults:
   - scope:
       path: ""
     values:
       image: /assets/images/s1.png
+  - scope:
+      path: ""
+      type: project_docs
+    values:
+      layout: project
 
 markdown: kramdown
 theme: minima

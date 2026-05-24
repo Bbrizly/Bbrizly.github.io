@@ -22,26 +22,70 @@
 <body class="project-body">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav class="project-topbar">
+  {% comment %}
+    Sidebar lookup: if this page has a project_key, find the overview page
+    (the canonical overview is marked project_home: true) and all sub-articles
+    in the project_docs collection sharing the same key. The sidebar renders
+    only when both exist and at least one sub-article is present.
+
+    project_meta resolves to the overview's frontmatter when we're on a
+    sub-article, so topbar metadata (github_link, steam_link, etc.) propagates
+    automatically. Falls back to page on standalone projects.
+  {% endcomment %}
+  {% assign project_key = page.project_key %}
+  {% assign sub_articles = "" | split: "" %}
+  {% assign overview_page = nil %}
+  {% assign has_sidebar = false %}
+  {% if project_key %}
+    {% assign sub_articles = site.project_docs | where: "project_key", project_key | sort: "order" %}
+    {% assign overview_candidates = site.pages | where: "project_key", project_key | where: "project_home", true %}
+    {% assign overview_page = overview_candidates | first %}
+    {% if sub_articles.size > 0 and overview_page %}
+      {% assign has_sidebar = true %}
+    {% endif %}
+  {% endif %}
+  {% assign project_meta = overview_page | default: page %}
+
+  <nav class="project-topbar" aria-label="Project actions">
     <a href="/#projects" class="back-btn">
       <i class="fas fa-arrow-left" aria-hidden="true"></i> <span>Back to projects</span>
     </a>
-    {% if page.github_link %}
-      <a href="{{ page.github_link }}" target="_blank" rel="noopener noreferrer" class="topbar-github">
+    {% if project_meta.github_link and project_meta.github_link != "" %}
+      <a href="{{ project_meta.github_link }}" target="_blank" rel="noopener noreferrer" class="topbar-github">
         <i class="fab fa-github" aria-hidden="true"></i> <span>View on GitHub</span>
       </a>
     {% endif %}
-    {% if page.steam_link %}
-      <a href="{{ page.steam_link }}" target="_blank" rel="noopener noreferrer" class="topbar-steam">
+    {% if project_meta.steam_link and project_meta.steam_link != "" %}
+      <a href="{{ project_meta.steam_link }}" target="_blank" rel="noopener noreferrer" class="topbar-steam">
         <i class="fab fa-steam" aria-hidden="true"></i> <span>View on Steam</span>
       </a>
     {% endif %}
-    {% if page.external_link %}
-      <a href="{{ page.external_link }}" target="_blank" rel="noopener noreferrer" class="topbar-ext">
-        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>{{ page.external_label | default: 'Visit site' }}</span>
+    {% if project_meta.external_link and project_meta.external_link != "" %}
+      <a href="{{ project_meta.external_link }}" target="_blank" rel="noopener noreferrer" class="topbar-ext">
+        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>{{ project_meta.external_label | default: 'Visit site' }}</span>
       </a>
     {% endif %}
   </nav>
+
+  <div class="project-shell{% if has_sidebar %} with-sidebar{% endif %}">
+    {% if has_sidebar %}
+      <aside class="project-sidebar">
+        <p class="sidebar-eyebrow">In this project</p>
+        <p class="sidebar-project-name">{{ overview_page.title }}</p>
+        <nav aria-label="{{ overview_page.title }} documentation">
+          <ul class="sidebar-nav">
+            <li>
+              <a href="{{ overview_page.url | relative_url }}"{% if page.url == overview_page.url %} class="active" aria-current="page"{% endif %}>Overview</a>
+            </li>
+            {% for sub in sub_articles %}
+              <li>
+                <a href="{{ sub.url | relative_url }}"{% if page.url == sub.url %} class="active" aria-current="page"{% endif %}>{{ sub.nav_title | default: sub.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </aside>
+    {% endif %}
 
   <main id="main">
     <article class="project-page" data-aos="fade-up">
@@ -109,6 +153,7 @@
       {% endif %}
     </article>
   </main>
+  </div>
 
   {% include footer.html %}
 

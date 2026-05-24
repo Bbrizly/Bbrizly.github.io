@@ -1,5 +1,7 @@
 ---
 layout: project
+project_key: splat2
+project_home: true
 title: "Splat II"
 eyebrow: "Final-year project · 2025"
 subtitle: "Final-year capstone. Multiplayer arcade racer on Steam. Physics-driven vehicles, procedural tracks generated per match, and custom GLSL shaders for the environment."
@@ -38,7 +40,17 @@ Splat II is a final-year capstone project: a multiplayer arcade racer built in C
 
 ## My contribution
 
-(Replace this section with the specific systems you owned: networking, physics, rendering, etc. The dev log below covers it in more depth.)
+I owned the engine, rendering, and physics side of the project end to end. The systems I built and maintained:
+
+- **Physics**: vehicle dynamics, wheel-by-wheel suspension, drift slip, weight transfer, and collision response, plus the supporting physics tooling the team tuned cars with.
+- **Player locomotion**: the input layer and vehicle controller that defines how the car actually feels to drive.
+- **World generation**: the procedural map system that builds a unique track per match seed.
+- **Rendering and engine work**: the rendering pipeline, scene wiring, and the underlying engine systems the rest of the team built features on top of.
+- **Visual effects**: in-game VFX layered onto the rendering pipeline (speed/dust, lighting cues, environmental effects).
+- **Tools**: editor and debug tooling used to iterate on tracks, vehicles, and physics tuning.
+- **Steam networking**: iterated heavily on lobby creation, matchmaking, and the peer-to-peer relay flow.
+
+I also pulled in a large amount of work from my previous years and integrated it into the engine so the team could use it from day one: my own GPU particle system, my own OpenGL text renderer (font sheets, word wrap, ellipsis, multi-language), my own colouring system, and my own tech / debug renderer for visualising physics, collisions, and engine state.
 
 ## Dev log
 
