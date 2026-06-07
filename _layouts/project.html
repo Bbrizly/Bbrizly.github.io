@@ -29,8 +29,8 @@
     only when both exist and at least one sub-article is present.
 
     project_meta resolves to the overview's frontmatter when we're on a
-    sub-article, so topbar metadata (github_link, steam_link, etc.) propagates
-    automatically. Falls back to page on standalone projects.
+    sub-article, so topbar metadata (github_link, topbar overrides, etc.)
+    propagates automatically. Falls back to page on standalone projects.
   {% endcomment %}
   {% assign project_key = page.project_key %}
   {% assign sub_articles = "" | split: "" %}
@@ -50,19 +50,24 @@
     <a href="/#projects" class="back-btn">
       <i class="fas fa-arrow-left" aria-hidden="true"></i> <span>Back to projects</span>
     </a>
-    {% if project_meta.github_link and project_meta.github_link != "" %}
-      <a href="{{ project_meta.github_link }}" target="_blank" rel="noopener noreferrer" class="topbar-github">
-        <i class="fab fa-github" aria-hidden="true"></i> <span>View on GitHub</span>
-      </a>
-    {% endif %}
-    {% if project_meta.steam_link and project_meta.steam_link != "" %}
-      <a href="{{ project_meta.steam_link }}" target="_blank" rel="noopener noreferrer" class="topbar-steam">
-        <i class="fab fa-steam" aria-hidden="true"></i> <span>View on Steam</span>
-      </a>
-    {% endif %}
-    {% if project_meta.external_link and project_meta.external_link != "" %}
-      <a href="{{ project_meta.external_link }}" target="_blank" rel="noopener noreferrer" class="topbar-ext">
-        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> <span>{{ project_meta.external_label | default: 'Visit site' }}</span>
+    {% comment %}
+      Topbar action button. Every project defaults to "View on GitHub" using
+      github_link. Any project can override it in its frontmatter:
+        topbar_link:  "https://store.steampowered.com/app/..."
+        topbar_label: "View on Steam"
+        topbar_icon:  "fab fa-steam"
+      Only the fields you set change; the rest keep the GitHub defaults.
+      Set topbar_disabled: true to render the button greyed out with no link
+      (e.g. "Steam page coming soon" before a store page exists).
+    {% endcomment %}
+    {% assign topbar_link = project_meta.topbar_link | default: project_meta.github_link %}
+    {% if project_meta.topbar_disabled %}
+      <span class="topbar-action topbar-disabled">
+        <i class="{{ project_meta.topbar_icon | default: 'fab fa-github' }}" aria-hidden="true"></i> <span>{{ project_meta.topbar_label | default: 'View on GitHub' }}</span>
+      </span>
+    {% elsif topbar_link and topbar_link != "" %}
+      <a href="{{ topbar_link }}" target="_blank" rel="noopener noreferrer" class="topbar-action">
+        <i class="{{ project_meta.topbar_icon | default: 'fab fa-github' }}" aria-hidden="true"></i> <span>{{ project_meta.topbar_label | default: 'View on GitHub' }}</span>
       </a>
     {% endif %}
   </nav>

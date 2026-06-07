@@ -320,7 +320,7 @@ main { display: block; }
   border-color: var(--accent-light);
   color: #fff;
 }
-.project-topbar a + a {
+.project-topbar .topbar-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -333,9 +333,14 @@ main { display: block; }
   text-decoration: none;
   transition: background 0.15s ease, transform 0.15s ease;
 }
-.project-topbar a + a:hover { background: var(--accent-hover); transform: translateY(-1px); }
-.project-topbar .topbar-steam { background: #1b2838; border: 1px solid rgba(255, 255, 255, 0.15); }
-.project-topbar .topbar-steam:hover { background: #2a3f5f; }
+.project-topbar a.topbar-action:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.project-topbar .topbar-disabled {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--ink-dim);
+  opacity: 0.7;
+  cursor: default;
+}
 
 /* Project hero (title block) */
 .project-page {
@@ -718,19 +723,8 @@ main { display: block; }
   text-decoration: none;
 }
 
-/* 9 unique images, addressed by an explicit class on each tile.
-   Each reel's HTML uses 6 distinct image classes (out of 9) in a sequence
-   curated so no two adjacent tiles share the same image. */
-.mosaic-tile.m1 { background-image: url('/assets/images/s1.webp'); }
-.mosaic-tile.m2 { background-image: url('/assets/images/s2.webp'); }
-.mosaic-tile.m3 { background-image: url('/assets/images/s3.webp'); }
-.mosaic-tile.m4 { background-image: url('/assets/images/z1.webp'); }
-.mosaic-tile.m5 { background-image: url('/assets/images/z2.webp'); }
-.mosaic-tile.m6 { background-image: url('/assets/images/z3.webp'); }
-.mosaic-tile.m7 { background-image: url('/assets/images/particle1.webp'); }
-.mosaic-tile.m8 { background-image: url('/assets/images/particle2.webp'); }
-.mosaic-tile.m9 { background-image: url('/assets/images/particle3.webp'); }
-
+/* Tile images come from _data/mosaic.yml, applied as inline background-image
+   by the Liquid loop in index.html. */
 .mosaic-tile::before {
   content: '';
   position: absolute;
@@ -1110,6 +1104,19 @@ video.card-media { object-fit: cover; }
   font-size: 11px;
   color: var(--accent-light);
   opacity: 0.8;
+}
+.card-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.card-date {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-dim);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .card-body p {
   font-size: 13.5px;

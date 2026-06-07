@@ -1,0 +1,161 @@
+# Homepage project cards, rendered in the order they appear in this file.
+# To reorder projects, move whole entries up or down. To add a project,
+# copy an entry and edit the fields.
+#
+# Fields:
+#   title        Card heading (required)
+#   date         Small date shown next to the title, e.g. "2024" or "2025 - Present"
+#   url          Where the card links. Omit for a non-clickable card.
+#   external     true = opens in a new tab with the little arrow icon
+#   tags         Filter chips this card belongs to, space-separated.
+#                Valid: games-graphics, ai-ml, accessibility, mobile-web, shipped
+#   description  One- or two-sentence summary
+#   tech         List of tech pills
+#   badge        Optional. type: award (gold trophy) or ship (green). icon is a
+#                Font Awesome class.
+#   media        What shows at the top of the card. One of three types:
+#                  type: video  -> src (mp4), poster (still), aria (label)
+#                  type: image  -> webp, png (fallback), width, height, alt
+#                  type: stack  -> color (games/accessibility/ai/mobile),
+#                                  name (big text on the tile, defaults to title)
+
+- title: "Volpe Engine"
+  date: "2024"
+  url: "/projects/project3.html"
+  tags: "games-graphics"
+  description: "Small 3D engine I built from scratch in C++. Scene graph, quad and octree culling, PBR lighting, and a GPU particle system in custom GLSL."
+  tech: ["C++", "OpenGL", "GLSL", "PBR"]
+  badge:
+    type: ship
+    icon: "fab fa-github"
+    text: "Open source"
+  media:
+    type: video
+    src: "/assets/images/gif.mp4"
+    poster: "/assets/images/s1.webp"
+    aria: "Volpe Engine demo"
+
+- title: "Adptiv AI"
+  date: "2025 - Present"
+  url: "https://adptiv.ca"
+  external: true
+  tags: "ai-ml accessibility"
+  description: "AI fitness coach that uses on-device pose estimation to read exercise form. I took the ML models from training all the way to deployment on phones."
+  tech: ["Python", "TF Lite", "PyTorch"]
+  badge:
+    type: award
+    icon: "fas fa-trophy"
+    text: "Spark Tank 2.1 Winner"
+  media:
+    type: stack
+    color: ai
+
+- title: "QuadStick Config"
+  date: "2025"
+  url: "/projects/quadstick.html"
+  tags: "accessibility shipped"
+  description: "Desktop tool that lets quadriplegic gamers configure their QuadStick controller. Talks to the device over USB serial, ships through automated CI/CD."
+  tech: ["C#", ".NET", "WPF", "Serial"]
+  badge:
+    type: ship
+    icon: "fas fa-rocket"
+    text: "Deployed & in use"
+  media:
+    type: stack
+    color: accessibility
+
+- title: "Pokemon Go Mobile Game"
+  date: "2024"
+  url: "/projects/pokemon-go.html"
+  tags: "mobile-web games-graphics"
+  description: "Pokemon Go style mobile game. Flutter on the frontend, AWS Lambda and Firebase on the backend. AR capture mechanics with synced user state."
+  tech: ["Flutter", "Firebase", "AWS", "Docker"]
+  media:
+    type: stack
+    color: mobile
+    name: "Pokemon Go Game"
+
+- title: "OpenGL Cityscape"
+  date: "2024"
+  url: "/projects/project1.html"
+  tags: "games-graphics"
+  description: "Procedural city that generates its building layouts from a Voronoi diagram. Has a full day/night cycle."
+  tech: ["C++", "OpenGL", "Procedural"]
+  media:
+    type: image
+    webp: "/assets/images/s1.webp"
+    png: "/assets/images/s1.png"
+    width: 1919
+    height: 1009
+    alt: "OpenGL Cityscape"
+
+- title: "GPU Particle System"
+  date: "2024"
+  url: "/projects/project4.html"
+  tags: "games-graphics"
+  description: "GPU particle system that runs on instanced rendering. Different emitter shapes, custom shaders, plus physics affectors you can plug in."
+  tech: ["C++", "OpenGL", "GLSL"]
+  media:
+    type: video
+    src: "/assets/images/particle2.mp4"
+    poster: "/assets/images/particle2.webp"
+    aria: "GPU particle system"
+
+- title: "Splat II"
+  date: "2025"
+  url: "/projects/splat2.html"
+  tags: "games-graphics"
+  description: "Final-year project. Multiplayer racing game on Steam with physics-driven vehicles and procedurally generated maps."
+  tech: ["C++", "Steam", "GLSL", "Procedural"]
+  media:
+    type: stack
+    color: games
+
+- title: "Upstart"
+  date: "2024"
+  tags: "ai-ml mobile-web"
+  description: "SaaS platform that automates workflows across business departments. Live data dashboards and telemetry-style monitoring."
+  tech: ["React", "Python", "TensorFlow", "Firebase"]
+  badge:
+    type: award
+    icon: "fas fa-trophy"
+    text: "Panther Pitch Finalist"
+  media:
+    type: stack
+    color: ai
+
+- title: "OpenGL Text Renderer"
+  date: "2024"
+  url: "/projects/project2.html"
+  tags: "games-graphics"
+  description: "Text renderer for OpenGL. Handles font sheets, word-wrap, ellipsis truncation, and multi-language strings."
+  tech: ["C++", "OpenGL"]
+  media:
+    type: image
+    webp: "/assets/images/s2.webp"
+    png: "/assets/images/s2.png"
+    width: 1272
+    height: 745
+    alt: "OpenGL text renderer"
+
+- title: "Expiry"
+  date: "2025"
+  tags: "mobile-web"
+  description: "Web app that helps restaurants cut waste. Tracks ingredient expiry dates and tells the kitchen what to use first. Built at UPEI Hackathon."
+  tech: ["Web", "Hackathon"]
+  media:
+    type: stack
+    color: mobile
+
+- title: "Cabin Boy"
+  date: "2025"
+  tags: "games-graphics"
+  description: "Indie game I shipped at the XP Indie Biz Connect Game Jam. Built the whole thing inside the jam window, concept to playable."
+  tech: ["Game Dev", "Game Jam"]
+  badge:
+    type: award
+    icon: "fas fa-trophy"
+    text: "Community Choice Award"
+  media:
+    type: stack
+    color: games

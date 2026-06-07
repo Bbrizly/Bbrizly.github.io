@@ -31,35 +31,31 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
   <section class="hero-v2" id="about" aria-label="About">
 
     <!-- Decorative project mosaic (hidden from assistive tech).
-         Each reel uses 6 distinct image classes (m1-m9), sequenced so no two
-         adjacent tiles share the same image. The 6-tile pattern repeats once
-         per reel for the seamless 50% loop. -->
+         Images come from _data/mosaic.yml. Tiles are dealt round-robin across
+         the six reels so every image appears an equal number of times (within
+         one) and no two adjacent tiles in a reel repeat. Each reel's tile run
+         is emitted twice for the seamless 50% scroll loop. -->
+    {% assign mosaic_images = site.data.mosaic.images %}
+    {% assign mosaic_n = mosaic_images.size %}
+    {% if mosaic_n > 0 %}
+    {% assign mosaic_per = mosaic_n | plus: 5 | divided_by: 6 %}
+    {% if mosaic_per < 6 %}{% assign mosaic_per = 6 %}{% endif %}
+    {% assign mosaic_last = mosaic_per | minus: 1 %}
+    {% assign reel_letters = "a,b,c,d,e,f" | split: "," %}
     <div class="mosaic-bg" aria-hidden="true">
-      <div class="mosaic-reel reel-a">
-        <a class="mosaic-tile m1"></a><a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m2"></a>
-        <a class="mosaic-tile m1"></a><a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m2"></a>
+      {%- for letter in reel_letters -%}
+      {%- assign r = forloop.index0 -%}
+      <div class="mosaic-reel reel-{{ letter }}">
+        {%- for rep in (1..2) -%}
+          {%- for i in (0..mosaic_last) -%}
+            {%- assign idx = r | times: mosaic_per | plus: i | modulo: mosaic_n -%}
+            <span class="mosaic-tile" style="background-image:url('{{ mosaic_images[idx] }}')"></span>
+          {%- endfor -%}
+        {%- endfor -%}
       </div>
-      <div class="mosaic-reel reel-b">
-        <a class="mosaic-tile m4"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m2"></a><a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a>
-        <a class="mosaic-tile m4"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m2"></a><a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a>
-      </div>
-      <div class="mosaic-reel reel-c">
-        <a class="mosaic-tile m9"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m6"></a>
-        <a class="mosaic-tile m9"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m6"></a>
-      </div>
-      <div class="mosaic-reel reel-d">
-        <a class="mosaic-tile m2"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m4"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m7"></a>
-        <a class="mosaic-tile m2"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m8"></a><a class="mosaic-tile m4"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m7"></a>
-      </div>
-      <div class="mosaic-reel reel-e">
-        <a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m8"></a>
-        <a class="mosaic-tile m7"></a><a class="mosaic-tile m3"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m1"></a><a class="mosaic-tile m5"></a><a class="mosaic-tile m8"></a>
-      </div>
-      <div class="mosaic-reel reel-f">
-        <a class="mosaic-tile m5"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m2"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m4"></a><a class="mosaic-tile m1"></a>
-        <a class="mosaic-tile m5"></a><a class="mosaic-tile m9"></a><a class="mosaic-tile m2"></a><a class="mosaic-tile m6"></a><a class="mosaic-tile m4"></a><a class="mosaic-tile m1"></a>
-      </div>
+      {%- endfor -%}
     </div>
+    {% endif %}
 
     <!-- Frosted glass layers (3-stack for soft Apple-style falloff) -->
     <div class="glass glass-3" aria-hidden="true"></div>
@@ -120,136 +116,38 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 
       <p class="filter-status visually-hidden" aria-live="polite" data-filter-status></p>
 
+      <!-- Cards come from _data/projects.yml, rendered in file order.
+           Reorder entries there to reorder the grid. -->
       <div class="projects-grid-v2">
-
-        <a href="/projects/project3.html" class="project-card" data-tags="games-graphics">
-          <video class="card-media" autoplay muted loop playsinline poster="/assets/images/s1.webp" aria-label="Volpe Engine demo">
-            <source src="/assets/images/gif.mp4" type="video/mp4">
+        {% for p in site.data.projects %}
+        {% capture card_classes %}project-card{% if p.media.type == 'stack' %} no-image{% endif %}{% endcapture %}
+        {% if p.url %}<a href="{{ p.url }}"{% if p.external %} target="_blank" rel="noopener noreferrer"{% endif %} class="{{ card_classes }}" data-tags="{{ p.tags }}">{% else %}<div class="{{ card_classes }}" data-tags="{{ p.tags }}">{% endif %}
+          {% case p.media.type %}
+          {% when 'video' %}
+          <video class="card-media" autoplay muted loop playsinline poster="{{ p.media.poster }}" aria-label="{{ p.media.aria | default: p.title }}">
+            <source src="{{ p.media.src }}" type="video/mp4">
           </video>
-          <div class="card-body">
-            <h3>Volpe Engine</h3>
-            <p>Small 3D engine I built from scratch in C++. Scene graph, quad and octree culling, PBR lighting, and a GPU particle system in custom GLSL.</p>
-            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span><span>PBR</span></div>
-            <span class="card-badge badge-ship"><i class="fab fa-github" aria-hidden="true"></i> Open source</span>
-          </div>
-        </a>
-
-        <a href="https://adptiv.ca" target="_blank" rel="noopener noreferrer" class="project-card no-image" data-tags="ai-ml accessibility">
-          <div class="card-stack-tile" data-stack-color="ai">
-            <span class="card-stack-name">Adptiv AI</span>
-          </div>
-          <div class="card-body">
-            <h3>Adptiv AI <i class="fas fa-arrow-up-right-from-square card-ext" aria-hidden="true"></i></h3>
-            <p>AI fitness coach that uses on-device pose estimation to read exercise form. I took the ML models from training all the way to deployment on phones.</p>
-            <div class="card-tags"><span>Python</span><span>TF Lite</span><span>PyTorch</span></div>
-            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Spark Tank 2.1 Winner</span>
-          </div>
-        </a>
-
-        <a href="/projects/quadstick.html" class="project-card no-image" data-tags="accessibility shipped">
-          <div class="card-stack-tile" data-stack-color="accessibility">
-            <span class="card-stack-name">QuadStick Config</span>
-          </div>
-          <div class="card-body">
-            <h3>QuadStick Config</h3>
-            <p>Desktop tool that lets quadriplegic gamers configure their QuadStick controller. Talks to the device over USB serial, ships through automated CI/CD.</p>
-            <div class="card-tags"><span>C#</span><span>.NET</span><span>WPF</span><span>Serial</span></div>
-            <span class="card-badge badge-ship"><i class="fas fa-rocket" aria-hidden="true"></i> Deployed &amp; in use</span>
-          </div>
-        </a>
-
-        <a href="/projects/pokemon-go.html" class="project-card no-image" data-tags="mobile-web games-graphics">
-          <div class="card-stack-tile" data-stack-color="mobile">
-            <span class="card-stack-name">Pokemon Go Game</span>
-          </div>
-          <div class="card-body">
-            <h3>Pokemon Go Mobile Game</h3>
-            <p>Pokemon Go style mobile game. Flutter on the frontend, AWS Lambda and Firebase on the backend. AR capture mechanics with synced user state.</p>
-            <div class="card-tags"><span>Flutter</span><span>Firebase</span><span>AWS</span><span>Docker</span></div>
-          </div>
-        </a>
-
-        <a href="/projects/project1.html" class="project-card" data-tags="games-graphics">
+          {% when 'image' %}
           <picture class="card-media">
-            <source srcset="/assets/images/s1.webp" type="image/webp">
-            <img src="/assets/images/s1.png" alt="OpenGL Cityscape" width="1919" height="1009" loading="lazy">
+            <source srcset="{{ p.media.webp }}" type="image/webp">
+            <img src="{{ p.media.png }}" alt="{{ p.media.alt | default: p.title }}" width="{{ p.media.width }}" height="{{ p.media.height }}" loading="lazy">
           </picture>
+          {% when 'stack' %}
+          <div class="card-stack-tile" data-stack-color="{{ p.media.color }}">
+            <span class="card-stack-name">{{ p.media.name | default: p.title }}</span>
+          </div>
+          {% endcase %}
           <div class="card-body">
-            <h3>OpenGL Cityscape</h3>
-            <p>Procedural city that generates its building layouts from a Voronoi diagram. Has a full day/night cycle.</p>
-            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>Procedural</span></div>
+            <div class="card-title-row">
+              <h3>{{ p.title }}{% if p.external %} <i class="fas fa-arrow-up-right-from-square card-ext" aria-hidden="true"></i>{% endif %}</h3>
+              {% if p.date %}<span class="card-date">{{ p.date }}</span>{% endif %}
+            </div>
+            <p>{{ p.description }}</p>
+            <div class="card-tags">{% for t in p.tech %}<span>{{ t }}</span>{% endfor %}</div>
+            {% if p.badge %}<span class="card-badge badge-{{ p.badge.type }}"><i class="{{ p.badge.icon }}" aria-hidden="true"></i> {{ p.badge.text }}</span>{% endif %}
           </div>
-        </a>
-
-        <a href="/projects/project4.html" class="project-card" data-tags="games-graphics">
-          <video class="card-media" autoplay muted loop playsinline poster="/assets/images/particle2.webp" aria-label="GPU particle system">
-            <source src="/assets/images/particle2.mp4" type="video/mp4">
-          </video>
-          <div class="card-body">
-            <h3>GPU Particle System</h3>
-            <p>GPU particle system that runs on instanced rendering. Different emitter shapes, custom shaders, plus physics affectors you can plug in.</p>
-            <div class="card-tags"><span>C++</span><span>OpenGL</span><span>GLSL</span></div>
-          </div>
-        </a>
-
-        <a href="/projects/splat2.html" class="project-card no-image" data-tags="games-graphics">
-          <div class="card-stack-tile" data-stack-color="games">
-            <span class="card-stack-name">Splat II</span>
-          </div>
-          <div class="card-body">
-            <h3>Splat II</h3>
-            <p>Final-year project. Multiplayer racing game on Steam with physics-driven vehicles and procedurally generated maps.</p>
-            <div class="card-tags"><span>C++</span><span>Steam</span><span>GLSL</span><span>Procedural</span></div>
-          </div>
-        </a>
-
-        <div class="project-card no-image" data-tags="ai-ml mobile-web">
-          <div class="card-stack-tile" data-stack-color="ai">
-            <span class="card-stack-name">Upstart</span>
-          </div>
-          <div class="card-body">
-            <h3>Upstart</h3>
-            <p>SaaS platform that automates workflows across business departments. Live data dashboards and telemetry-style monitoring.</p>
-            <div class="card-tags"><span>React</span><span>Python</span><span>TensorFlow</span><span>Firebase</span></div>
-            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Panther Pitch Finalist</span>
-          </div>
-        </div>
-
-        <a href="/projects/project2.html" class="project-card" data-tags="games-graphics">
-          <picture class="card-media">
-            <source srcset="/assets/images/s2.webp" type="image/webp">
-            <img src="/assets/images/s2.png" alt="OpenGL text renderer" width="1272" height="745" loading="lazy">
-          </picture>
-          <div class="card-body">
-            <h3>OpenGL Text Renderer</h3>
-            <p>Text renderer for OpenGL. Handles font sheets, word-wrap, ellipsis truncation, and multi-language strings.</p>
-            <div class="card-tags"><span>C++</span><span>OpenGL</span></div>
-          </div>
-        </a>
-
-        <div class="project-card no-image" data-tags="mobile-web">
-          <div class="card-stack-tile" data-stack-color="mobile">
-            <span class="card-stack-name">Expiry</span>
-          </div>
-          <div class="card-body">
-            <h3>Expiry</h3>
-            <p>Web app that helps restaurants cut waste. Tracks ingredient expiry dates and tells the kitchen what to use first. Built at UPEI Hackathon.</p>
-            <div class="card-tags"><span>Web</span><span>Hackathon</span></div>
-          </div>
-        </div>
-
-        <div class="project-card no-image" data-tags="games-graphics">
-          <div class="card-stack-tile" data-stack-color="games">
-            <span class="card-stack-name">Cabin Boy</span>
-          </div>
-          <div class="card-body">
-            <h3>Cabin Boy</h3>
-            <p>Indie game I shipped at the XP Indie Biz Connect Game Jam. Built the whole thing inside the jam window, concept to playable.</p>
-            <div class="card-tags"><span>Game Dev</span><span>Game Jam</span></div>
-            <span class="card-badge badge-award"><i class="fas fa-trophy" aria-hidden="true"></i> Community Choice Award</span>
-          </div>
-        </div>
-
+        {% if p.url %}</a>{% else %}</div>{% endif %}
+        {% endfor %}
       </div>
     </section>
 

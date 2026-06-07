@@ -9,12 +9,6 @@ subtitle: "Why the game looks and feels the way it does. Concept art, early prot
 
 This page is a visual history of the design choices that shaped Splat II. Each section pairs an image with the thought process behind the call.
 
-{% comment %}
-This article is image-driven. Drop screenshots into /assets/images/splat2/
-and reference them inline below each section. Each section has a one-paragraph
-intro to anchor the rationale, then add as many supporting images as you like.
-{% endcomment %}
-
 ## Visual identity
 
 We wanted the game to read as Splat II at a glance. That meant strong silhouettes, a tight palette, and a few hero visuals that would carry the whole identity.
@@ -40,6 +34,10 @@ Important objects had to read as important from across the map. The black hole a
 
 ## What got cut
 
-Not every idea shipped. Cutting a system is also a design decision. List the big ones here with one line on why they did not make it.
+Not every idea shipped. Cutting a system is also a design decision. The big ones:
+
+- **The bullet premise.** The first version of the story cast you as a bullet gaining enough momentum to pierce through giant enemies. The momentum fantasy stayed, the bullet and the enemies did not.
+- **The alien migration story.** The second pass at narrative had every racer as an alien species racing back to its mother, set in a dystopian, surreal, abstract world. We never had the time to tell it properly, so it got stripped back to pure racing.
+- **A more detailed player character.** The player is a ball with a face on it. We wanted a character with real presence, with animations and clothing, but the art never came together before the deadline.
 
 ![Character and creature references that did not survive scope cuts](/assets/images/splat2/design-cut-character-refs.png)

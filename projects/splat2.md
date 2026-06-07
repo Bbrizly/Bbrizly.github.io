@@ -15,6 +15,14 @@ tech:
   - Procedural Gen
 github_link: "https://github.com/splatstudios/Splat_II"
 
+# Topbar override: Steam button, greyed out until the store page is live.
+# When it is, delete topbar_disabled and set:
+#   topbar_link: "https://store.steampowered.com/app/..."
+#   topbar_label: "View on Steam"
+topbar_label: "Steam page coming soon"
+topbar_icon: "fab fa-steam"
+topbar_disabled: true
+
 # Slide deck. PDF is static (animated GIFs in the deck flatten to first frame).
 # The .pptx keeps the animations.
 pdf: "/documents/splat-ii-dev-log.pdf"

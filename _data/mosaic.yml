@@ -1,0 +1,21 @@
+# Hero background mosaic (the tilted scrolling rows behind the intro).
+#
+# To add an image: drop the file into /assets/images/ and add one line here.
+# That's it. The homepage spreads the list evenly across the six rows, so
+# every image appears the same number of times (within one) and no two
+# tiles next to each other in a row repeat. Order here doesn't matter much;
+# it only affects which images end up in which row.
+#
+# Any image works (screenshots, award photos, certificates). Landscape crops
+# look best: tiles render at 320x200, cropped to cover. .webp keeps the page
+# light, but .png/.jpg are fine too.
+images:
+  - /assets/images/s1.webp
+  - /assets/images/s2.webp
+  - /assets/images/s3.webp
+  - /assets/images/z1.webp
+  - /assets/images/z2.webp
+  - /assets/images/z3.webp
+  - /assets/images/particle1.webp
+  - /assets/images/particle2.webp
+  - /assets/images/particle3.webp

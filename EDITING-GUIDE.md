@@ -6,7 +6,9 @@ Quick reference for changing content on the site. The site is Jekyll. To preview
 
 | Where the content lives | What it controls |
 |---|---|
-| `index.html` | The home page: hero text, project cards, awards, work experience, skills, footer link targets |
+| `index.html` | The home page: hero text, awards, work experience, skills, footer link targets |
+| `_data/projects.yml` | The project cards on the home page: content, order, dates, links |
+| `_data/mosaic.yml` | The image list for the scrolling hero background |
 | `_includes/footer.html` | The slim footer at the bottom of every page |
 | `_layouts/project.html` | The wrapper around every individual project detail page |
 | `projects/*.md` | One Markdown file per project detail page. Front-matter at the top controls the title, hero image, GitHub link, etc. The body is the article text |
@@ -14,60 +16,38 @@ Quick reference for changing content on the site. The site is Jekyll. To preview
 | `assets/css/style.css` | All styling |
 | `documents/` | Resume PDF and any other downloadables (slide decks, etc.) |
 
-## Editing a project card on the home page
+## Project cards on the home page
 
-Each card is one block inside the `<div class="projects-grid-v2">` in `index.html`. Cards come in two shapes:
+Cards live in `_data/projects.yml`, one entry per card, rendered top to bottom in **file order**. To reorder the grid, move whole entries up or down. To add a card, copy an entry and edit it. The file has a comment block at the top documenting every field.
 
-**With an image (links to a detail page):**
-```html
-<a href="/projects/cityscape.html" class="project-card" data-tags="games-graphics">
-  <picture class="card-media">
-    <source srcset="/assets/images/s1.webp" type="image/webp">
-    <img src="/assets/images/s1.png" alt="Cityscape" width="1919" height="1009" loading="lazy">
-  </picture>
-  <div class="card-body">
-    <h3>Project name</h3>
-    <p>One- or two-sentence summary.</p>
-    <div class="card-tags"><span>Tag</span><span>Tag</span></div>
-  </div>
-</a>
+The short version:
+
+```yaml
+- title: "Project Name"
+  date: "2024"                 # or "2025 - Present"; shows next to the title
+  url: "/projects/slug.html"   # omit entirely for a non-clickable card
+  external: true               # only for outside links; adds the arrow icon + new tab
+  tags: "games-graphics"       # filter chips, space-separated
+  description: "One- or two-sentence summary."
+  tech: ["C++", "OpenGL"]
+  badge:                       # optional
+    type: award                # award (gold) or ship (green)
+    icon: "fas fa-trophy"
+    text: "Won a thing"
+  media:                       # what shows at the top of the card
+    type: stack                # stack | image | video
+    color: games               # stack tints: games, accessibility, ai, mobile
 ```
 
-**Without an image:**
-```html
-<a href="/projects/whatever.html" class="project-card no-image" data-tags="games-graphics">
-  <div class="card-stack-tile" data-stack-color="games">
-    <span class="card-stack-name">Project name</span>
-  </div>
-  <div class="card-body">
-    <h3>Project name</h3>
-    <p>One- or two-sentence summary.</p>
-    <div class="card-tags"><span>Tag</span><span>Tag</span></div>
-  </div>
-</a>
-```
+For `media.type: image` give `webp`, `png`, `width`, `height`, `alt`. For `media.type: video` give `src` (mp4), `poster`, `aria`.
 
-### Pointing a card at a different URL
+Valid tags: `games-graphics`, `ai-ml`, `accessibility`, `mobile-web`, `shipped`. The chip counts at the top of the projects section recompute automatically on page load; you never edit the numbers by hand.
 
-The whole card is one `<a href="...">` element. Change the href:
-- **Internal project page:** `/projects/your-slug.html`
-- **External site:** `https://example.com` (you'll usually also want `target="_blank" rel="noopener noreferrer"`)
-- **Steam page:** `https://store.steampowered.com/app/...`
-- **No link at all:** swap `<a ...>` for `<div ...>` and drop the `</a>` at the bottom
+## Hero background mosaic
 
-### Filter chip mapping
+The tilted scrolling rows behind the intro pull their images from `_data/mosaic.yml`. To add an image (screenshot, award photo, anything): drop the file into `assets/images/` and add one line to the list. The homepage deals the list out across the six rows automatically so every image appears an equal number of times and no two tiles next to each other repeat.
 
-The `data-tags` attribute drives which filter chips show the card. Valid tags: `games-graphics`, `ai-ml`, `accessibility`, `mobile-web`, `shipped`. Multiple tags space-separated.
-
-The chip counts at the top recompute automatically from `data-tags` on page load. You never edit the count numbers by hand.
-
-### Card colors (no-image variant)
-
-The `data-stack-color` attribute on `.card-stack-tile` picks the gradient tint:
-- `games` — slate
-- `accessibility` — green
-- `ai` — purple
-- `mobile` — blue
+Tiles render at 320x200 cropped to cover, so landscape images look best. `.webp` keeps the page light. With 9 images each one appears 4 times across the 36 tile slots; the more you add, the fewer repeats, and at 36+ images every tile is unique.
 
 ## Editing a project detail page
 
@@ -103,8 +83,10 @@ Markdown body goes here. Use `##` for section headings.
 | `subtitle` | Larger paragraph below the title | no |
 | `tech` | List of tech-stack pills under the subtitle | no |
 | `github_link` | URL of the source repo. Renders a "View on GitHub" button in the top bar | no |
-| `steam_link` | URL of the Steam store page. Renders a Steam button | no |
-| `external_link` | Generic external URL (e.g., a live site). `external_label` overrides the button text (default: "Visit site") | no |
+| `topbar_link` | Overrides the top bar button URL (defaults to `github_link`) | no |
+| `topbar_label` | Overrides the top bar button text (default: "View on GitHub") | no |
+| `topbar_icon` | Overrides the button's Font Awesome icon class (default: `fab fa-github`). E.g. `fab fa-steam` | no |
+| `topbar_disabled` | Set to `true` to render the button greyed out with no link (e.g. "Steam page coming soon") | no |
 | `hero_image` | Big image or video placed under the title block. Supports `.webp`, `.png`, `.jpg`, `.mp4`, `.webm` | no |
 | `pdf` | Path to a PDF (e.g., a slide deck). Renders a download button + an inline viewer | no |
 | `images` | List of additional images/videos shown in a grid below the article | no |
