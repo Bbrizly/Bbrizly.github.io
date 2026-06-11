@@ -1,4 +1,50 @@
 /* ==========================================================================
+   Fonts (self-hosted Poppins, latin subset, with metric-matched fallback
+   so the swap from Arial causes no layout shift)
+   ========================================================================== */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/poppins-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/poppins-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/poppins-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/poppins-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Arial adjusted to Poppins metrics (values from fontaine) */
+@font-face {
+  font-family: 'Poppins Fallback';
+  src: local('Arial');
+  ascent-override: 93.62%;
+  descent-override: 31.21%;
+  line-gap-override: 8.92%;
+  size-adjust: 112.16%;
+}
+
+/* ==========================================================================
    Design tokens (locked values from design spec)
    ========================================================================== */
 :root {
@@ -33,13 +79,20 @@
 }
 
 /* Global */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Poppins Fallback', system-ui, sans-serif;
   margin: 0;
   padding: 0;
   background: var(--bg-mid);
   color: var(--ink);
-  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 *, *::before, *::after {
@@ -49,6 +102,7 @@ body {
 h1, h2, h3 {
   margin: 0 0 15px;
   letter-spacing: normal;
+  text-wrap: balance;
 }
 
 a {
@@ -60,7 +114,52 @@ a:hover {
   color: #fff;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(59, 111, 229, 0.55);
+  color: #fff;
+}
+
 main { display: block; }
+
+/* Inline SVG icons (replaces the Font Awesome webfont) */
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+/* Scroll-reveal (replaces the AOS library). Elements with data-aos start
+   hidden only when JS is running; the IntersectionObserver in myscripts.js
+   adds .aos-animate as they enter the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-aos] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js [data-aos].aos-animate {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Skip layout/paint work for sections below the first viewport */
+#experience,
+#skills,
+.awards-v2,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
 
 .skip-link {
   position: absolute;
@@ -83,7 +182,7 @@ main { display: block; }
 }
 #experience h2,
 #skills h2 {
-  font-size: 32px;
+  font-size: clamp(26px, 1.2vw + 22px, 32px);
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0 0 36px;
@@ -204,7 +303,7 @@ main { display: block; }
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-.skill-category h3 i {
+.skill-category h3 .icon {
   color: var(--accent-light);
   margin-right: 8px;
   font-size: 0.85rem;
@@ -357,7 +456,7 @@ main { display: block; }
   margin: 0 0 14px;
 }
 .project-hero h1 {
-  font-size: 48px;
+  font-size: clamp(32px, 2.2vw + 24px, 48px);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -458,7 +557,8 @@ main { display: block; }
   font-style: italic;
   margin-left: 0;
 }
-.project-content img {
+.project-content img,
+.project-content video {
   display: block;
   max-width: 100%;
   height: auto;
@@ -466,6 +566,7 @@ main { display: block; }
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
+.project-content video { width: 100%; }
 
 /* PDF embed block */
 .project-pdf {
@@ -659,7 +760,6 @@ main { display: block; }
     white-space: nowrap; border: 0;
   }
   .project-page { padding: 36px 18px 60px; }
-  .project-hero h1 { font-size: 32px; }
   .project-hero .project-subtitle { font-size: 16px; }
   .project-content { font-size: 15px; }
   .project-content h2 { font-size: 22px; }
@@ -848,7 +948,7 @@ main { display: block; }
 }
 
 .hero-name {
-  font-size: 64px;
+  font-size: clamp(38px, 3.2vw + 26px, 64px);
   font-weight: 600;
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -953,7 +1053,7 @@ main { display: block; }
   margin: 0 auto 28px;
 }
 .projects-head h2 {
-  font-size: 32px;
+  font-size: clamp(26px, 1.2vw + 22px, 32px);
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #fff;
@@ -1029,6 +1129,11 @@ main { display: block; }
   transform: translateY(-3px);
   border-color: rgba(123, 167, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
+}
+.project-card:active {
+  transform: translateY(-1px);
+  transition-duration: 0.08s;
 }
 .project-card:focus-visible {
   outline: 3px solid var(--accent);
@@ -1047,7 +1152,15 @@ main { display: block; }
   object-fit: cover;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
-.card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+picture.card-media { overflow: hidden; }
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-card:hover .card-media img { transform: scale(1.045); }
 video.card-media { object-fit: cover; }
 
 /* No-image variant: project name centered on a tinted block. No glyph. */
@@ -1145,7 +1258,7 @@ video.card-media { object-fit: cover; }
   font-weight: 500;
   border: 1px solid;
 }
-.card-badge i { margin-right: 4px; }
+.card-badge .icon { margin-right: 4px; }
 .badge-award { background: rgba(255, 200, 80, 0.10); color: #f4c266; border-color: rgba(244, 194, 102, 0.3); }
 .badge-ship  { background: rgba(122, 209, 176, 0.12); color: #7ad1b0; border-color: rgba(122, 209, 176, 0.3); }
 
@@ -1162,7 +1275,7 @@ video.card-media { object-fit: cover; }
   margin: 0 auto 36px;
 }
 .awards-head h2 {
-  font-size: 32px;
+  font-size: clamp(26px, 1.2vw + 22px, 32px);
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #fff;
@@ -1254,7 +1367,6 @@ video.card-media { object-fit: cover; }
     width: 100%;
     padding: 48px 32px 40px;
   }
-  .hero-name { font-size: 48px; }
   .mosaic-bg {
     top: auto;
     bottom: 0;
@@ -1330,7 +1442,7 @@ video.card-media { object-fit: cover; }
 @media (max-width: 639px) {
   .hero-v2 { min-height: 560px; }
   .hero-content { padding: 36px 22px 32px; }
-  .hero-name { font-size: 36px; margin-bottom: 18px; }
+  .hero-name { margin-bottom: 18px; }
   .hero-eyebrow { margin-bottom: 12px; }
 
   /* Hide the mosaic entirely on phone; solid dark panel only */
@@ -1354,14 +1466,11 @@ video.card-media { object-fit: cover; }
   .hero-ctas a { text-align: center; }
 
   #experience, #skills { padding: 56px 22px; }
-  #experience h2, #skills h2 { font-size: 26px; }
 
   .projects-v2 { padding: 56px 22px; }
-  .projects-head h2 { font-size: 26px; }
   .projects-grid-v2 { grid-template-columns: 1fr; }
 
   .awards-v2 { padding: 56px 22px 70px; }
-  .awards-head h2 { font-size: 24px; }
   .award-card { padding: 18px 18px; gap: 14px; }
   .award-icon { width: 48px; height: 48px; font-size: 20px; }
   .award-info h3 { font-size: 14px; }
@@ -1377,9 +1486,20 @@ video.card-media { object-fit: cover; }
 @media (prefers-reduced-motion: reduce) {
   .mosaic-reel { animation: none !important; }
   .project-card { transition: none; }
-  .project-card:hover { transform: none; }
+  .project-card:hover, .project-card:active { transform: none; }
+  .card-media img { transition: none; }
+  .project-card:hover .card-media img { transform: none; }
+  .job-description { transition: none; }
   .hero-ctas a { transition: none; }
   .hero-ctas a:hover { transform: none; }
+}
+
+/* Comfortable touch targets on coarse pointers */
+@media (pointer: coarse) {
+  .filter-chip { padding: 12px 18px; }
+  .site-footer .footer-links a,
+  .social-links a { width: 44px; height: 44px; }
+  .job-titles .job-btn { padding: 14px 18px; }
 }
 
 /* backdrop-filter unsupported: fall back to solid tinted panel */

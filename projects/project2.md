@@ -9,6 +9,8 @@ tech:
   - GLSL
 github_link: "https://github.com/Bbrizly/OpenGL-Text-Renderer"
 hero_image: "/assets/images/s2.webp"
+hero_width: 1272
+hero_height: 745
 ---
 
 This **OpenGL-based Text-Renderer** uses a Font-sheet approach to dynamically shrink text to fit textboxes. 

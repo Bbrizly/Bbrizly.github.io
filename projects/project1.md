@@ -10,23 +10,26 @@ tech:
   - Procedural Gen
 github_link: "https://github.com/Bbrizly/Cityscape"
 hero_image: "/assets/images/s1.webp"
+hero_width: 1440
+hero_height: 758
 images:
-  - "/assets/images/z1.webp"
-  - "/assets/images/z2.webp"
-  - "/assets/images/z3.webp"
+  - src: "/assets/images/z1.webp"
+    width: 1440
+    height: 767
+  - src: "/assets/images/z2.webp"
+    width: 1440
+    height: 999
+  - src: "/assets/images/z3.webp"
+    width: 1277
+    height: 759
 ---
 
-Here is a detailed blog post about **OpenGL Cityscape**.
-
-This project is a procedurally generated cityscape based on a Voronoi diagram with a dynamic day & night cycle. 
+**OpenGL Cityscape** is a procedurally generated city built on a Voronoi diagram with a dynamic day and night cycle. Below is the full walkthrough of how it generates streets, buildings, roofs, and lighting from scratch.
 
 Manually coded a Voronoi diagram using videos explaining it such as: 
 [A Mathematical Guide to Social Distancing | Voronoi Diagrams](https://www.youtube.com/watch?v=lmbegJm4EpA&ab_channel=TwoAngles)
 
 After getting the voronoi diagram to work, I wanted to add more procedurality so I would grab any polygon that's too big and split it into smaller ones. This is done by finding the largest edge and splitting it in half.
-
-<!-- ![cityscape visual](/assets/images/building1.png) 
-![cityscape visual](/assets/images/building1Windows.png) -->
 
 After getting a nice polygon, I would sweep across it cutting it into grid cells. This would result in building shapes. I used a simple grid system to do this. I also added some randomness to the grid to make it more interesting.
 
@@ -36,12 +39,7 @@ To add roofs to these potentially complex polygon shapes, I used a fan triangula
 
 Seeing as the voronoi diagram is a set of points, it seemed like a good idea to use these points to create the roads. Because most of them are usually connecting, I would leave some padding and create a cross walk to give the roads a cohesive feel to them. And ofcourse add lines along the verticies using GL_Lines copying what a road with lines would look like.
 
-![cityscape visual](/assets/images/z2.png)
-<!-- ![cityscape visual]() -->
-
-<!-- <div style="display: flex; justify-content: center; gap: 40px; max-width: 8000px; margin: 0 auto;">
-  <img src="/assets/images/z2.png" alt="Image 1" style="width: 45%; height: auto;">
-</div> -->
+![cityscape visual](/assets/images/z2.webp)
 
 Next up is creating UV maps for each building, this is where I faced the biggest issue with my fan based building roofs. Because the fan triangulation algorithm creates triangles that are not necessarily in order, it makes it hard to create a UV map. I ended up using a simple algorithm that would create a UV map based on the minimum x, minimum y and maximum x, maximum y of the building. This would give the texture the same orientation as the building and not be stretched. I also added some randomness to the UV map to make it more interesting.
 
@@ -53,7 +51,7 @@ I used this Array Texture to create red window variations of 3 building textures
 so that the buildings would light up at night. And I also added normals to each building so that they would react to light.
 
 <div style="display: flex; justify-content: center; gap: 40px; max-width: 800px; margin: 0 auto;">
-  <img src="/assets/images/building1.png" alt="Image 1" style="width: 45%; height: auto;">
+  <img src="/assets/images/building1.webp" loading="lazy" width="1440" height="1399" alt="Image 1" style="width: 45%; height: auto;">
   <img src="/assets/images/building1Windows.png" alt="Image 2" style="width: 45%; height: auto;">
 </div>
 

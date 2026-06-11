@@ -10,9 +10,16 @@ tech:
   - YAML
 github_link: "https://github.com/Bbrizly/Volpe-Engine"
 hero_image: "/assets/images/particle2.mp4"
+hero_poster: "/assets/images/particle2-card.webp"
+hero_width: 400
+hero_height: 224
 images:
-  - "/assets/images/particle1.webp"
-  - "/assets/images/particle3.webp"
+  - src: "/assets/images/particle1.webp"
+    width: 1600
+    height: 862
+  - src: "/assets/images/particle3.webp"
+    width: 1600
+    height: 859
 ---
 
 **OpenGL Particle System** simulates thousands of particles with physics-based movement, collisions, and custom shaders for eye-catching effects.

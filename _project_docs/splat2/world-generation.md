@@ -51,7 +51,7 @@ octave 4:  ░░░░                       grit              (8x freq, 0.125x
 
 Two biome masks (plains, mountains) sample the same noise at different offsets so they do not correlate. They blend by weight to produce smooth transitions instead of hard borders.
 
-![Terrain debug shader showing height, biome, and slope channels](/assets/images/splat2/worldgen-terrain-debug.png)
+![Terrain debug shader showing height, biome, and slope channels](/assets/images/splat2/worldgen-terrain-debug.webp)
 
 ## Thermal erosion
 
@@ -59,7 +59,7 @@ After the noise pass, a thermal erosion sweep walks the height grid. Where two n
 
 Runs once at generation time on the worker thread, so it costs nothing at runtime.
 
-![Finished terrain after the erosion pass](/assets/images/splat2/worldgen-terrain.png)
+![Finished terrain after the erosion pass](/assets/images/splat2/worldgen-terrain.webp)
 
 ## uint16 heights
 

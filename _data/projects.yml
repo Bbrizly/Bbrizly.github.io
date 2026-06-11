@@ -19,6 +19,69 @@
 #                  type: stack  -> color (games/accessibility/ai/mobile),
 #                                  name (big text on the tile, defaults to title)
 
+- title: "Adptiv AI"
+  date: "2025 - Present"
+  url: "https://adptiv.ca"
+  external: true
+  tags: "ai-ml accessibility"
+  description: "AI fitness coach that uses on-device pose estimation to read exercise form. I took the ML models from training all the way to deployment on phones."
+  tech: ["Python", "TF Lite", "PyTorch"]
+  badge:
+    type: award
+    icon: "fas fa-trophy"
+    text: "Spark Tank 2.1 Winner"
+  media:
+    type: image
+    webp: "/assets/images/adptiv-ai-card.webp"
+    png: "/assets/images/adptiv-ai-card.jpg"
+    width: 1000
+    height: 625
+    alt: "Adptiv AI app home screen"
+
+- title: "Splat II"
+  date: "2025"
+  url: "/projects/splat2.html"
+  tags: "games-graphics"
+  description: "Final-year capstone. Multiplayer racing game on Steam. You play as a ball with dual grappling hooks, swinging through a procedural city and building up serious speed."
+  tech: ["C++", "Steam", "GLSL", "Procedural"]
+  media:
+    type: video
+    src: "/assets/images/splat2/splat2-gameplay.mp4"
+    poster: "/assets/images/splat2/splat2-poster.webp"
+    aria: "Splat II gameplay"
+
+- title: "QuadStick Config"
+  date: "2025"
+  url: "/projects/quadstick.html"
+  tags: "accessibility"
+  description: "Desktop tool giving quadriplegic gamers a real UI to configure their QuadStick mouth-operated controller. On-screen profile editing over serial, with an automated CI/CD build pipeline."
+  tech: ["C#", ".NET", "WPF", "Serial"]
+  badge:
+    type: ship
+    icon: "fas fa-gears"
+    text: "Automated CI/CD"
+  media:
+    type: stack
+    color: accessibility
+
+- title: "Upstart"
+  date: "2024"
+  url: "/projects/upstart.html"
+  tags: "ai-ml mobile-web"
+  description: "Full company-automation SaaS. The flagship was marketing: generate and schedule entire marketing sprints, then auto-post them across every channel."
+  tech: ["React", "Python", "TensorFlow", "Firebase"]
+  badge:
+    type: award
+    icon: "fas fa-trophy"
+    text: "Panther Pitch Finalist"
+  media:
+    type: image
+    webp: "/assets/images/upstart-dashboard-card.webp"
+    png: "/assets/images/upstart-dashboard-card.jpg"
+    width: 1000
+    height: 625
+    alt: "Upstart marketing automation dashboard"
+
 - title: "Volpe Engine"
   date: "2024"
   url: "/projects/project3.html"
@@ -32,37 +95,8 @@
   media:
     type: video
     src: "/assets/images/gif.mp4"
-    poster: "/assets/images/s1.webp"
+    poster: "/assets/images/s1-card.webp"
     aria: "Volpe Engine demo"
-
-- title: "Adptiv AI"
-  date: "2025 - Present"
-  url: "https://adptiv.ca"
-  external: true
-  tags: "ai-ml accessibility"
-  description: "AI fitness coach that uses on-device pose estimation to read exercise form. I took the ML models from training all the way to deployment on phones."
-  tech: ["Python", "TF Lite", "PyTorch"]
-  badge:
-    type: award
-    icon: "fas fa-trophy"
-    text: "Spark Tank 2.1 Winner"
-  media:
-    type: stack
-    color: ai
-
-- title: "QuadStick Config"
-  date: "2025"
-  url: "/projects/quadstick.html"
-  tags: "accessibility shipped"
-  description: "Desktop tool that lets quadriplegic gamers configure their QuadStick controller. Talks to the device over USB serial, ships through automated CI/CD."
-  tech: ["C#", ".NET", "WPF", "Serial"]
-  badge:
-    type: ship
-    icon: "fas fa-rocket"
-    text: "Deployed & in use"
-  media:
-    type: stack
-    color: accessibility
 
 - title: "Pokemon Go Mobile Game"
   date: "2024"
@@ -83,10 +117,10 @@
   tech: ["C++", "OpenGL", "Procedural"]
   media:
     type: image
-    webp: "/assets/images/s1.webp"
-    png: "/assets/images/s1.png"
-    width: 1919
-    height: 1009
+    webp: "/assets/images/s1-card.webp"
+    png: "/assets/images/s1-card.jpg"
+    width: 1000
+    height: 526
     alt: "OpenGL Cityscape"
 
 - title: "GPU Particle System"
@@ -98,31 +132,8 @@
   media:
     type: video
     src: "/assets/images/particle2.mp4"
-    poster: "/assets/images/particle2.webp"
+    poster: "/assets/images/particle2-card.webp"
     aria: "GPU particle system"
-
-- title: "Splat II"
-  date: "2025"
-  url: "/projects/splat2.html"
-  tags: "games-graphics"
-  description: "Final-year project. Multiplayer racing game on Steam with physics-driven vehicles and procedurally generated maps."
-  tech: ["C++", "Steam", "GLSL", "Procedural"]
-  media:
-    type: stack
-    color: games
-
-- title: "Upstart"
-  date: "2024"
-  tags: "ai-ml mobile-web"
-  description: "SaaS platform that automates workflows across business departments. Live data dashboards and telemetry-style monitoring."
-  tech: ["React", "Python", "TensorFlow", "Firebase"]
-  badge:
-    type: award
-    icon: "fas fa-trophy"
-    text: "Panther Pitch Finalist"
-  media:
-    type: stack
-    color: ai
 
 - title: "OpenGL Text Renderer"
   date: "2024"
@@ -132,30 +143,40 @@
   tech: ["C++", "OpenGL"]
   media:
     type: image
-    webp: "/assets/images/s2.webp"
-    png: "/assets/images/s2.png"
-    width: 1272
-    height: 745
+    webp: "/assets/images/s2-card.webp"
+    png: "/assets/images/s2-card.jpg"
+    width: 1000
+    height: 586
     alt: "OpenGL text renderer"
 
 - title: "Expiry"
   date: "2025"
+  url: "/projects/expiry.html"
   tags: "mobile-web"
-  description: "Web app that helps restaurants cut waste. Tracks ingredient expiry dates and tells the kitchen what to use first. Built at UPEI Hackathon."
+  description: "App that helps restaurants cut waste. Scan ingredient expiry dates, track inventory by shipment, and see which dishes are at risk first. Built at UPEI Hackathon."
   tech: ["Web", "Hackathon"]
   media:
-    type: stack
-    color: mobile
+    type: image
+    webp: "/assets/images/expiry-showcase-card.webp"
+    png: "/assets/images/expiry-showcase-card.jpg"
+    width: 1000
+    height: 625
+    alt: "Expiry app screens: inventory, home, and expiry-date scanner"
 
 - title: "Cabin Boy"
   date: "2025"
+  url: "/projects/cabin-boy.html"
   tags: "games-graphics"
-  description: "Indie game I shipped at the XP Indie Biz Connect Game Jam. Built the whole thing inside the jam window, concept to playable."
-  tech: ["Game Dev", "Game Jam"]
+  description: "Hand-painted pirate game I built with Ben Harper. Showcased and played at the XP Gaming conference in PEI, where it won Community Choice by attendee vote."
+  tech: ["Game Dev", "Indie"]
   badge:
     type: award
     icon: "fas fa-trophy"
     text: "Community Choice Award"
   media:
-    type: stack
-    color: games
+    type: image
+    webp: "/assets/images/cabin-boy-card.webp"
+    png: "/assets/images/cabin-boy-card.jpg"
+    width: 1000
+    height: 625
+    alt: "Cabin Boy game key art"

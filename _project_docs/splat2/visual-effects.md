@@ -62,7 +62,7 @@ composite into the scene
 
 Each player emits a point light. The fog samples those lights at every step, so a player on the other side of the map shows up as a glow inside the fog even when their body is hidden behind geometry. Turned out to be one of the strongest readability cues in playtests.
 
-![Player point lights scattering inside the volumetric fog](/assets/images/splat2/vfx-fog-player-glow.png)
+![Player point lights scattering inside the volumetric fog](/assets/images/splat2/vfx-fog-player-glow.webp)
 
 ### Iteration history
 
@@ -104,7 +104,7 @@ The shader builds a solid core stripe with soft edges plus a wider glow halo. Sm
 
 First version covered the screen and obscured the city. I iterated the width curve, alpha falloff, and segment length until the trail read as a path instead of a banner.
 
-![Trail renderer with particle system, glow tied to acceleration](/assets/images/splat2/vfx-trail-loop.gif)
+<video class="doc-video" muted loop playsinline preload="none" data-autoplay poster="/assets/images/splat2/vfx-trail-loop-poster.webp" aria-label="Trail renderer with particle system, glow tied to acceleration"><source src="/assets/images/splat2/vfx-trail-loop.mp4" type="video/mp4"></video>
 
 ## Black hole shader
 
@@ -124,8 +124,8 @@ Replaced the original basic goal object. Fully procedural, no textures.
 
 A physics sensor sphere detects when the player enters the gravity well and triggers the end-of-level event. An ambient particle system with a "towards point" affector swirls particles into the centre. The pulled particles double as a long-range visual cue: from across the map you can see where the goal is.
 
-![Black hole shader: spiral arms, halftone dots, screen-space distortion](/assets/images/splat2/vfx-blackhole.jpg)
-![Looking through the distortion field with the city bent behind it](/assets/images/splat2/vfx-blackhole-distortion.jpg)
+![Black hole shader: spiral arms, halftone dots, screen-space distortion](/assets/images/splat2/vfx-blackhole.webp)
+![Looking through the distortion field with the city bent behind it](/assets/images/splat2/vfx-blackhole-distortion.webp)
 
 ### Workflow
 

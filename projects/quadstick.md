@@ -2,49 +2,33 @@
 layout: project
 title: "QuadStick Config"
 eyebrow: "Accessibility hardware · 2025"
-subtitle: "Desktop tool that lets quadriplegic gamers configure their QuadStick mouth-controlled controller. Guided multi-screen workflow that flashes the device live over USB serial. Windows installer built and signed through GitHub Actions."
+subtitle: "Desktop tool that gives quadriplegic gamers a real UI to configure their QuadStick mouth-operated controller. Guided multi-screen workflow, profile import/export, a serial bridge to the device, and an automated CI/CD pipeline that ships a Windows build on every release."
 tech:
   - "C#"
   - .NET
   - WPF
   - Serial
   - GitHub Actions
-github_link: ""
-# To add a GitHub link: paste the URL between the quotes above.
-# To add a hero image once you have a screenshot:
-# hero_image: "/assets/images/quadstick-cover.webp"
-# To add screenshots below the article:
-# images:
-#   - "/assets/images/quadstick-shot-1.webp"
-#   - "/assets/images/quadstick-shot-2.webp"
+github_link: "https://github.com/Bbrizly/Quadstick-Config-Manager"
 ---
 
 ## What it is
 
-The **QuadStick** is a mouth-operated game controller designed for quadriplegic players: a single bite-and-sip mouthpiece that maps puffs, sips, and tongue movements onto standard gamepad inputs. It is the most widely used adaptive controller for high-spinal-cord-injury gamers.
+The **QuadStick** is a mouth-operated game controller designed for quadriplegic players: a bite-and-sip mouthpiece that maps puffs, sips, and tongue movements onto standard gamepad inputs. It is one of the most widely used adaptive controllers for high-spinal-cord-injury gamers.
 
-This project is the desktop configuration tool that lives between the player and the device. It edits the QuadStick's stored profiles and flashes them to the controller over serial.
+Out of the box, it is configured through a text-based menu navigated entirely with mouth gestures. That works, but it is slow and opaque to anyone helping the player set it up. This tool moves all of that onto the desktop: edit a player's full profile on screen instead of by-feel through audio menus.
 
-## Why this matters
+## What it does
 
-Out of the box, the QuadStick is configured through a text-based menu navigated entirely with mouth gestures. That works, but it is slow, opaque to people helping the player set things up, and brutal to iterate on for caregivers or speech therapists who are tuning profiles for a specific player's mobility range.
+- **On-screen profile editing.** Every binding and setting in one view instead of a sequential audio menu.
+- **Import / export.** Profiles move in and out as CSV, with starter templates to build from.
+- **Serial bridge.** A `QmpBridge` service talks to the device over its serial connection.
+- **Guided workflow.** A multi-screen WPF flow walks through editing and writing a profile.
 
-This tool moves all of that to a desktop UI:
+## How it's built
 
-- Edit and visualize a player's full profile on screen instead of by-feel through audio menus.
-- See every binding, sensitivity curve, and dwell timing in one view.
-- Test changes by hot-flashing the device over serial without a reset.
-- Save and version profiles so caregivers can roll back changes without losing the previous configuration.
+A WPF (.NET 9) desktop app: strongly-typed C# profile models mirroring the QuadStick's on-device format, a serial bridge for device I/O, a CSV + template layer for profile data, and an MVVM front end built on CommunityToolkit.Mvvm.
 
-## How it works
+## CI/CD
 
-The app is a WPF (.NET) desktop application split across a few responsibilities:
-
-- **Serial layer**: talks to the QuadStick firmware over a USB serial port. The firmware exposes a small command protocol for reading current config, writing new config, and triggering a reflash. The serial layer handles framing, retries, and timeouts.
-- **Profile model**: strongly-typed C# objects mirroring the QuadStick's on-device profile format. Each binding, threshold, and curve is editable.
-- **Multi-screen workflow**: a guided UI walks through input calibration, binding assignment, sensitivity tuning, and a final review screen before writing the profile to the device.
-- **CI/CD pipeline**: GitHub Actions builds and signs the Windows installer on every tagged release.
-
-## Status
-
-In active use. Distributed to QuadStick users by request through the maker.
+The repo runs an automated GitHub Actions pipeline. Every push and pull request builds the app on `windows-latest`, runs tests, and publishes a self-contained single-file Windows executable as a downloadable artifact. Tagging a release cuts a GitHub Release with the packaged build attached, so there's always a ready-to-run download.

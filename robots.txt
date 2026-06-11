@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bbrizly.github.io/sitemap.xml

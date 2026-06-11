@@ -28,7 +28,7 @@ defaults:
   - scope:
       path: ""
     values:
-      image: /assets/images/s1.png
+      image: /assets/images/og.jpg
   - scope:
       path: ""
       type: project_docs
@@ -41,6 +41,7 @@ theme: minima
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-sitemap
 
 exclude:
   - vendor

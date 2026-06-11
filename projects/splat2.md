@@ -4,8 +4,11 @@ project_key: splat2
 project_home: true
 title: "Splat II"
 eyebrow: "Final-year capstone · 2025"
-subtitle: "Multiplayer racing game on Steam. You fly through a procedural city at high speed with dual grappling hooks, racing your own ghost or your friends. Built in C++ on a custom engine."
-hero_image: "/assets/images/splat2/splat2-gameplay.gif"
+subtitle: "Multiplayer racing game on Steam. You play as a ball with dual grappling hooks, swinging through a procedural city and building up serious speed, racing your own ghost or your friends. Built in C++ on a custom engine."
+hero_image: "/assets/images/splat2/splat2-gameplay.mp4"
+hero_poster: "/assets/images/splat2/splat2-poster.webp"
+hero_width: 800
+hero_height: 450
 tech:
   - "C++"
   - OpenGL
@@ -31,7 +34,7 @@ pptx: "/documents/splat-ii-dev-log.pptx"
 
 ## Overview
 
-Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where players swing through a procedurally generated city using dual grappling hooks, race their own ghost or other players over Steam, and try to reach the black hole at the end of the map.
+Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where you play as a ball, swinging through a procedurally generated city using dual grappling hooks to build up speed, racing your own ghost or other players over Steam, and trying to reach the black hole at the end of the map.
 
 ## Highlights
 

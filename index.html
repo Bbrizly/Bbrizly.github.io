@@ -1,31 +1,43 @@
 ---
 title: "Software Engineer & Game Engine Developer"
-description: "Software Engineer at Iron Fox Games. Computer Science graduate (UPEI, 2026), specialization in Video Games. I build custom 3D game engines, mobile apps, accessibility tools, and ML systems."
+description: "Software Engineer at Iron Fox Games. Computer Science graduate (UPEI, 2026), specialization in Video Games. I build production AI and machine-learning systems, custom 3D game engines, and accessibility tech, taking models from training to on-device deployment."
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="theme-color" content="#141e30">
+  <meta name="theme-color" content="#0a0f1a">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="alternate icon" href="/assets/favicon.svg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
+  <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
   <link href="/assets/css/style.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
 
   {% seo %}
   {% feed_meta %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Bassam Kamal",
+    "jobTitle": "Software Engineer",
+    "worksFor": { "@type": "Organization", "name": "Iron Fox Games" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Prince Edward Island" },
+    "url": "https://bbrizly.github.io",
+    "email": "mailto:bassamkamal.py@gmail.com",
+    "sameAs": [
+      "https://github.com/Bbrizly",
+      "https://www.linkedin.com/in/bassam-k/"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <a class="skip-link" href="#about">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- HERO -->
   <section class="hero-v2" id="about" aria-label="About">
@@ -65,7 +77,7 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
     <!-- Foreground identity panel -->
     <div class="hero-content">
       <p class="hero-eyebrow">Portfolio · 2026</p>
-      <h2 class="hero-name">Bassam Kamal</h2>
+      <h1 class="hero-name">Bassam Kamal</h1>
 
       <ul class="about-lines">
         <li class="about-line">
@@ -85,14 +97,15 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
         <li class="about-line">
           <span class="about-ico" aria-hidden="true">&#8596;</span>
           <span class="about-text">
-            <strong>I build</strong> custom 3D engines, ML systems, and accessibility tools
+            <strong>I build</strong> production AI and machine-learning systems, custom 3D game engines, and accessibility tech
+            <span class="about-meta">From model training to on-device deployment, plus the C++ and CI/CD that ships it</span>
           </span>
         </li>
       </ul>
 
       <div class="hero-ctas">
-        <a href="#projects" class="cta-primary"><i class="fas fa-arrow-down" aria-hidden="true"></i> See projects</a>
-        <a href="/documents/Bassam's tech resume.pdf" class="cta-secondary" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-arrow-down" aria-hidden="true"></i> Resume</a>
+        <a href="#projects" class="cta-primary">{% include icon.html name="fas fa-arrow-down" %} See projects</a>
+        <a href="/documents/Bassam's tech resume.pdf" class="cta-secondary" target="_blank" rel="noopener noreferrer">{% include icon.html name="fas fa-file-arrow-down" %} Resume</a>
       </div>
     </div>
 
@@ -124,13 +137,13 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
         {% if p.url %}<a href="{{ p.url }}"{% if p.external %} target="_blank" rel="noopener noreferrer"{% endif %} class="{{ card_classes }}" data-tags="{{ p.tags }}">{% else %}<div class="{{ card_classes }}" data-tags="{{ p.tags }}">{% endif %}
           {% case p.media.type %}
           {% when 'video' %}
-          <video class="card-media" autoplay muted loop playsinline poster="{{ p.media.poster }}" aria-label="{{ p.media.aria | default: p.title }}">
+          <video class="card-media" muted loop playsinline preload="none" data-autoplay poster="{{ p.media.poster }}" aria-label="{{ p.media.aria | default: p.title }}">
             <source src="{{ p.media.src }}" type="video/mp4">
           </video>
           {% when 'image' %}
           <picture class="card-media">
             <source srcset="{{ p.media.webp }}" type="image/webp">
-            <img src="{{ p.media.png }}" alt="{{ p.media.alt | default: p.title }}" width="{{ p.media.width }}" height="{{ p.media.height }}" loading="lazy">
+            <img src="{{ p.media.png }}" alt="{{ p.media.alt | default: p.title }}" width="{{ p.media.width }}" height="{{ p.media.height }}" loading="lazy" decoding="async">
           </picture>
           {% when 'stack' %}
           <div class="card-stack-tile" data-stack-color="{{ p.media.color }}">
@@ -139,12 +152,12 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
           {% endcase %}
           <div class="card-body">
             <div class="card-title-row">
-              <h3>{{ p.title }}{% if p.external %} <i class="fas fa-arrow-up-right-from-square card-ext" aria-hidden="true"></i>{% endif %}</h3>
+              <h3>{{ p.title }}{% if p.external %} {% include icon.html name="fas fa-arrow-up-right-from-square" class="card-ext" %}{% endif %}</h3>
               {% if p.date %}<span class="card-date">{{ p.date }}</span>{% endif %}
             </div>
             <p>{{ p.description }}</p>
             <div class="card-tags">{% for t in p.tech %}<span>{{ t }}</span>{% endfor %}</div>
-            {% if p.badge %}<span class="card-badge badge-{{ p.badge.type }}"><i class="{{ p.badge.icon }}" aria-hidden="true"></i> {{ p.badge.text }}</span>{% endif %}
+            {% if p.badge %}<span class="card-badge badge-{{ p.badge.type }}">{% include icon.html name=p.badge.icon %} {{ p.badge.text }}</span>{% endif %}
           </div>
         {% if p.url %}</a>{% else %}</div>{% endif %}
         {% endfor %}
@@ -156,12 +169,12 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
       <h2>Work Experience</h2>
       <div class="work-container">
         <div class="job-titles" role="tablist" aria-label="Work experience">
-          <button class="job-btn active" data-job="ironfox" role="tab" aria-selected="true">Iron Fox Games</button>
-          <button class="job-btn" data-job="ta" role="tab" aria-selected="false">Teaching Assistant</button>
+          <button class="job-btn active" data-job="ironfox" id="tab-ironfox" role="tab" aria-selected="true" aria-controls="ironfox">Iron Fox Games</button>
+          <button class="job-btn" data-job="ta" id="tab-ta" role="tab" aria-selected="false" aria-controls="ta" tabindex="-1">Teaching Assistant</button>
         </div>
 
         <div class="job-details">
-          <div class="job-description" id="ironfox" role="tabpanel">
+          <div class="job-description" id="ironfox" role="tabpanel" aria-labelledby="tab-ironfox">
             <h3>Software Engineer</h3>
             <p class="job-meta">Iron Fox Games, Charlottetown PEI · Sep 2025 – Present</p>
             <p class="job-note">Started as full-time internship Jun 2025</p>
@@ -173,7 +186,7 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
               <li>Diagnosed and resolved complex bugs across JavaScript web tooling and C++ game systems in production environments</li>
             </ul>
           </div>
-          <div class="job-description hidden" id="ta" role="tabpanel">
+          <div class="job-description hidden" id="ta" role="tabpanel" aria-labelledby="tab-ta">
             <h3>Teaching Assistant &amp; CS Help Center Admin</h3>
             <p class="job-meta">University of Prince Edward Island · Jan 2025 – Jun 2025</p>
             <ul>
@@ -194,7 +207,7 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
       </div>
       <div class="awards-grid">
         <div class="award-card">
-          <div class="award-icon" data-icon-color="gold"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+          <div class="award-icon" data-icon-color="gold">{% include icon.html name="fas fa-trophy" %}</div>
           <div class="award-info">
             <p class="award-when">2025 · PEI</p>
             <h3>Winner · Spark Tank 2.1</h3>
@@ -202,7 +215,7 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
           </div>
         </div>
         <div class="award-card">
-          <div class="award-icon" data-icon-color="silver"><i class="fas fa-medal" aria-hidden="true"></i></div>
+          <div class="award-icon" data-icon-color="silver">{% include icon.html name="fas fa-medal" %}</div>
           <div class="award-info">
             <p class="award-when">2025 · UPEI</p>
             <h3>Finalist · Panther Pitch</h3>
@@ -210,15 +223,15 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
           </div>
         </div>
         <div class="award-card">
-          <div class="award-icon" data-icon-color="blue"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
+          <div class="award-icon" data-icon-color="blue">{% include icon.html name="fas fa-gamepad" %}</div>
           <div class="award-info">
-            <p class="award-when">2024 · PEI</p>
+            <p class="award-when">2025 · PEI</p>
             <h3>Community Choice</h3>
-            <p class="award-venue">XP Indie Biz Connect Game Jam · Cabin Boy</p>
+            <p class="award-venue">XP Gaming Conference · Cabin Boy</p>
           </div>
         </div>
         <div class="award-card">
-          <div class="award-icon" data-icon-color="green"><i class="fas fa-star" aria-hidden="true"></i></div>
+          <div class="award-icon" data-icon-color="green">{% include icon.html name="fas fa-star" %}</div>
           <div class="award-info">
             <p class="award-when">2022 · UPEI</p>
             <h3>Welcome Week Leadership</h3>
@@ -233,19 +246,19 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
       <h2>Technical Skills</h2>
       <div class="skills-container">
         <div class="skill-category">
-          <h3><i class="fas fa-code" aria-hidden="true"></i> Languages</h3>
+          <h3>{% include icon.html name="fas fa-code" %} Languages</h3>
           <div class="skill-tags">
             <span>C++</span><span>C#</span><span>C</span><span>JavaScript</span><span>Java</span><span>Python</span><span>SQL</span><span>GLSL</span><span>Dart</span><span>Angular</span>
           </div>
         </div>
         <div class="skill-category">
-          <h3><i class="fas fa-tools" aria-hidden="true"></i> Frameworks &amp; Tools</h3>
+          <h3>{% include icon.html name="fas fa-tools" %} Frameworks &amp; Tools</h3>
           <div class="skill-tags">
             <span>OpenGL</span><span>Flutter</span><span>Firebase</span><span>AWS Lambda</span><span>.NET / WPF</span><span>React</span><span>TensorFlow</span><span>Docker</span><span>GitHub Actions</span><span>JSONForms</span><span>Zod</span><span>Visual Studio</span>
           </div>
         </div>
         <div class="skill-category">
-          <h3><i class="fas fa-cogs" aria-hidden="true"></i> Technical Areas</h3>
+          <h3>{% include icon.html name="fas fa-cogs" %} Technical Areas</h3>
           <div class="skill-tags">
             <span>Game Engine Programming</span><span>Graphics / Rendering</span><span>CI/CD Pipelines</span><span>Testing &amp; Debugging</span><span>Procedural Generation</span><span>Performance Optimization</span><span>REST APIs</span><span>Serial Communication</span><span>Technical Tooling</span>
           </div>
@@ -256,13 +269,6 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 
   {% include footer.html %}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="/assets/js/myscripts.js"></script>
-  <script>
-    (function () {
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      AOS.init({ duration: 700, once: true, disable: reduceMotion });
-    })();
-  </script>
+  <script src="/assets/js/myscripts.js" defer></script>
 </body>
 </html>

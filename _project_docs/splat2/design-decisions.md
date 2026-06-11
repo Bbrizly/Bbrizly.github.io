@@ -13,9 +13,9 @@ This page is a visual history of the design choices that shaped Splat II. Each s
 
 We wanted the game to read as Splat II at a glance. That meant strong silhouettes, a tight palette, and a few hero visuals that would carry the whole identity.
 
-![Inspiration board: Neon White, Clustertruck, Antichamber, Superhot, and other movement-game references](/assets/images/splat2/design-inspiration-board.png)
-![Concept references and identity mood for the city](/assets/images/splat2/design-concept-references.png)
-![Silhouette and identity tests we used to lock the look](/assets/images/splat2/design-identity-refs.png)
+![Inspiration board: Neon White, Clustertruck, Antichamber, Superhot, and other movement-game references](/assets/images/splat2/design-inspiration-board.webp)
+![Concept references and identity mood for the city](/assets/images/splat2/design-concept-references.webp)
+![Silhouette and identity tests we used to lock the look](/assets/images/splat2/design-identity-refs.webp)
 
 ## Map structure
 
@@ -25,8 +25,8 @@ The maps had to be big enough that the grappling hook felt powerful, but legible
 
 We tuned movement around one question: what makes a 30-second loop fun to repeat? The answer drove the aim assist forgiveness, the grapple recovery window, and the camera lead. See [Player Locomotion](/projects/splat2/player-locomotion/) for the implementation.
 
-![Earlier visual pass before the tuning](/assets/images/splat2/design-tuning-before.png)
-![The same scene after the look pass landed](/assets/images/splat2/design-tuning-after.png)
+![Earlier visual pass before the tuning](/assets/images/splat2/design-tuning-before.webp)
+![The same scene after the look pass landed](/assets/images/splat2/design-tuning-after.webp)
 
 ## Visual language for gameplay cues
 
@@ -40,4 +40,4 @@ Not every idea shipped. Cutting a system is also a design decision. The big ones
 - **The alien migration story.** The second pass at narrative had every racer as an alien species racing back to its mother, set in a dystopian, surreal, abstract world. We never had the time to tell it properly, so it got stripped back to pure racing.
 - **A more detailed player character.** The player is a ball with a face on it. We wanted a character with real presence, with animations and clothing, but the art never came together before the deadline.
 
-![Character and creature references that did not survive scope cuts](/assets/images/splat2/design-cut-character-refs.png)
+![Character and creature references that did not survive scope cuts](/assets/images/splat2/design-cut-character-refs.webp)

@@ -19,7 +19,7 @@ ProceduralBuildingComponent is the biggest single component in the project. It o
 
 The facade shaders run interior mapping on top so windows look like they have rooms behind them. No interior geometry exists.
 
-![Curved building rendered in the engine](/assets/images/splat2/buildings-curved-hero.png)
+![Curved building rendered in the engine](/assets/images/splat2/buildings-curved-hero.webp)
 
 ## Placement: five checks per grid cell
 
@@ -74,7 +74,7 @@ I build a convex hull on the CPU that approximates the bent geometry. First vers
 
 Both sides read from the same `BuildingCurve` struct per instance, so the CPU collider always reflects what the GPU is drawing.
 
-![Curved building next to its CPU convex hull collider](/assets/images/splat2/buildings-curved-collider-debug.png)
+![Curved building next to its CPU convex hull collider](/assets/images/splat2/buildings-curved-collider-debug.webp)
 
 ### Recalculating the AABB
 
@@ -85,8 +85,8 @@ A bent building has a different bounding box than its straight version. First pa
 
 Fix samples a handful of points along the bent shape and grows the box to fit. Cheap, ended both bugs.
 
-![Flat-top building AABB in debug view](/assets/images/splat2/buildings-flat-aabb.png)
-![Curved building AABB grown to match the bent geometry](/assets/images/splat2/buildings-curved-aabb.png)
+![Flat-top building AABB in debug view](/assets/images/splat2/buildings-flat-aabb.webp)
+![Curved building AABB grown to match the bent geometry](/assets/images/splat2/buildings-curved-aabb.webp)
 
 ## Landmark buildings
 
@@ -98,7 +98,7 @@ A pure procedural city can lock the goal behind solid buildings. The route syste
 
 The path is a sine wave between the two endpoints. Always some curvature, never a straight hallway.
 
-![Top-down debug view of the sine-wave route through a generated map](/assets/images/splat2/buildings-route-topdown.png)
+![Top-down debug view of the sine-wave route through a generated map](/assets/images/splat2/buildings-route-topdown.webp)
 
 The route does not delete every building in its radius. It pushes them outward, away from the centre line. Only buildings too close to the centre get deleted.
 

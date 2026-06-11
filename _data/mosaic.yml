@@ -9,13 +9,15 @@
 # Any image works (screenshots, award photos, certificates). Landscape crops
 # look best: tiles render at 320x200, cropped to cover. .webp keeps the page
 # light, but .png/.jpg are fine too.
+# Tiles live in /assets/images/mosaic/ as 640px-wide webp (2x of the 320px
+# tile), generated from the full-size originals. Keep new tiles at that size.
 images:
-  - /assets/images/s1.webp
-  - /assets/images/s2.webp
-  - /assets/images/s3.webp
-  - /assets/images/z1.webp
-  - /assets/images/z2.webp
-  - /assets/images/z3.webp
-  - /assets/images/particle1.webp
-  - /assets/images/particle2.webp
-  - /assets/images/particle3.webp
+  - /assets/images/mosaic/s1.webp
+  - /assets/images/mosaic/s2.webp
+  - /assets/images/mosaic/s3.webp
+  - /assets/images/mosaic/z1.webp
+  - /assets/images/mosaic/z2.webp
+  - /assets/images/mosaic/z3.webp
+  - /assets/images/mosaic/particle1.webp
+  - /assets/images/mosaic/particle2.webp
+  - /assets/images/mosaic/particle3.webp

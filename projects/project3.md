@@ -10,6 +10,9 @@ tech:
   - PBR
 github_link: "https://github.com/Bbrizly/Volpe-Engine"
 hero_image: "/assets/images/gif.mp4"
+hero_poster: "/assets/images/s1-card.webp"
+hero_width: 400
+hero_height: 266
 ---
 
 **Volpe Engine** is an optimized game engine featuring:

@@ -1,21 +1,87 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // =====================
+  // SCROLL REVEAL (replaces the AOS library)
+  // =====================
+  (function initReveal() {
+    const targets = document.querySelectorAll('[data-aos]');
+    if (targets.length === 0) return;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      targets.forEach(el => el.classList.add('aos-animate'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('aos-animate');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+    targets.forEach(el => io.observe(el));
+  })();
+
+  // =====================
+  // LAZY AUTOPLAY VIDEOS
+  // Videos ship with preload="none"; they only download and play once they
+  // scroll into view, and pause again when they leave. Skipped entirely for
+  // reduced-motion users (the poster frame stays).
+  // =====================
+  (function initVideos() {
+    const videos = document.querySelectorAll('video[data-autoplay]');
+    if (videos.length === 0 || reduceMotion) return;
+    if (!('IntersectionObserver' in window)) {
+      videos.forEach(v => { v.play().catch(() => {}); });
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '120px 0px' });
+    videos.forEach(v => io.observe(v));
+  })();
+
   // =====================
   // WORK EXPERIENCE TABS
   // =====================
-  const jobBtns = document.querySelectorAll('.job-btn');
+  const jobBtns = Array.from(document.querySelectorAll('.job-btn'));
   const jobDescriptions = document.querySelectorAll('.job-description');
-  jobBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      jobBtns.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      jobDescriptions.forEach(desc => desc.classList.add('hidden'));
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-      const target = document.getElementById(btn.dataset.job);
-      if (target) target.classList.remove('hidden');
+
+  function selectJobTab(btn) {
+    jobBtns.forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+      b.setAttribute('tabindex', '-1');
+    });
+    jobDescriptions.forEach(desc => desc.classList.add('hidden'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    btn.removeAttribute('tabindex');
+    const target = document.getElementById(btn.dataset.job);
+    if (target) target.classList.remove('hidden');
+  }
+
+  jobBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => selectJobTab(btn));
+    btn.addEventListener('keydown', e => {
+      let next = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = jobBtns[(i + 1) % jobBtns.length];
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = jobBtns[(i - 1 + jobBtns.length) % jobBtns.length];
+      if (e.key === 'Home') next = jobBtns[0];
+      if (e.key === 'End') next = jobBtns[jobBtns.length - 1];
+      if (next) {
+        e.preventDefault();
+        selectJobTab(next);
+        next.focus();
+      }
     });
   });
 
@@ -28,16 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const status = document.querySelector('[data-filter-status]');
     if (chips.length === 0 || cards.length === 0) return;
 
-    // Image-bearing fallback priority for the featured-card slot when Volpe
-    // is filtered out. Order from the design spec.
-    const FEATURED_FALLBACKS = ['cityscape', 'particle', 'text-renderer'];
-
     function tagsOf(card) {
       return (card.dataset.tags || '').split(/\s+/).filter(Boolean);
-    }
-
-    function cardHasImage(card) {
-      return !card.classList.contains('no-image');
     }
 
     function computeCounts() {
@@ -55,39 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyFilter(filter) {
       let visibleCount = 0;
-      const volpeCard = document.querySelector('.project-card-featured') ||
-                        Array.from(cards).find(c => c.querySelector('h3')?.textContent.includes('Volpe'));
 
       cards.forEach(card => {
         const match = filter === 'all' || tagsOf(card).includes(filter);
         card.classList.toggle('is-hidden', !match);
         if (match) visibleCount++;
       });
-
-      // If the featured card (Volpe) is hidden under this filter, transfer
-      // its featured class to the next visible image-bearing card per the
-      // priority list. Reset on 'all'.
-      if (volpeCard) {
-        const volpeMatches = filter === 'all' || tagsOf(volpeCard).includes(filter);
-        // Clear any stale featured class first
-        document.querySelectorAll('.project-card-featured').forEach(c =>
-          c.classList.remove('project-card-featured'));
-
-        if (volpeMatches) {
-          volpeCard.classList.add('project-card-featured');
-        } else {
-          // Pick the next visible image-bearing fallback by matching name keyword.
-          for (const keyword of FEATURED_FALLBACKS) {
-            const candidate = Array.from(cards).find(card =>
-              !card.classList.contains('is-hidden') &&
-              cardHasImage(card) &&
-              (card.querySelector('h3')?.textContent.toLowerCase().includes(keyword) ||
-               card.querySelector('.card-stack-name')?.textContent.toLowerCase().includes(keyword))
-            );
-            if (candidate) { candidate.classList.add('project-card-featured'); break; }
-          }
-        }
-      }
 
       // Announce
       if (status) {
