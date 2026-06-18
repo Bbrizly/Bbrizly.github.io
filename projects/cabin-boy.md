@@ -9,6 +9,13 @@ hero_height: 800
 tech:
   - Game Dev
   - Indie
+images:
+  - src: "/assets/images/splat2/Cabinboy-Stylized-Player-texture-UV.png"
+    width: 1024
+    height: 1024
+  - src: "/assets/images/splat2/Cabinboy-chest-texture.png"
+    width: 1536
+    height: 1024
 ---
 
 ## What it is
@@ -22,3 +29,7 @@ Cabin Boy won **Community Choice** at the conference, voted for by the people wh
 ## What's next
 
 I'm reposting the game on my own itch.io so anyone can play it. More to come.
+
+## Art and assets
+
+Everything in Cabin Boy is hand-painted. Below are a couple of the source textures: the stylized player UV layout and one of the in-world chest textures.

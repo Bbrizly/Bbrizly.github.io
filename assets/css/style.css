@@ -496,6 +496,53 @@ main { display: block; }
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* Full-width key-art banner: sharp image centered, blurred fill on the sides */
+.project-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(220px, 30vw, 380px);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #05080f;
+  isolation: isolate;
+}
+.project-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--banner-img);
+  background-size: cover;
+  background-position: center;
+  filter: blur(34px) saturate(1.15);
+  transform: scale(1.25);
+  opacity: 0.6;
+}
+.project-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow: inset 0 0 80px 24px rgba(5, 8, 15, 0.6);
+}
+.project-banner img {
+  position: relative;
+  height: 82%;
+  width: auto;
+  max-width: 94%;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
 /* Blog-style content typography */
 .project-content {
   color: var(--ink-mute);

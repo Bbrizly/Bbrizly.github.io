@@ -5,7 +5,7 @@ project_home: true
 title: "Splat II"
 eyebrow: "Final-year capstone · 2025"
 subtitle: "Multiplayer racing game on Steam. You play as a ball with dual grappling hooks, swinging through a procedural city and building up serious speed, racing your own ghost or your friends. Built in C++ on a custom engine."
-hero_image: "/assets/images/splat2/splat2-gameplay.mp4"
+# hero_image: "/assets/images/splat2/Splat_II_Gameplay.mp4"
 hero_poster: "/assets/images/splat2/splat2-poster.webp"
 hero_width: 800
 hero_height: 450
@@ -32,7 +32,15 @@ pdf: "/documents/splat-ii-dev-log.pdf"
 pptx: "/documents/splat-ii-dev-log.pptx"
 ---
 
-## Overview
+<!-- ## Overview -->
+
+<div class="project-banner" style="--banner-img: url('/assets/images/splat2/splat2-keyart.png')">
+  <img src="/assets/images/splat2/splat2-keyart.png" alt="Splat II key art" loading="lazy" decoding="async" width="1672" height="941">
+</div>
+
+<video class="project-hero-media" muted loop playsinline preload="none" data-autoplay width="800" height="450">
+  <source src="/assets/images/splat2/Splat_II_Gameplay.mp4" type="video/mp4">
+</video>
 
 Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where you play as a ball, swinging through a procedurally generated city using dual grappling hooks to build up speed, racing your own ghost or other players over Steam, and trying to reach the black hole at the end of the map.
 
@@ -46,8 +54,10 @@ Splat II is my final-year capstone, built in C++ on top of a custom engine frame
 ## My contribution
 
 The systems I owned end-to-end:
+ <div> </div>
 
-- **Player Locomotion**: the largest gameplay component in the project. Dual grappling hooks with independent constraints, ring aim assist (5 rings, 8 directions, 40 samples per crosshair), coyote time with three trackers, spring dynamics with slack accumulation and boost conversion, physics layers, and the bug fix that moved the grapple raycast origin from the camera to the player's centre so it stopped getting stuck inside walls.
+<!-- - <img src="/assets/images/splat2/splat2-gameplay.gif" alt="Splat II Locomotion" loading="lazy" width="800" height="450"> -->
+  **Player Locomotion**: the largest gameplay component in the project. Dual grappling hooks with independent constraints, ring aim assist (5 rings, 8 directions, 40 samples per crosshair), coyote time with three trackers, spring dynamics with slack accumulation and boost conversion, physics layers, and the bug fix that moved the grapple raycast origin from the camera to the player's centre so it stopped getting stuck inside walls.
 - **Terrain System**: layered Perlin with biome blending, thermal erosion, chunk streaming on worker threads, a shared vertex grid with stride-based LOD, height storage as `uint16` in a GPU texture atlas, and Jolt heightfield collision.
 - **Procedural Buildings**: the biggest component in the project. Flat, curved, and arched building generation. The curvature struct that drives the vertex-shader bend, plus the CPU convex hull colliders that match it. Building placement rules, landmark injection, the sine-wave route system, and anti-splat building handling.
 - **Volumetric Fog**: research-driven implementation. Screen-space ray marching, Henyey-Greenstein phase, height + ground + wind-noise density, half-res + temporal filter. Took four iterations to reach 60 fps.
@@ -61,8 +71,8 @@ The systems I owned end-to-end:
 
 I also brought four systems forward from previous years and integrated them: my **Particle System** (five emitter shapes, affector pipeline, YAML serialization), my **Text Renderer**, my **Debug Renderer** (the system that made every spatial bug findable instead of guessable), and my **bounding volume system**.
 
-Click any deep-dive in the sidebar for the details.
+Click any deep-dive on the left for the details.
 
 ## Dev log
 
-The dev log walks through the architecture decisions, system breakdowns, and lessons learned across the year. The PowerPoint keeps the animated clips that show the systems in motion; the PDF gives you the static read.
+The dev log walks through the architecture decisions, system breakdowns, and lessons learned across the year. The PowerPoint shows the presentation shown to professors and students.
