@@ -50,10 +50,38 @@
     poster: "/assets/images/splat2/splat2-poster.webp"
     aria: "Splat II gameplay"
 
+- title: "Pluck"
+  date: "2026"
+  url: "/projects/pluck.html"
+  tags: "shipped mobile-web"
+  description: "Browser extension that copies a Pinterest feed image straight to your clipboard on hover, no opening the pin. Shipped to the Chrome and Firefox stores. No account, no server, no tracking."
+  tech: ["JavaScript", "Manifest V3", "Chrome", "Firefox"]
+  badge:
+    type: ship
+    icon: "fas fa-store"
+    text: "On Chrome & Firefox stores"
+  media:
+    type: stack
+    color: mobile
+
+- title: "Drawer"
+  date: "2026"
+  url: "/projects/drawer.html"
+  tags: "shipped"
+  description: "macOS menu bar app that slides today's to-do list into view from a plain markdown file, with a built-in focus timer. Edit in any editor, check off in the panel, and it writes back. No account, no database."
+  tech: ["Swift", "SwiftUI", "macOS"]
+  badge:
+    type: ship
+    icon: "fas fa-gears"
+    text: "Public release"
+  media:
+    type: stack
+    color: accessibility
+
 - title: "QuadStick Config"
   date: "2025"
   url: "/projects/quadstick.html"
-  tags: "accessibility"
+  tags: "accessibility shipped"
   description: "Desktop tool giving quadriplegic gamers a real UI to configure their QuadStick mouth-operated controller. On-screen profile editing over serial, with an automated CI/CD build pipeline."
   tech: ["C#", ".NET", "WPF", "Serial"]
   badge:
