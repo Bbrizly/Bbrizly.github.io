@@ -12,6 +12,16 @@
 # Tiles live in /assets/images/mosaic/ as 640px-wide webp (2x of the 320px
 # tile), generated from the full-size originals. Keep new tiles at that size.
 images:
+  # Projects
+  - /assets/images/mosaic/adptiv.webp
+  - /assets/images/mosaic/splat2.webp
+  - /assets/images/mosaic/pluck.webp
+  - /assets/images/mosaic/drawer.webp
+  - /assets/images/mosaic/quadstick.webp
+  - /assets/images/mosaic/cabin-boy.webp
+  - /assets/images/mosaic/expiry.webp
+  - /assets/images/mosaic/upstart.webp
+  # Graphics and engine work
   - /assets/images/mosaic/s1.webp
   - /assets/images/mosaic/s2.webp
   - /assets/images/mosaic/s3.webp
