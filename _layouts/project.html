@@ -93,6 +93,7 @@
     <article class="project-page" data-aos="fade-up">
 
       <header class="project-hero">
+        {% if page.logo %}<span class="project-hero-logo"><img src="{{ page.logo }}" alt="{{ page.title }} logo"></span>{% endif %}
         {% if page.eyebrow %}<p class="project-eyebrow">{{ page.eyebrow }}</p>{% endif %}
         <h1>{{ page.title }}</h1>
         {% if page.subtitle %}<p class="project-subtitle">{{ page.subtitle }}</p>{% endif %}
@@ -112,6 +113,23 @@
         {% else %}
           <img class="project-hero-media" src="{{ page.hero_image }}" alt="{{ page.title }} cover"{% if page.hero_width %} width="{{ page.hero_width }}" height="{{ page.hero_height }}"{% endif %} fetchpriority="high">
         {% endif %}
+      {% endif %}
+
+      {% comment %}
+        Live-site handoff. The demo above shows what it does; this points at the
+        real thing before the build log below. Set live_url to enable it.
+      {% endcomment %}
+      {% if page.live_url %}
+        {% assign live_icon = page.live_icon | default: "fas fa-arrow-up-right-from-square" %}
+        <aside class="project-live-cta">
+          <div class="live-copy">
+            <p class="live-kicker">{{ page.live_kicker | default: "Everything below is the build log." }}</p>
+            <p class="live-line">{{ page.live_note | default: "Go use the real thing first, then come back and read how it was made." }}</p>
+          </div>
+          <a class="live-btn" href="{{ page.live_url }}"{% unless page.live_external == false %} target="_blank" rel="noopener noreferrer"{% endunless %}>
+            {% include icon.html name=live_icon %} <span>{{ page.live_label | default: "Visit the site" }}</span>
+          </a>
+        </aside>
       {% endif %}
 
       <section class="project-content">

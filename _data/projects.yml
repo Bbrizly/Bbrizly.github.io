@@ -61,8 +61,12 @@
     icon: "fas fa-store"
     text: "On Chrome & Firefox stores"
   media:
-    type: stack
+    type: demo
     color: mobile
+    logo: "/assets/images/pluck-logo.png"
+    demo_type: video
+    src: "/assets/images/pluck-demo.mp4"
+    poster: "/assets/images/pluck-demo-poster.jpg"
 
 - title: "Drawer"
   date: "2026"
@@ -75,8 +79,12 @@
     icon: "fas fa-gears"
     text: "Public release"
   media:
-    type: stack
-    color: accessibility
+    type: demo
+    color: mobile
+    logo: "/assets/images/drawer-logo.png"
+    demo_type: video
+    src: "/assets/images/drawer-demo.mp4"
+    poster: "/assets/images/drawer-demo-poster.jpg"
 
 - title: "QuadStick Config"
   date: "2025"
@@ -89,8 +97,11 @@
     icon: "fas fa-gears"
     text: "Automated CI/CD"
   media:
-    type: stack
+    type: demo
     color: accessibility
+    logo: "/assets/images/quadstick-logo.png"
+    demo_type: image
+    src: "/assets/images/quadstick-demo.png"
 
 - title: "Upstart"
   date: "2024"
@@ -113,7 +124,7 @@
 - title: "Volpe Engine"
   date: "2024"
   url: "/projects/project3.html"
-  tags: "games-graphics"
+  tags: "games-graphics shipped"
   description: "Small 3D engine I built from scratch in C++. Scene graph, quad and octree culling, PBR lighting, and a GPU particle system in custom GLSL."
   tech: ["C++", "OpenGL", "GLSL", "PBR"]
   badge:

@@ -10,6 +10,15 @@ tech:
   - Serial
   - GitHub Actions
 github_link: "https://github.com/Bbrizly/Quadstick-Config-Manager"
+logo: "/assets/images/quadstick-logo.png"
+hero_image: "/assets/images/quadstick-demo.png"
+live_url: "https://github.com/Bbrizly/Quadstick-Config-Manager"
+live_icon: "fab fa-github"
+live_label: "See it on GitHub"
+live_note: "CI ships a ready-to-run Windows build on every release. Grab the source or a download, then read how it works."
+images:
+  - "/assets/images/quadstick-home.png"
+  - "/assets/images/quadstick-device.png"
 ---
 
 ## What it is

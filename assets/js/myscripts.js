@@ -50,6 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // =====================
+  // DEMO CARD REVEAL
+  // Demo cards rest on their logo, then fade to the demo on hover/focus (CSS).
+  // On touch and for "keep looking at it", reveal after the card dwells in
+  // view, and re-arm when it leaves. Skipped for reduced motion (hover still
+  // works) and when the card never plays a video anyway.
+  // =====================
+  (function initDemoReveal() {
+    const demos = document.querySelectorAll('.card-demo');
+    if (demos.length === 0) return;
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    const timers = new WeakMap();
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const d = entry.target;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          if (!timers.has(d)) {
+            timers.set(d, setTimeout(() => d.classList.add('is-revealed'), 1100));
+          }
+        } else {
+          clearTimeout(timers.get(d));
+          timers.delete(d);
+          d.classList.remove('is-revealed');
+        }
+      });
+    }, { threshold: [0, 0.6] });
+    demos.forEach(d => io.observe(d));
+  })();
+
+  // =====================
   // WORK EXPERIENCE TABS
   // =====================
   const jobBtns = Array.from(document.querySelectorAll('.job-btn'));

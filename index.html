@@ -149,6 +149,24 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
           <div class="card-stack-tile" data-stack-color="{{ p.media.color }}">
             <span class="card-stack-name">{{ p.media.name | default: p.title }}</span>
           </div>
+          {% when 'demo' %}
+          {% comment %} Logo rests over the demo, then fades to reveal it on hover
+             or after the card dwells in view (initDemoReveal). {% endcomment %}
+          <div class="card-media card-demo" data-stack-color="{{ p.media.color }}">
+            <div class="card-demo-media">
+              {% if p.media.demo_type == 'video' %}
+              <video muted loop playsinline preload="none" data-autoplay poster="{{ p.media.poster }}" aria-label="{{ p.title }} demo">
+                <source src="{{ p.media.src }}" type="video/mp4">
+              </video>
+              {% else %}
+              <img src="{{ p.media.src }}" alt="{{ p.title }} demo" loading="lazy" decoding="async">
+              {% endif %}
+            </div>
+            <div class="card-logo-cover">
+              <span class="card-logo-plate"><img src="{{ p.media.logo }}" alt="{{ p.title }} logo"></span>
+            </div>
+            <span class="card-logo-plate card-logo-badge" aria-hidden="true"><img src="{{ p.media.logo }}" alt=""></span>
+          </div>
           {% endcase %}
           <div class="card-body">
             <div class="card-title-row">

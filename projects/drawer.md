@@ -12,6 +12,12 @@ github_link: "https://github.com/Bbrizly/Drawer"
 topbar_link: "https://bbrizly.github.io/Drawer/"
 topbar_icon: "fas fa-arrow-up-right-from-square"
 topbar_label: "Visit site"
+logo: "/assets/images/drawer-logo.png"
+hero_image: "/assets/images/drawer-demo.mp4"
+hero_poster: "/assets/images/drawer-demo-poster.jpg"
+live_url: "https://bbrizly.github.io/Drawer/"
+live_label: "Get Drawer"
+live_note: "Download the signed build from the Drawer site, then come back for how it works."
 ---
 
 ## What it is

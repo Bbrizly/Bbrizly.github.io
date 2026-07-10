@@ -8,11 +8,16 @@ tech:
   - Manifest V3
   - Chrome
   - Firefox
-  - Safari
 github_link: "https://github.com/Bbrizly/pluck"
 topbar_link: "https://bbrizly.github.io/pluck/"
 topbar_icon: "fas fa-arrow-up-right-from-square"
 topbar_label: "Visit site"
+logo: "/assets/images/pluck-logo.png"
+hero_image: "/assets/images/pluck-demo.mp4"
+hero_poster: "/assets/images/pluck-demo-poster.jpg"
+live_url: "https://bbrizly.github.io/pluck/"
+live_label: "Get Pluck"
+live_note: "Install it from the Chrome or Firefox store on the Pluck site, then come back for how it works."
 ---
 
 ## What it is
@@ -35,7 +40,7 @@ Pinterest's feed is a constantly mutating masonry grid. Pluck deliberately does 
 
 ## How it's built
 
-A Manifest V3 extension in plain JavaScript. One codebase builds Chrome, Firefox, and Safari packages. 59 tests cover the copy pipeline. A build script packages each browser target, and the extension is published on the Chrome and Firefox stores.
+A Manifest V3 extension in plain JavaScript. One codebase builds Chrome and Firefox packages. 59 tests cover the copy pipeline. A build script packages each browser target, and the extension is published on the Chrome and Firefox stores.
 
 ## Shipped
 
