@@ -16,6 +16,7 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
   <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
   <link href="/assets/css/style.css" rel="stylesheet">
   <script>document.documentElement.classList.add('js');</script>
+  <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
   {% seo %}
   {% feed_meta %}
@@ -38,33 +39,31 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  {% include theme-toggle.html %}
 
   <!-- HERO -->
   <section class="hero-v2" id="about" aria-label="About">
 
     <!-- Decorative project mosaic (hidden from assistive tech).
-         Images come from _data/mosaic.yml. Tiles are dealt round-robin across
-         the six reels so every image appears an equal number of times (within
-         one) and no two adjacent tiles in a reel repeat. Each reel's tile run
-         is emitted twice for the seamless 50% scroll loop. -->
-    {% assign mosaic_images = site.data.mosaic.images %}
-    {% assign mosaic_n = mosaic_images.size %}
-    {% if mosaic_n > 0 %}
-    {% assign mosaic_per = mosaic_n | plus: 5 | divided_by: 6 %}
-    {% if mosaic_per < 6 %}{% assign mosaic_per = 6 %}{% endif %}
-    {% assign mosaic_last = mosaic_per | minus: 1 %}
+         The grid comes from _data/mosaic.yml, one row per reel (a-f), top to
+         bottom. Edit it visually with /_mosaic_editor.html. Each row's tiles are
+         one loop; we emit them twice for the seamless 50% scroll. -->
+    {% assign mosaic_grid = site.data.mosaic.grid %}
+    {% if mosaic_grid %}
     {% assign reel_letters = "a,b,c,d,e,f" | split: "," %}
     <div class="mosaic-bg" aria-hidden="true">
-      {%- for letter in reel_letters -%}
+      {%- for row in mosaic_grid -%}
       {%- assign r = forloop.index0 -%}
-      <div class="mosaic-reel reel-{{ letter }}">
+      {%- if r < reel_letters.size -%}
+      <div class="mosaic-reel reel-{{ reel_letters[r] }}">
         {%- for rep in (1..2) -%}
-          {%- for i in (0..mosaic_last) -%}
-            {%- assign idx = r | times: mosaic_per | plus: i | modulo: mosaic_n -%}
-            <span class="mosaic-tile" style="background-image:url('{{ mosaic_images[idx] }}')"></span>
+          {%- for name in row -%}
+            {%- if name contains "/" -%}{%- assign src = name -%}{%- else -%}{%- assign src = "/assets/images/mosaic/" | append: name | append: ".webp" -%}{%- endif -%}
+            <span class="mosaic-tile" style="background-image:url('{{ src }}')"></span>
           {%- endfor -%}
         {%- endfor -%}
       </div>
+      {%- endif -%}
       {%- endfor -%}
     </div>
     {% endif %}

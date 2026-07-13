@@ -1,33 +1,18 @@
 # Hero background mosaic (the tilted scrolling rows behind the intro).
 #
-# To add an image: drop the file into /assets/images/ and add one line here.
-# That's it. The homepage spreads the list evenly across the six rows, so
-# every image appears the same number of times (within one) and no two
-# tiles next to each other in a row repeat. Order here doesn't matter much;
-# it only affects which images end up in which row.
+# Edit this visually: run the site locally, open /_mosaic_editor.html, drag the
+# dropdowns until it looks right, then paste its "grid:" output over the block
+# below. Each row maps to a reel (a-f), top to bottom. A row loops after its
+# listed tiles, so the tiles you list are one full loop.
 #
-# Any image works (screenshots, award photos, certificates). Landscape crops
-# look best: tiles render at 320x200, cropped to cover. .webp keeps the page
-# light, but .png/.jpg are fine too.
-# Tiles live in /assets/images/mosaic/ as 640px-wide webp (2x of the 320px
-# tile), generated from the full-size originals. Keep new tiles at that size.
-images:
-  # Projects
-  - /assets/images/mosaic/adptiv.webp
-  - /assets/images/mosaic/splat2.webp
-  - /assets/images/mosaic/pluck.webp
-  - /assets/images/mosaic/drawer.webp
-  - /assets/images/mosaic/quadstick.webp
-  - /assets/images/mosaic/cabin-boy.webp
-  - /assets/images/mosaic/expiry.webp
-  - /assets/images/mosaic/upstart.webp
-  # Graphics and engine work
-  - /assets/images/mosaic/s1.webp
-  - /assets/images/mosaic/s2.webp
-  - /assets/images/mosaic/s3.webp
-  - /assets/images/mosaic/z1.webp
-  - /assets/images/mosaic/z2.webp
-  - /assets/images/mosaic/z3.webp
-  - /assets/images/mosaic/particle1.webp
-  - /assets/images/mosaic/particle2.webp
-  - /assets/images/mosaic/particle3.webp
+# Names are files in /assets/images/mosaic/ without the .webp.
+# Available: adptiv splat2 pluck drawer quadstick cabin-boy expiry upstart
+#            s1 s2 s3 z1 z2 z3 particle1 particle2 particle3
+
+grid:
+  - [adptiv, splat2, pluck, drawer]
+  - [splat2, cabin-boy, z1, quadstick]
+  - ["/assets/images/gif.gif", particle1, "/assets/images/particle2.gif", particle2]
+  - [quadstick, pluck, "/assets/images/drawer-logo.png", "/assets/images/expiry-showcase-card.webp"]
+  - [quadstick, cabin-boy, expiry, upstart]
+  - [cabin-boy, expiry, upstart, adptiv]

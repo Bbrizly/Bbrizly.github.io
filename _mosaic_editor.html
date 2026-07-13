@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mosaic editor</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+  #editor { background:#fff; color:#111; padding:16px; font:13px/1.4 system-ui, sans-serif; }
+  #editor h2 { font-size:13px; margin:14px 0 6px; text-transform:uppercase; letter-spacing:.05em; color:#666; }
+  .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  button { font:12px sans-serif; padding:5px 9px; border:1px solid #bbb; background:#f4f4f4; border-radius:4px; cursor:pointer; }
+  button:hover { background:#e8e8e8; }
+  input[type=number]{ width:48px; padding:3px; }
+  .hint { color:#777; font-size:12px; margin:4px 0; }
+
+  #work { display:flex; gap:20px; align-items:flex-start; }
+  #gridwrap { flex:0 0 auto; }
+  #library { flex:1 1 auto; max-height:420px; overflow:auto; border:1px solid #e0e0e0; border-radius:6px; padding:8px; }
+
+  /* grid of cells */
+  .grow { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+  .glabel { width:52px; color:#888; font-size:12px; }
+  .cell { width:72px; height:46px; border:2px solid #ddd; border-radius:4px; background:#0f1b33 center/cover no-repeat; cursor:pointer; position:relative; }
+  .cell:hover { border-color:#4a90ff; }
+  .cell.empty { background:#e6e6e6; }
+  .rowbtns { display:flex; gap:3px; margin-left:4px; }
+  .rowbtns button { padding:3px 7px; font-size:13px; }
+
+  /* library thumbs */
+  .libgroup { font-size:11px; color:#999; text-transform:uppercase; letter-spacing:.05em; margin:6px 0 4px; }
+  .libgrid { display:flex; flex-wrap:wrap; gap:8px; }
+  .thumb { width:84px; cursor:pointer; }
+  .thumb .img { width:84px; height:54px; border:2px solid transparent; border-radius:4px; background:#0f1b33 center/cover no-repeat; }
+  .thumb.sel .img { border-color:#4a90ff; box-shadow:0 0 0 2px #4a90ff44; }
+  .thumb .cap { font-size:10px; color:#777; word-break:break-all; line-height:1.1; margin-top:2px; }
+
+  #brush { display:inline-flex; align-items:center; gap:6px; }
+  #brush .img { width:40px; height:26px; border:1px solid #999; border-radius:3px; background:#0f1b33 center/cover no-repeat; }
+  #out { width:100%; height:150px; font:12px monospace; }
+</style>
+</head>
+<body>
+
+<!-- LIVE PREVIEW: exactly the site hero -->
+<div id="preview"></div>
+
+<div id="editor">
+  <h2>Mosaic grid editor</h2>
+  <div class="hint">Click an image in the library to load it as your brush, then click any grid cell to paint it. Left cells (c0–c2) hide under the glass/bio; the right cells are what people see. Use the row arrows to slide a whole row sideways.</div>
+
+  <div class="bar">
+    Loop width <input id="width" type="number" min="4" max="10" value="8">
+    <button id="rotate">Reset to rotated</button>
+    <span id="brush">Brush: <span class="img" id="brushimg"></span> <span id="brushname" style="font-size:12px;color:#777">none</span></span>
+    <button id="copy">Copy YAML for Claude</button>
+  </div>
+
+  <div id="work">
+    <div id="gridwrap">
+      <h2>Grid (rows = reels a–f)</h2>
+      <div id="grid"></div>
+    </div>
+    <div id="library">
+      <h2>Library (drop files in /assets/images/mosaic/ to add more)</h2>
+      <div id="lib"></div>
+    </div>
+  </div>
+
+  <h2>Output (paste back to Claude to apply)</h2>
+  <textarea id="out" readonly></textarea>
+  <div class="hint">Auto-saved in your browser. Reload keeps your last grid.</div>
+</div>
+
+<script>
+const LETTERS = ["a","b","c","d","e","f"];
+const ROWS = 6;
+const GLASS_COLS = 3;
+const MOSAIC = "/assets/images/mosaic/";
+// projects used for the rotated default (short names -> mosaic webp)
+const DEFAULTS = ["adptiv","splat2","pluck","drawer","quadstick","cabin-boy","expiry","upstart"]
+                   .map(n => MOSAIC + n + ".webp");
+
+let library = [];          // [{url,label}]
+let brush = null;          // url
+let grid = load();
+
+/* ---------- image name helpers ---------- */
+// what we write to YAML: short name for mosaic webp, full path otherwise
+function emitName(url){
+  const m = url.match(/^\/assets\/images\/mosaic\/(.+)\.webp$/);
+  return m ? m[1] : url;
+}
+
+/* ---------- persistence ---------- */
+function rotatedDefault(w){
+  const g=[];
+  for(let r=0;r<ROWS;r++){ const row=[]; for(let c=0;c<w;c++) row.push(DEFAULTS[(r+c)%DEFAULTS.length]); g.push(row); }
+  return g;
+}
+function load(){
+  try{ const s=JSON.parse(localStorage.getItem("mosaicGridV2")); if(s&&s.length===ROWS) return s; }catch(e){}
+  return rotatedDefault(8);
+}
+function save(){ localStorage.setItem("mosaicGridV2", JSON.stringify(grid)); }
+
+/* ---------- discover images from the server directory listing ---------- */
+async function listDir(path){
+  try{
+    const r = await fetch(path); if(!r.ok) return [];
+    const t = await r.text();
+    return [...t.matchAll(/href="([^"]+)"/g)].map(m=>m[1]).filter(h=>!h.startsWith("?")&&!h.startsWith("/"));
+  }catch(e){ return []; }
+}
+async function buildLibrary(){
+  const isImg = f => /\.(webp|png|jpe?g|gif)$/i.test(f);
+  const items = [];
+  const mos = await listDir(MOSAIC);
+  mos.filter(isImg).forEach(f => items.push({url: MOSAIC + decodeURIComponent(f), label: decodeURIComponent(f), grp:"mosaic tiles"}));
+  const top = await listDir("/assets/images/");
+  top.filter(isImg).forEach(f => items.push({url: "/assets/images/" + decodeURIComponent(f), label: decodeURIComponent(f), grp:"other images"}));
+  // fallback if the server gave no listing
+  if(!items.length) DEFAULTS.forEach(u => items.push({url:u, label:emitName(u), grp:"mosaic tiles"}));
+  // dedup
+  const seen = new Set(); library = items.filter(i => !seen.has(i.url) && seen.add(i.url));
+}
+
+/* ---------- renderers ---------- */
+function buildPreview(){
+  let reels="";
+  grid.forEach((row,r)=>{
+    let tiles="";
+    for(let rep=0;rep<2;rep++) row.forEach(u => tiles+=`<span class="mosaic-tile" style="background-image:url('${u}')"></span>`);
+    reels+=`<div class="mosaic-reel reel-${LETTERS[r]}">${tiles}</div>`;
+  });
+  document.getElementById("preview").innerHTML =
+    `<section class="hero-v2" aria-label="About">
+       <div class="mosaic-bg" aria-hidden="true">${reels}</div>
+       <div class="glass glass-3"></div><div class="glass glass-2"></div><div class="glass glass-1"></div>
+       <div class="hero-content"><p class="hero-eyebrow">Portfolio</p><h1 class="hero-name">Bassam Kamal</h1></div>
+     </section>`;
+}
+
+function buildGrid(){
+  const wrap = document.getElementById("grid");
+  wrap.innerHTML = "";
+  grid.forEach((row,r)=>{
+    const line = document.createElement("div"); line.className="grow";
+    line.innerHTML = `<span class="glabel">reel ${LETTERS[r]}</span>`;
+    row.forEach((u,c)=>{
+      const cell = document.createElement("div");
+      cell.className = "cell" + (c<GLASS_COLS?" glass":"");
+      cell.style.backgroundImage = `url('${u}')`;
+      cell.title = emitName(u) + "  (click to paint with brush)";
+      cell.onclick = ()=>{ if(brush){ grid[r][c]=brush; render(); } else { setBrush(u); } };
+      line.appendChild(cell);
+    });
+    const btns = document.createElement("span"); btns.className="rowbtns";
+    btns.innerHTML = `<button title="slide left">◀</button><button title="slide right">▶</button>`;
+    btns.children[0].onclick = ()=>{ grid[r].push(grid[r].shift()); render(); };
+    btns.children[1].onclick = ()=>{ grid[r].unshift(grid[r].pop()); render(); };
+    line.appendChild(btns);
+    wrap.appendChild(line);
+  });
+}
+
+function buildLib(){
+  const box = document.getElementById("lib");
+  box.innerHTML = "";
+  ["mosaic tiles","other images"].forEach(grp=>{
+    const items = library.filter(i=>i.grp===grp);
+    if(!items.length) return;
+    const h = document.createElement("div"); h.className="libgroup"; h.textContent = grp+" ("+items.length+")"; box.appendChild(h);
+    const g = document.createElement("div"); g.className="libgrid";
+    items.forEach(it=>{
+      const t = document.createElement("div"); t.className="thumb"+(brush===it.url?" sel":"");
+      t.innerHTML = `<div class="img" style="background-image:url('${it.url}')"></div><div class="cap">${it.label}</div>`;
+      t.onclick = ()=> setBrush(it.url);
+      g.appendChild(t);
+    });
+    box.appendChild(g);
+  });
+}
+
+function setBrush(u){
+  brush = u;
+  document.getElementById("brushimg").style.backgroundImage = `url('${u}')`;
+  document.getElementById("brushname").textContent = emitName(u);
+  buildLib();
+}
+
+function buildOut(){
+  document.getElementById("out").value =
+    "grid:\n" + grid.map(row => "  - [" + row.map(emitName).map(n => n.includes("/")?`"${n}"`:n).join(", ") + "]").join("\n");
+}
+
+function render(){ save(); buildPreview(); buildGrid(); buildOut(); }
+
+/* ---------- width control ---------- */
+function setWidth(w){
+  grid = grid.map((row,r)=>{
+    const out=[];
+    for(let c=0;c<w;c++) out.push(row[c] !== undefined ? row[c] : DEFAULTS[(r+c)%DEFAULTS.length]);
+    return out;
+  });
+}
+document.getElementById("width").oninput = e=>{ setWidth(Math.max(4, Math.min(10, +e.target.value||8))); render(); };
+document.getElementById("rotate").onclick = ()=>{ grid = rotatedDefault(grid[0].length); render(); };
+document.getElementById("copy").onclick = ()=>{ const o=document.getElementById("out"); o.select(); document.execCommand("copy"); };
+
+/* ---------- boot ---------- */
+(async ()=>{
+  document.getElementById("width").value = grid[0].length;
+  await buildLibrary();
+  render(); buildLib();
+})();
+</script>
+</body>
+</html>
