@@ -45,12 +45,12 @@
   description: "iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts. Books and progress stay on device."
   tech: ["Swift", "SwiftUI", "TextKit", "iOS"]
   media:
-    type: image
-    webp: "/assets/images/inside-voice-card.webp"
-    png: "/assets/images/inside-voice-card.jpg"
-    width: 1000
-    height: 625
-    alt: "Inside Voice app icon"
+    type: demo
+    color: mobile
+    logo: "/assets/images/inside-voice-logo.png"
+    demo_type: video
+    src: "/assets/images/inside-voice-demo.mp4"
+    poster: "/assets/images/inside-voice-demo-poster.jpg"
 
 - title: "Splat II"
   date: "2025"
