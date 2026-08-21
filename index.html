@@ -103,31 +103,31 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
       </ul>
 
       {%- comment -%}
-        The links a visitor actually came for. Each button is a tray holding a
-        raised plate, so it reads as hardware instead of a flat square.
+        The links a visitor actually came for. Each mark wears its own brand
+        colour, so the row is read by colour before it is read by shape.
       {%- endcomment -%}
       <ul class="hero-rail">
         <li>
-          <a href="https://github.com/Bbrizly" target="_blank" rel="noopener noreferrer">
-            <span class="rail-shell"><span class="rail-plate">{% include icon.html name="fab fa-github" %}</span></span>
+          <a href="https://github.com/Bbrizly" data-brand="github" target="_blank" rel="noopener noreferrer">
+            {% include icon.html name="fab fa-github" %}
             <span class="rail-label">GitHub</span>
           </a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/bassam-k/" target="_blank" rel="noopener noreferrer">
-            <span class="rail-shell"><span class="rail-plate">{% include icon.html name="fab fa-linkedin" %}</span></span>
+          <a href="https://www.linkedin.com/in/bassam-k/" data-brand="linkedin" target="_blank" rel="noopener noreferrer">
+            {% include icon.html name="fab fa-linkedin" %}
             <span class="rail-label">LinkedIn</span>
           </a>
         </li>
         <li>
-          <a href="mailto:bassamkamal.py@gmail.com">
-            <span class="rail-shell"><span class="rail-plate">{% include icon.html name="fas fa-envelope" %}</span></span>
+          <a href="mailto:bassamkamal.py@gmail.com" data-brand="email">
+            {% include icon.html name="fas fa-envelope" %}
             <span class="rail-label">Email</span>
           </a>
         </li>
         <li>
-          <a href="/documents/Bassam's tech resume.pdf" target="_blank" rel="noopener noreferrer">
-            <span class="rail-shell"><span class="rail-plate">{% include icon.html name="fas fa-file-arrow-down" %}</span></span>
+          <a href="/documents/Bassam's tech resume.pdf" data-brand="resume" target="_blank" rel="noopener noreferrer">
+            {% include icon.html name="fas fa-file-arrow-down" %}
             <span class="rail-label">Resume</span>
           </a>
         </li>
