@@ -7,12 +7,12 @@
 #
 # Names are files in /assets/images/mosaic/ without the .webp.
 # Available: adptiv splat2 pluck drawer quadstick cabin-boy expiry upstart
-#            s1 s2 s3 z1 z2 z3 particle1 particle2 particle3
+#            inside-voice s1 s2 s3 z1 z2 z3 particle1 particle2 particle3
 
 grid:
   - [adptiv, splat2, pluck, drawer]
   - [splat2, cabin-boy, z1, quadstick]
   - ["/assets/images/gif.gif", particle1, "/assets/images/particle2.gif", particle2]
   - [quadstick, pluck, "/assets/images/drawer-logo.png", "/assets/images/expiry-showcase-card.webp"]
-  - [quadstick, cabin-boy, expiry, upstart]
+  - [quadstick, cabin-boy, expiry, inside-voice]
   - [cabin-boy, expiry, upstart, adptiv]

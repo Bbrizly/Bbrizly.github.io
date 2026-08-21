@@ -101,6 +101,10 @@
   /* Shadow channel (rgb + inline alpha) */
   --shadow: 0, 0, 0;
 
+  /* Image edge. Pure white on dark, pure black on cream. Never tinted: a
+     tinted hairline picks up the surface under it and reads as dirt. */
+  --img-outline: rgba(255, 255, 255, 0.1);
+
   /* Whites that always sit on the dark image tiles, plus the pdf frame */
   --plate: #ffffff;           /* app-icon plates */
   --on-tile: #ffffff;         /* text on a dark tile */
@@ -155,6 +159,13 @@ body {
   background: var(--bg-mid);
   color: var(--ink);
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body copy: avoid single-word orphans on the last line */
+p, li, .about-text {
+  text-wrap: pretty;
 }
 
 *, *::before, *::after {
@@ -281,7 +292,7 @@ main { display: block; }
   padding: 12px 16px;
   margin-bottom: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   border-radius: 0 6px 6px 0;
   text-align: left;
   font-family: 'Poppins', sans-serif;
@@ -419,8 +430,8 @@ main { display: block; }
   gap: 18px;
 }
 .site-footer .footer-links a {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -563,7 +574,8 @@ main { display: block; }
   height: auto;
   border-radius: 12px;
   margin: 0 0 48px;
-  border: 1px solid rgba(var(--wash), 0.06);
+  outline: 1px solid var(--img-outline);
+  outline-offset: -1px;
 }
 
 /* Live-site handoff band, between the demo and the build log */
@@ -725,7 +737,8 @@ main { display: block; }
   height: auto;
   margin: 2em auto;
   border-radius: 8px;
-  border: 1px solid rgba(var(--wash), 0.06);
+  outline: 1px solid var(--img-outline);
+  outline-offset: -1px;
 }
 .project-content video { width: 100%; }
 
@@ -798,7 +811,8 @@ main { display: block; }
   width: 100%;
   height: auto;
   border-radius: 10px;
-  border: 1px solid rgba(var(--wash), 0.06);
+  outline: 1px solid var(--img-outline);
+  outline-offset: -1px;
 }
 .project-images img:first-child:last-child,
 .project-images video:first-child:last-child {
@@ -1256,6 +1270,41 @@ main { display: block; }
   opacity: 0.65;
   margin-left: 4px;
   font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tactile press feedback on every button-shaped control. Transform only,
+   so it composites and stays interruptible. */
+.hero-ctas a,
+.filter-chip,
+.project-topbar .back-btn,
+.project-topbar a.topbar-action,
+.project-live-cta .live-btn,
+.project-pdf .deck-download,
+.theme-toggle {
+  transition-property: transform, background, border-color, color, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hero-ctas a:active,
+.filter-chip:active,
+.project-topbar .back-btn:active,
+.project-topbar a.topbar-action:active,
+.project-live-cta .live-btn:active,
+.project-pdf .deck-download:active,
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ctas a:active,
+  .filter-chip:active,
+  .project-topbar .back-btn:active,
+  .project-topbar a.topbar-action:active,
+  .project-live-cta .live-btn:active,
+  .project-pdf .deck-download:active,
+  .theme-toggle:active {
+    transform: none;
+  }
 }
 
 .visually-hidden {
@@ -1436,6 +1485,7 @@ video.card-media { object-fit: cover; }
   color: var(--ink-dim);
   letter-spacing: 0.04em;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .card-body p {
   font-size: 13.5px;
@@ -1545,6 +1595,7 @@ video.card-media { object-fit: cover; }
   color: var(--ink-dim);
   text-transform: uppercase;
   margin: 0 0 4px;
+  font-variant-numeric: tabular-nums;
 }
 .award-info h3 {
   font-size: 15px;
@@ -1764,7 +1815,7 @@ video.card-media { object-fit: cover; }
   transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, color 0.18s ease;
 }
 .theme-toggle:hover { transform: translateY(-1px); background: var(--fill-2-hover); border-color: var(--accent-light); }
-.theme-toggle:active { transform: translateY(0); }
+.theme-toggle:active { transform: scale(0.96); }
 .theme-toggle:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
 .theme-ico { display: block; }
 /* Dark theme shows the sun (tap for light); light theme shows the moon. */
@@ -1810,6 +1861,7 @@ video.card-media { object-fit: cover; }
   --code-bg: rgba(58, 48, 30, 0.06);
 
   --shadow: 58, 48, 30;            /* warm soft shadows */
+  --img-outline: rgba(0, 0, 0, 0.1);
 
   --topbar-bg: rgba(247, 242, 232, 0.85);
 

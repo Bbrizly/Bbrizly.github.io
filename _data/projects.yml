@@ -38,6 +38,20 @@
     height: 625
     alt: "Adptiv AI app home screen"
 
+- title: "Inside Voice"
+  date: "2026"
+  url: "/projects/inside-voice.html"
+  tags: "mobile-web ai-ml"
+  description: "iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts. Books and progress stay on device."
+  tech: ["Swift", "SwiftUI", "TextKit", "iOS"]
+  media:
+    type: image
+    webp: "/assets/images/inside-voice-card.webp"
+    png: "/assets/images/inside-voice-card.jpg"
+    width: 1000
+    height: 625
+    alt: "Inside Voice app icon"
+
 - title: "Splat II"
   date: "2025"
   url: "/projects/splat2.html"
