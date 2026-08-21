@@ -9,6 +9,13 @@ tech:
   - TextKit
   - iOS 18+
 github_link: "https://github.com/Bbrizly/reader"
+topbar_link: "/insidevoice/"
+topbar_icon: "fas fa-arrow-up-right-from-square"
+topbar_label: "Visit site"
+live_url: "/insidevoice/"
+live_external: false
+live_label: "Open the Inside Voice site"
+live_note: "The app site has the screens, the features, and the privacy policy. Everything below is how it was built."
 logo: "/assets/images/inside-voice-logo.png"
 hero_image: "/assets/images/inside-voice-card.webp"
 ---

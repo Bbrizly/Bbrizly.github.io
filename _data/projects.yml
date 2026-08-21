@@ -40,7 +40,7 @@
 
 - title: "Inside Voice"
   date: "2026"
-  url: "/projects/inside-voice.html"
+  url: "/insidevoice/"
   tags: "mobile-web ai-ml"
   description: "iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts. Books and progress stay on device."
   tech: ["Swift", "SwiftUI", "TextKit", "iOS"]
