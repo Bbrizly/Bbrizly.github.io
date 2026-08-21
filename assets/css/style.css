@@ -57,6 +57,10 @@
   --width: 68;
   --content-max: 760px;
 
+  /* Motion. One curve for the whole site: fast out, long settle, so hovers
+     read as weight rather than as a colour swap. */
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+
   /* ======================================================================
      Every color the site paints lives here. Dark is the default theme;
      :root[data-theme="light"] at the bottom of this file re-points these
@@ -124,9 +128,11 @@
   --tile-access: #1a3a30;
   --tile-ai: #2d2456;
   --tile-mobile: #1e3a55;
+  --award-gold: #6b4d1a;
   --award-silver: #4a3a7e;
   --award-blue: #1e5a8a;
   --award-green: #2d6e5e;
+  --glyph-gold: #f4c266;
   --glyph-silver: #b09ee0;
   --glyph-blue: #8ec5e8;
   --glyph-green: #7ad1b0;
@@ -181,7 +187,7 @@ h1, h2, h3 {
 a {
   color: var(--accent-light);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.35s var(--ease-out);
 }
 a:hover {
   color: var(--on-accent);
@@ -207,6 +213,16 @@ main { display: block; }
   display: inline-block;
   vertical-align: -0.125em;
   fill: currentColor;
+}
+
+/* Line family: stroke lives here, not on each <svg>, so one number tunes the
+   whole set. Must stay after .icon so `fill: none` wins on equal specificity. */
+.icon-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Scroll-reveal (replaces the AOS library). Elements with data-aos start
@@ -379,7 +395,7 @@ main { display: block; }
 .skill-category h3 .icon {
   color: var(--accent-light);
   margin-right: 8px;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 .skill-tags {
   display: flex;
@@ -430,9 +446,9 @@ main { display: block; }
   gap: 18px;
 }
 .site-footer .footer-links a {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -440,13 +456,16 @@ main { display: block; }
   font-size: 15px;
   background: var(--fill-2);
   border: 1px solid rgba(var(--wash), 0.06);
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  transition: color 0.35s var(--ease-out), background 0.35s var(--ease-out),
+              border-color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
 }
 .site-footer .footer-links a:hover {
   color: var(--on-accent);
   background: var(--accent);
   border-color: var(--accent);
+  transform: translateY(-3px);
 }
+.site-footer .footer-links a:active { transform: translateY(-1px) scale(0.95); transition-duration: 0.08s; }
 .site-footer .footer-meta {
   font-size: 12px;
   color: var(--ink-dim);
@@ -1181,39 +1200,80 @@ main { display: block; }
   margin-top: 2px;
 }
 
-.hero-ctas {
+/* Hero link rail ----------------------------------------------------------- */
+/* Four icon buttons. Each is a tray (.rail-shell) around a raised plate
+   (.rail-plate); the plate radius is the tray radius minus its padding, so the
+   two curves stay concentric. Change one, change the other. */
+.hero-rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   gap: 12px;
 }
 
-.hero-ctas a {
-  padding: 13px 26px;
-  font-size: 14px;
-  border-radius: 8px;
+.hero-rail a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  font-weight: 500;
-  transition: transform 0.15s ease;
+  color: var(--ink-dim);
+  transition: color 0.4s var(--ease-out);
 }
 
-.hero-ctas a:hover { transform: translateY(-1px); }
-
-.cta-primary {
-  background: var(--accent);
-  color: var(--on-accent);
-  box-shadow: 0 4px 20px var(--accent-glow);
+.rail-shell {
+  display: block;
+  padding: 5px;
+  border-radius: 20px;
+  background: rgba(var(--wash), 0.055);
+  border: 1px solid rgba(var(--wash), 0.13);
+  transition: transform 0.4s var(--ease-out),
+              background 0.4s var(--ease-out),
+              border-color 0.4s var(--ease-out),
+              box-shadow 0.4s var(--ease-out);
 }
 
-.cta-primary:hover { color: var(--on-accent); background: var(--accent-hover); }
-
-.cta-secondary {
-  border: 1px solid rgba(var(--wash), 0.18);
+.rail-plate {
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
   color: var(--ink);
-  background: var(--fill-2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(180deg, rgba(var(--wash), 0.11), rgba(var(--wash), 0.045));
+  box-shadow: inset 0 1px 0 rgba(var(--wash), 0.18),
+              0 2px 6px rgba(var(--shadow), 0.35);
+  transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out);
 }
 
-.cta-secondary:hover { color: var(--heading-hover); background: var(--fill-2-hover); }
+.rail-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero-rail a:hover { color: var(--heading); }
+.hero-rail a:hover .rail-shell {
+  transform: translateY(-4px);
+  background: rgba(var(--accent-soft), 0.10);
+  border-color: rgba(var(--accent-soft), 0.32);
+  box-shadow: 0 14px 30px rgba(var(--shadow), 0.4);
+}
+.hero-rail a:hover .rail-plate {
+  background: linear-gradient(180deg, var(--accent-light), var(--accent));
+  color: var(--on-accent);
+}
+.hero-rail a:active .rail-shell { transform: translateY(-1px) scale(0.95); }
+
+/* Ring the tray, not the two-line flex column, so focus traces the button. */
+.hero-rail a:focus-visible { outline: none; color: var(--heading); }
+.hero-rail a:focus-visible .rail-shell {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
 
 /* ==========================================================================
    PROJECTS v2 (dark theme, standardized cards)
@@ -1254,7 +1314,7 @@ main { display: block; }
   background: var(--fill-2);
   cursor: pointer;
   font-weight: 500;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.35s var(--ease-out), color 0.35s var(--ease-out), background 0.35s var(--ease-out);
 }
 .filter-chip:hover { border-color: var(--accent-light); color: var(--heading-hover); }
 .filter-chip:focus-visible {
@@ -1275,7 +1335,6 @@ main { display: block; }
 
 /* Tactile press feedback on every button-shaped control. Transform only,
    so it composites and stays interruptible. */
-.hero-ctas a,
 .filter-chip,
 .project-topbar .back-btn,
 .project-topbar a.topbar-action,
@@ -1283,10 +1342,19 @@ main { display: block; }
 .project-pdf .deck-download,
 .theme-toggle {
   transition-property: transform, background, border-color, color, box-shadow;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
+  transition-duration: 0.35s;
+  transition-timing-function: var(--ease-out);
 }
-.hero-ctas a:active,
+/* Press stays fast. The 0.35s settle is for the release, not the push down. */
+.hero-rail a:active .rail-shell,
+.filter-chip:active,
+.project-topbar .back-btn:active,
+.project-topbar a.topbar-action:active,
+.project-live-cta .live-btn:active,
+.project-pdf .deck-download:active,
+.theme-toggle:active {
+  transition-duration: 0.08s;
+}
 .filter-chip:active,
 .project-topbar .back-btn:active,
 .project-topbar a.topbar-action:active,
@@ -1296,7 +1364,7 @@ main { display: block; }
   transform: scale(0.96);
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-ctas a:active,
+  .hero-rail a:active .rail-shell,
   .filter-chip:active,
   .project-topbar .back-btn:active,
   .project-topbar a.topbar-action:active,
@@ -1555,7 +1623,7 @@ video.card-media { object-fit: cover; }
   background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: 12px;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.35s var(--ease-out), background 0.35s var(--ease-out);
 }
 .award-card:hover {
   border-color: rgba(var(--accent-soft), 0.3);
@@ -1570,7 +1638,7 @@ video.card-media { object-fit: cover; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 24px;
   color: var(--accent-light);
   background: linear-gradient(135deg, var(--tile-default), var(--tile-base));
   position: relative;
@@ -1581,12 +1649,15 @@ video.card-media { object-fit: cover; }
   position: absolute; inset: 0;
   background: repeating-linear-gradient(45deg, rgba(var(--wash), 0.06) 0 2px, transparent 2px 12px);
 }
+.award-icon .icon { position: relative; }
 .award-icon[data-icon-color="silver"] { background: linear-gradient(135deg, var(--award-silver), var(--tile-base)); }
-.award-icon[data-icon-color="silver"] i { color: var(--glyph-silver); }
+.award-icon[data-icon-color="silver"] .icon { color: var(--glyph-silver); }
+.award-icon[data-icon-color="gold"]   { background: linear-gradient(135deg, var(--award-gold), var(--tile-base)); }
+.award-icon[data-icon-color="gold"] .icon   { color: var(--glyph-gold); }
 .award-icon[data-icon-color="blue"]   { background: linear-gradient(135deg, var(--award-blue), var(--tile-base)); }
-.award-icon[data-icon-color="blue"] i   { color: var(--glyph-blue); }
+.award-icon[data-icon-color="blue"] .icon   { color: var(--glyph-blue); }
 .award-icon[data-icon-color="green"]  { background: linear-gradient(135deg, var(--award-green), var(--tile-base)); }
-.award-icon[data-icon-color="green"] i  { color: var(--glyph-green); }
+.award-icon[data-icon-color="green"] .icon  { color: var(--glyph-green); }
 
 .award-info { flex: 1; min-width: 0; }
 .award-when {
@@ -1698,7 +1769,7 @@ video.card-media { object-fit: cover; }
    ========================================================================== */
 @media (max-width: 639px) {
   .hero-v2 { min-height: 560px; }
-  .hero-content { padding: 36px 22px 32px; }
+  .hero-content { padding: 72px 22px 32px; }
   .hero-name { margin-bottom: 18px; }
   .hero-eyebrow { margin-bottom: 12px; }
 
@@ -1719,8 +1790,9 @@ video.card-media { object-fit: cover; }
   .about-meta { display: inline; margin-top: 0; }
   .about-meta::before { content: ' · '; color: var(--ink-dim); }
 
-  .hero-ctas { flex-direction: column; }
-  .hero-ctas a { text-align: center; }
+  .hero-rail { gap: 10px; }
+  .rail-plate { width: 42px; height: 42px; font-size: 18px; }
+  .rail-label { font-size: 9px; letter-spacing: 0.12em; }
 
   #experience, #skills { padding: 56px 22px; }
 
@@ -1729,7 +1801,7 @@ video.card-media { object-fit: cover; }
 
   .awards-v2 { padding: 56px 22px 70px; }
   .award-card { padding: 18px 18px; gap: 14px; }
-  .award-icon { width: 48px; height: 48px; font-size: 20px; }
+  .award-icon { width: 48px; height: 48px; font-size: 21px; }
   .award-info h3 { font-size: 14px; }
 
   .site-footer .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
@@ -1748,15 +1820,17 @@ video.card-media { object-fit: cover; }
   .project-card:hover .card-media img { transform: none; }
   .card-logo-cover, .card-logo-badge { transition: none; }
   .job-description { transition: none; }
-  .hero-ctas a { transition: none; }
-  .hero-ctas a:hover { transform: none; }
+  .rail-shell, .rail-plate { transition: none; }
+  .hero-rail a:hover .rail-shell,
+  .hero-rail a:active .rail-shell { transform: none; }
+  .site-footer .footer-links a:hover,
+  .site-footer .footer-links a:active { transform: none; }
 }
 
 /* Comfortable touch targets on coarse pointers */
 @media (pointer: coarse) {
   .filter-chip { padding: 12px 18px; }
-  .site-footer .footer-links a,
-  .social-links a { width: 44px; height: 44px; }
+  .site-footer .footer-links a { width: 44px; height: 44px; }
   .job-titles .job-btn { padding: 14px 18px; }
 }
 
@@ -1768,11 +1842,6 @@ video.card-media { object-fit: cover; }
     -webkit-mask-image: none;
   }
   .glass-2, .glass-3 { display: none; }
-  .cta-secondary {
-    background: var(--fill-2);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
 }
 
 /* mask-image unsupported: drop the edge fade on the filter row. */
@@ -1812,7 +1881,8 @@ video.card-media { object-fit: cover; }
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: 0 6px 20px -8px rgba(var(--shadow), 0.5);
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, color 0.18s ease;
+  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out),
+              transform 0.35s var(--ease-out), color 0.35s var(--ease-out);
 }
 .theme-toggle:hover { transform: translateY(-1px); background: var(--fill-2-hover); border-color: var(--accent-light); }
 .theme-toggle:active { transform: scale(0.96); }
