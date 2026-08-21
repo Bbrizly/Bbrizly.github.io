@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inside Voice Privacy Policy</title>
+<meta name="description" content="What Inside Voice does with data on your device, and the only things that leave it when you turn an optional feature on.">
+<meta property="og:title" content="Inside Voice Privacy Policy">
+<meta property="og:description" content="No account, no ads, no analytics. Books and reading progress stay on your device.">
+<meta property="og:url" content="https://bassamkamal.dev/insidevoice/privacy.html">
+<meta name="theme-color" content="#0E0C0A">
+<link rel="canonical" href="https://bassamkamal.dev/insidevoice/privacy.html">
+<link rel="icon" type="image/png" href="/assets/images/inside-voice-logo.png">
+<link rel="apple-touch-icon" href="/assets/images/inside-voice-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#0E0C0A;--plate:#1B1714;--plate-2:#221D19;
+  --paper:#F6F0E4;--paper-2:#CFC5B4;--dim:#948A7B;--faint:#6B6357;
+  --amber:#E08A3C;--amber-soft:#F0B173;
+  --hair:rgba(246,240,228,.09);--hair-2:rgba(246,240,228,.05);
+  --ease:cubic-bezier(.32,.72,0,1);--ease-soft:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--ground);color:var(--paper);
+  font-family:'Manrope',ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:rgba(224,138,60,.3)}
+body::after{
+  content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.aura{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.aura b{position:absolute;border-radius:50%;filter:blur(110px)}
+.aura b:nth-child(1){width:56vw;height:56vw;top:-22vw;left:-12vw;background:radial-gradient(circle,rgba(224,138,60,.17),transparent 68%)}
+.aura b:nth-child(2){width:44vw;height:44vw;top:70vw;right:-18vw;background:radial-gradient(circle,rgba(122,96,166,.12),transparent 70%)}
+
+a{color:inherit}
+a.inline{color:var(--amber-soft);text-decoration:none;border-bottom:1px solid rgba(240,177,115,.3);transition:border-color .4s var(--ease)}
+a.inline:hover{border-color:var(--amber-soft)}
+
+.home{
+  position:fixed;top:22px;left:26px;z-index:71;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 17px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--paper-2);text-decoration:none;
+  background:rgba(20,17,16,.66);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
+  border:1px solid var(--hair);box-shadow:0 16px 44px -22px rgba(0,0,0,.9),inset 0 1px 1px rgba(246,240,228,.07);
+  transform:translateY(-14px);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease),color .4s var(--ease);
+}
+body.ready .home{transform:translateY(0);opacity:1}
+.home:hover{color:var(--paper)}
+.home svg{opacity:.5;transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.home:hover svg{transform:translateX(-2px);opacity:.9}
+
+main{max-width:760px;margin:0 auto;padding:158px 28px 40px}
+
+.masthead{text-align:center;margin-bottom:56px}
+.logo-plate{
+  width:76px;height:76px;margin:0 auto 26px;padding:6px;border-radius:23px;
+  background:linear-gradient(160deg,rgba(246,240,228,.11),rgba(246,240,228,.03));
+  border:1px solid var(--hair);box-shadow:0 30px 60px -30px rgba(0,0,0,.95);
+}
+.logo-plate .core{width:100%;height:100%;border-radius:17px;overflow:hidden;background:var(--plate);box-shadow:inset 0 1px 1px rgba(246,240,228,.14)}
+.logo-plate img{width:100%;height:100%;object-fit:cover;display:block}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;padding:6px 15px 6px 12px;border-radius:999px;
+  background:rgba(246,240,228,.045);border:1px solid var(--hair);
+  font-size:10px;text-transform:uppercase;letter-spacing:.22em;font-weight:600;color:var(--paper-2);
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px rgba(224,138,60,.16)}
+h1{
+  font-family:'Fraunces',ui-serif,Georgia,serif;font-weight:400;letter-spacing:-.022em;line-height:1.04;
+  font-size:clamp(38px,6vw,60px);margin:22px 0 18px;
+}
+.meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
+.meta span{
+  font-size:12px;color:var(--dim);padding:5px 13px;border-radius:999px;
+  background:rgba(246,240,228,.035);border:1px solid var(--hair-2);
+}
+
+.short{padding:9px;border-radius:2rem;background:rgba(246,240,228,.045);border:1px solid var(--hair);margin-bottom:56px}
+.short .core{
+  padding:34px 32px;border-radius:calc(2rem - .5625rem);
+  background:radial-gradient(120% 150% at 50% 0%,rgba(224,138,60,.12),transparent 60%),var(--plate);
+  box-shadow:inset 0 1px 1px rgba(246,240,228,.09);
+}
+.short h2{font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--amber);margin-bottom:14px}
+.short p{color:var(--paper-2);font-size:17px;line-height:1.68}
+
+h2{font-family:'Fraunces',serif;font-weight:400;font-size:26px;letter-spacing:-.02em;line-height:1.2;margin:52px 0 16px;scroll-margin-top:120px}
+h2:first-of-type{margin-top:0}
+p{color:var(--paper-2);margin-bottom:18px}
+p.small{font-size:14.5px;color:var(--dim)}
+ul{list-style:none;margin:0 0 22px}
+li{position:relative;padding-left:24px;margin-bottom:12px;color:var(--paper-2)}
+li::before{content:"";position:absolute;left:4px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--amber);opacity:.65}
+li b{color:var(--paper);font-weight:600}
+code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;
+  background:rgba(246,240,228,.06);border:1px solid var(--hair-2);border-radius:7px;padding:2px 7px;
+  word-break:break-all;color:var(--amber-soft);
+}
+hr{border:0;border-top:1px solid var(--hair-2);margin:56px 0}
+
+footer{max-width:760px;margin:0 auto;padding:0 28px 90px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer .l{display:flex;flex-wrap:wrap;gap:22px;font-size:13.5px;color:var(--dim)}
+footer .l a{text-decoration:none;transition:color .4s var(--ease)}
+footer .l a:hover{color:var(--paper)}
+.back{
+  display:inline-flex;align-items:center;gap:11px;padding:11px 11px 11px 22px;border-radius:999px;
+  border:1px solid var(--hair);color:var(--paper-2);font-size:14.5px;font-weight:600;text-decoration:none;
+  transition:transform .55s var(--ease),border-color .55s var(--ease),color .55s var(--ease);
+}
+.back .circ{width:29px;height:29px;border-radius:50%;background:rgba(246,240,228,.07);display:grid;place-items:center;transition:transform .55s var(--ease)}
+.back:hover{color:var(--paper);border-color:rgba(246,240,228,.2);transform:translateY(-1px)}
+.back:hover .circ{transform:translate(-2px,0) scale(1.07)}
+.back:active{transform:scale(.975)}
+
+.reveal{opacity:0;transform:translateY(28px);filter:blur(6px);
+  transition:opacity .9s var(--ease-soft),transform .9s var(--ease-soft),filter .9s var(--ease-soft)}
+.reveal.in{opacity:1;transform:none;filter:blur(0)}
+
+@media (max-width:768px){
+  main{padding:126px 20px 32px}
+  footer{padding:0 20px 70px}
+  .home{padding:9px 14px;font-size:12.5px}
+  .short .core{padding:28px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  .reveal{opacity:1;transform:none;filter:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="aura"><b></b><b></b></div>
+
+<a class="home" href="/insidevoice/">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+  Inside Voice
+</a>
+
+<main>
+  <div class="masthead reveal">
+    <div class="logo-plate">
+      <div class="core"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice app icon" width="76" height="76"></div>
+    </div>
+    <span class="eyebrow"><span class="dot"></span>Inside Voice: Book Reader</span>
+    <h1>Privacy policy</h1>
+    <div class="meta">
+      <span>Effective August 20, 2026</span>
+      <span>Bassam Kamal</span>
+      <span>bassamkamal.py@gmail.com</span>
+    </div>
+  </div>
+
+  <div class="short reveal">
+    <div class="core">
+      <h2>The short version</h2>
+      <p>Inside Voice does not require an account. It does not sell data, run ads, or embed third-party analytics. Your books and reading progress stay on your device. Optional features (cloud AI keys, microphone transcription, neural voice download) only run after you turn them on, and only send what that feature needs.</p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p class="small">This policy describes what Inside Voice does with data on your device, and what leaves the device when you choose to switch on an optional feature.</p>
+  </div>
+
+  <h2 class="reveal" id="on-device">Data stored on your device</h2>
+  <div class="reveal">
+    <ul>
+      <li><b>Books you import</b> (EPUB or PDF), copied into the app's storage so moving the original file does not break the library.</li>
+      <li><b>Reading position</b>, themes, voice choices, speed-reading settings, and similar preferences.</li>
+      <li><b>Rendered chapter audio and word timings</b>, cached so a chapter does not have to be rebuilt every time you open it.</li>
+      <li><b>Optional API keys</b> you enter for Gemini, Azure OpenAI, or Azure Speech, kept in the Keychain on your device.</li>
+    </ul>
+    <p>The App Store privacy label for this build declares no tracking, and no collected data types sold or used for tracking. The app reads preferences, file timestamps, and system boot time only for ordinary on-device behaviour: settings, cache freshness, and timing.</p>
+  </div>
+
+  <h2 class="reveal" id="microphone">Microphone</h2>
+  <div class="reveal">
+    <p>The microphone is used only if you start voice input in recall or chat. On a fresh install that path is off until you add an Azure Speech key and region in Settings and grant microphone permission. Audio for that feature is sent to Microsoft Azure Speech for short transcription, then discarded by the app once the text comes back. Typing always works without the microphone.</p>
+  </div>
+
+  <h2 class="reveal" id="network">Optional network features</h2>
+  <div class="reveal">
+    <p>None of these are required to read a book aloud with system voices.</p>
+    <ul>
+      <li><b>On device (default).</b> Nothing leaves the phone. Available when Apple Intelligence is ready.</li>
+      <li><b>Gemini.</b> Sends text you have already read, plus your recall or chat messages, to Google Gemini using an API key you paste. Only if you select Gemini.</li>
+      <li><b>Azure OpenAI.</b> The same kinds of text, sent to your own Azure OpenAI resource. Only if you configure endpoint, deployment, and key.</li>
+      <li><b>Azure Speech.</b> Sends short microphone recordings you start to Microsoft Speech, using your key and region. Only for voice input you trigger.</li>
+      <li><b>Neural voice install.</b> Downloads model weights (via the neural voice package, from Hugging Face) only if you tap to install the optional voice.</li>
+    </ul>
+    <p>Keys never leave the Keychain except as authorization headers on requests you start. The app does not operate a backend that stores your books or your chat history.</p>
+  </div>
+
+  <h2 class="reveal" id="children">Children</h2>
+  <div class="reveal">
+    <p>Inside Voice is not directed at children under 13. Do not use the optional cloud features to send a child's personal information.</p>
+  </div>
+
+  <h2 class="reveal" id="third-parties">Third-party services</h2>
+  <div class="reveal">
+    <p>If you enable Gemini, Azure OpenAI, Azure Speech, or the neural voice download, those providers' own terms and privacy policies also apply to the data you send them. Inside Voice does not control how those providers retain logs on their side.</p>
+  </div>
+
+  <h2 class="reveal" id="changes">Changes</h2>
+  <div class="reveal">
+    <p>If this policy changes in a way that affects how the app handles data, the effective date at the top will update, and the App Store listing privacy URL will keep pointing here: <code>https://bassamkamal.dev/insidevoice/privacy.html</code></p>
+  </div>
+
+  <h2 class="reveal" id="contact">Contact</h2>
+  <div class="reveal">
+    <p>Questions about privacy: <a class="inline" href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>.</p>
+  </div>
+
+  <hr>
+</main>
+
+<footer>
+  <a class="back" href="/insidevoice/"><span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>Back to Inside Voice</a>
+  <div class="l">
+    <a href="/projects/inside-voice.html">How it was built</a>
+    <a href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="/">bassamkamal.dev</a>
+  </div>
+</footer>
+
+<script>
+requestAnimationFrame(function(){ document.body.classList.add('ready'); });
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.1, rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
