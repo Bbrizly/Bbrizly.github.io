@@ -104,12 +104,12 @@
   date: "2025"
   url: "/projects/quadstick.html"
   tags: "accessibility shipped"
-  description: "Desktop tool giving quadriplegic gamers a real UI to configure their QuadStick mouth-operated controller. On-screen profile editing over serial, with an automated CI/CD build pipeline."
-  tech: ["C#", ".NET", "WPF", "Serial"]
+  description: "Free desktop editor for the QuadStick, the sip-and-puff controller quadriplegic gamers play through. Map inputs on a picture of the hardware, catch every bad cell, install straight to the device."
+  tech: ["C#", ".NET 8", "Avalonia", "Cross-platform"]
   badge:
     type: ship
-    icon: "fas fa-gears"
-    text: "Automated CI/CD"
+    icon: "fas fa-store"
+    text: "On both app stores"
   media:
     type: demo
     color: accessibility

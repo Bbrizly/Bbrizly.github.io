@@ -2,42 +2,49 @@
 layout: project
 title: "QuadStick Config"
 eyebrow: "Accessibility hardware · 2025"
-subtitle: "Desktop tool that gives quadriplegic gamers a real UI to configure their QuadStick mouth-operated controller. Guided multi-screen workflow, profile import/export, a serial bridge to the device, and an automated CI/CD pipeline that ships a Windows build on every release."
+subtitle: "A free desktop editor for QuadStick profiles, the sip-and-puff controller quadriplegic gamers play through. Map inputs on a picture of the hardware, catch every bad cell in plain English, and install straight to the device. Windows, macOS and Linux, on the Mac App Store and the Microsoft Store."
 tech:
   - "C#"
-  - .NET
-  - WPF
-  - Serial
+  - ".NET 8"
+  - Avalonia
+  - "Google Drive API"
   - GitHub Actions
 github_link: "https://github.com/Bbrizly/Quadstick-Config-Manager"
 logo: "/assets/images/quadstick-logo.png"
 hero_image: "/assets/images/quadstick-demo.png"
-live_url: "https://github.com/Bbrizly/Quadstick-Config-Manager"
-live_icon: "fab fa-github"
-live_label: "See it on GitHub"
-live_note: "CI ships a ready-to-run Windows build on every release. Grab the source or a download, then read how it works."
+live_url: "https://bbrizly.github.io/Quadstick-Config-Manager/"
+live_icon: "fas fa-arrow-up-right-from-square"
+live_label: "Download it"
+live_note: "Free, open source, and on both stores. Grab it, then come back and read how it works."
 images:
   - "/assets/images/quadstick-home.png"
-  - "/assets/images/quadstick-device.png"
+  - "/assets/images/quadstick-list.png"
+  - "/assets/images/quadstick-errors.png"
 ---
 
 ## What it is
 
-The **QuadStick** is a mouth-operated game controller designed for quadriplegic players: a bite-and-sip mouthpiece that maps puffs, sips, and tongue movements onto standard gamepad inputs. It is one of the most widely used adaptive controllers for high-spinal-cord-injury gamers.
+The **QuadStick** is a mouth-operated game controller for quadriplegic players: sips, puffs, a lip switch and a joystick moved with the mouth, mapped onto keyboard, mouse and gamepad buttons. It is one of the most widely used adaptive controllers for high spinal cord injury gamers.
 
-Out of the box, it is configured through a text-based menu navigated entirely with mouth gestures. That works, but it is slow and opaque to anyone helping the player set it up. This tool moves all of that onto the desktop: edit a player's full profile on screen instead of by-feel through audio menus.
+Every setting lives in one CSV file on the device's USB drive. The usual way to edit that file is a Google Sheet plus an export add-on, then a Windows-only tool to copy it across. One bad cell breaks a profile, and a broken `default.csv` can make the drive vanish until someone force-erases the hardware.
+
+This is a real editor for that file. Free, open source, and it runs on Windows, macOS and Linux.
 
 ## What it does
 
-- **On-screen profile editing.** Every binding and setting in one view instead of a sequential audio menu.
-- **Import / export.** Profiles move in and out as CSV, with starter templates to build from.
-- **Serial bridge.** A `QmpBridge` service talks to the device over its serial connection.
-- **Guided workflow.** A multi-screen WPF flow walks through editing and writing a profile.
+- **Two ways to edit.** Map inputs on a picture of the stick, or work row by row in the spreadsheet view. Autocomplete knows the real input, output and function names the firmware accepts.
+- **Plain-English validation.** Which cell, what is wrong, and how to fix it. An error means the device would misread the file, and only those block the install. A row the device simply skips is a warning, and installs fine.
+- **Safe install.** Backs up the old file, writes a temp copy, reads it back, then swaps it in. Overwriting the device's fallback profile always asks first.
+- **Google Drive backup.** Connect once and every save backs itself up to a Sheet in your own Drive. The save never waits on the network. New machine or a wiped USB stick: restore the lot.
+- **Share and import.** Paste anyone's Sheets link to pull their profile in, every mode tab included, or open a downloaded `.xlsx` workbook. The community catalog of shared game profiles is browsable from inside the app, and cached so it still opens offline.
+- **Built for access.** Nothing is signalled by colour alone, every control says what it is, and the whole app works read aloud and reached by keyboard.
 
 ## How it's built
 
-A WPF (.NET 9) desktop app: strongly-typed C# profile models mirroring the QuadStick's on-device format, a serial bridge for device I/O, a CSV + template layer for profile data, and an MVVM front end built on CommunityToolkit.Mvvm.
+C# on .NET 8, with [Avalonia](https://avaloniaui.net/) for the UI so one codebase ships to all three desktops. Two projects: a format library holding the parser, the validator and the USB install, with no UI in it at all, and the window layer on top.
+
+The validator is the part that matters. Its rules come from the QuadStick's own firmware source, not from guesswork: the test suite runs a reader modelled on the firmware's parse loop, so a claim about what the device does with a cell is proved against the device's own logic instead of asserted in a comment. The corpus it runs against is hundreds of real profiles shared by the community.
 
 ## CI/CD
 
-The repo runs an automated GitHub Actions pipeline. Every push and pull request builds the app on `windows-latest`, runs tests, and publishes a self-contained single-file Windows executable as a downloadable artifact. Tagging a release cuts a GitHub Release with the packaged build attached, so there's always a ready-to-run download.
+Pushing a version tag is the whole release. GitHub Actions runs the tests, builds the Windows, macOS and Linux downloads, and publishes the release with all of them attached.
