@@ -31,12 +31,12 @@
     icon: "fas fa-trophy"
     text: "Spark Tank 2.1 Winner"
   media:
-    type: image
-    webp: "/assets/images/adptiv-ai-card.webp"
-    png: "/assets/images/adptiv-ai-card.jpg"
-    width: 1000
-    height: 625
-    alt: "Adptiv AI app home screen"
+    type: demo
+    color: ai
+    logo: "/assets/images/adptiv-logo.png"
+    demo_type: video
+    src: "/assets/images/adptiv-demo.mp4"
+    poster: "/assets/images/adptiv-demo-poster.jpg"
 
 - title: "Inside Voice"
   date: "2026"
