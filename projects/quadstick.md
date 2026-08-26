@@ -10,9 +10,12 @@ tech:
   - "Google Drive API"
   - GitHub Actions
 github_link: "https://github.com/Bbrizly/Quadstick-Config-Manager"
+topbar_link: "https://bassamkamal.dev/Quadstick-Config-Manager/"
+topbar_icon: "fas fa-arrow-up-right-from-square"
+topbar_label: "View site"
 logo: "/assets/images/quadstick-logo.png"
 hero_image: "/assets/images/quadstick-demo.png"
-live_url: "https://bbrizly.github.io/Quadstick-Config-Manager/"
+live_url: "https://bassamkamal.dev/Quadstick-Config-Manager/#download"
 live_icon: "fas fa-arrow-up-right-from-square"
 live_label: "Download it"
 live_note: "Free, open source, and on both stores. Grab it, then come back and read how it works."
