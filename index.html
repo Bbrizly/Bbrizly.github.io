@@ -16,7 +16,6 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
   <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
   <link href="/assets/css/style.css" rel="stylesheet">
   <script>document.documentElement.classList.add('js');</script>
-  <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 
   {% seo %}
   {% feed_meta %}
@@ -39,7 +38,6 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  {% include theme-toggle.html %}
 
   <!-- HERO -->
   <section class="hero-v2" id="about" aria-label="About">
@@ -249,6 +247,14 @@ description: "Software Engineer at Iron Fox Games. Computer Science graduate (UP
         <h2>Awards &amp; Recognition</h2>
       </div>
       <div class="awards-grid">
+        <div class="award-card">
+          <div class="award-icon" data-icon-color="silver">{% include icon.html name="fas fa-medal" %}</div>
+          <div class="award-info">
+            <p class="award-when">2026 · PEI</p>
+            <h3>2nd Place · TechWeek Hackathon</h3>
+            <p class="award-venue">SMCSS × PEI IT Alliance · Inside Voice</p>
+          </div>
+        </div>
         <div class="award-card">
           <div class="award-icon" data-icon-color="gold">{% include icon.html name="fas fa-trophy" %}</div>
           <div class="award-info">

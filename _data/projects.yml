@@ -44,6 +44,10 @@
   tags: "mobile-web ai-ml"
   description: "iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts. Books and progress stay on device."
   tech: ["Swift", "SwiftUI", "TextKit", "iOS"]
+  badge:
+    type: award
+    icon: "fas fa-medal"
+    text: "2nd Place · TechWeek Hackathon"
   media:
     type: demo
     color: mobile

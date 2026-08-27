@@ -62,10 +62,7 @@
   --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* ======================================================================
-     Every color the site paints lives here. Dark is the default theme;
-     :root[data-theme="light"] at the bottom of this file re-points these
-     same tokens to a warm cream set. Rules only ever reference var(--*),
-     so a surface can never be off-theme.
+     Dark-only palette. Every surface reads a token; no light theme.
      ====================================================================== */
 
   /* Page backgrounds */
@@ -89,8 +86,7 @@
   --accent-glow: rgba(59, 111, 229, 0.4);
   --selection: rgba(59, 111, 229, 0.55);
 
-  /* Neutral overlay channel (rgb + inline alpha): light films on dark,
-     warm-dark films on cream. Borders, hairlines, faint fills, sheens. */
+  /* Neutral overlay channel (rgb + inline alpha): light films on dark. */
   --wash: 255, 255, 255;
 
   /* Raised surfaces */
@@ -105,7 +101,7 @@
   /* Shadow channel (rgb + inline alpha) */
   --shadow: 0, 0, 0;
 
-  /* Image edge. Pure white on dark, pure black on cream. Never tinted: a
+  /* Image edge. Pure white on dark. Never tinted: a
      tinted hairline picks up the surface under it and reads as dirt. */
   --img-outline: rgba(255, 255, 255, 0.1);
 
@@ -114,12 +110,10 @@
   --on-tile: #ffffff;         /* text on a dark tile */
   --viewer-bg: var(--mask-on)000;
 
-  /* Sticky chrome: translucent dark now, translucent cream in light mode */
+  /* Sticky chrome */
   --topbar-bg: rgba(6, 9, 18, 0.85);
 
-  /* Dark image-container tiles (project thumbnails, award icons, hero mosaic).
-     Intentionally constant across themes: they hold white logos and read as
-     premium thumbnails on cream. */
+  /* Dark image-container tiles (project thumbnails, award icons, hero mosaic). */
   --tile-base: #0a0f1a;
   --tile-deep: #05080f;
   --tile-mosaic: #0f1b33;
@@ -137,7 +131,7 @@
   --glyph-blue: #8ec5e8;
   --glyph-green: #7ad1b0;
 
-  /* Hero frosted-glass tint (rgb + inline alpha); hero is dark in both themes */
+  /* Hero frosted-glass tint (rgb + inline alpha) */
   --glass: 6, 9, 18;
   --mask-on: #000;              /* opaque stop for blur-falloff masks (alpha stencil, not a color) */
 
@@ -1209,27 +1203,38 @@ main { display: block; }
 }
 
 /* Hero link rail ----------------------------------------------------------- */
-/* Bare marks, no plate behind them. Fixed-width cells put the icons on an even
-   pitch; flush-left contents keep the row on the same edge as everything else
-   in the hero, and the negative margin cancels the first cell's own padding. */
+/* Bare marks, centered as a row. Equal flex cells keep the four icons on an
+   even pitch; padding (not margin) keeps each tap target at least 44px. */
 .hero-rail {
   list-style: none;
-  margin: 0 0 0 -6px;
+  margin: 0 auto;
   padding: 0;
   display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 420px;
+}
+
+.hero-rail li {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .hero-rail a {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  min-width: 92px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
   /* Padding, not margin, so the tap target clears 44px without moving anything. */
-  padding: 10px 6px;
+  padding: 12px 6px;
   text-decoration: none;
   color: var(--brand);
   transition: transform 0.4s var(--ease-out), filter 0.4s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hero-rail .icon {
@@ -1247,8 +1252,14 @@ main { display: block; }
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  text-align: center;
   color: var(--ink-dim);
   transition: color 0.4s var(--ease-out);
+  /* Keep long labels from blowing out narrow phone cells */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* The lift glows in the mark's own colour, which is also what rescues the
@@ -1332,8 +1343,7 @@ main { display: block; }
 .project-topbar .back-btn,
 .project-topbar a.topbar-action,
 .project-live-cta .live-btn,
-.project-pdf .deck-download,
-.theme-toggle {
+.project-pdf .deck-download {
   transition-property: transform, background, border-color, color, box-shadow;
   transition-duration: 0.35s;
   transition-timing-function: var(--ease-out);
@@ -1344,16 +1354,14 @@ main { display: block; }
 .project-topbar .back-btn:active,
 .project-topbar a.topbar-action:active,
 .project-live-cta .live-btn:active,
-.project-pdf .deck-download:active,
-.theme-toggle:active {
+.project-pdf .deck-download:active {
   transition-duration: 0.08s;
 }
 .filter-chip:active,
 .project-topbar .back-btn:active,
 .project-topbar a.topbar-action:active,
 .project-live-cta .live-btn:active,
-.project-pdf .deck-download:active,
-.theme-toggle:active {
+.project-pdf .deck-download:active {
   transform: scale(0.96);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1362,8 +1370,7 @@ main { display: block; }
   .project-topbar .back-btn:active,
   .project-topbar a.topbar-action:active,
   .project-live-cta .live-btn:active,
-  .project-pdf .deck-download:active,
-  .theme-toggle:active {
+  .project-pdf .deck-download:active {
     transform: none;
   }
 }
@@ -1762,7 +1769,7 @@ video.card-media { object-fit: cover; }
    ========================================================================== */
 @media (max-width: 639px) {
   .hero-v2 { min-height: 560px; }
-  .hero-content { padding: 72px 22px 32px; }
+  .hero-content { padding: 40px 18px 28px; }
   .hero-name { margin-bottom: 18px; }
   .hero-eyebrow { margin-bottom: 12px; }
 
@@ -1783,9 +1790,17 @@ video.card-media { object-fit: cover; }
   .about-meta { display: inline; margin-top: 0; }
   .about-meta::before { content: ' · '; color: var(--ink-dim); }
 
-  .hero-rail a { min-width: 78px; gap: 10px; }
-  .hero-rail .icon { width: 26px; height: 26px; }
-  .rail-label { font-size: 9px; letter-spacing: 0.12em; }
+  .hero-rail {
+    max-width: none;
+    margin-top: 4px;
+  }
+  .hero-rail a {
+    gap: 8px;
+    padding: 14px 4px;
+    min-height: 56px;
+  }
+  .hero-rail .icon { width: 28px; height: 28px; }
+  .rail-label { font-size: 9px; letter-spacing: 0.1em; }
 
   #experience, #skills { padding: 56px 22px; }
 
@@ -1825,6 +1840,7 @@ video.card-media { object-fit: cover; }
   .filter-chip { padding: 12px 18px; }
   .site-footer .footer-links a { padding: 12px; }
   .job-titles .job-btn { padding: 14px 18px; }
+  .hero-rail a { padding: 14px 6px; min-height: 56px; }
 }
 
 /* backdrop-filter unsupported: fall back to solid tinted panel */
@@ -1843,120 +1859,4 @@ video.card-media { object-fit: cover; }
     mask-image: none;
     -webkit-mask-image: none;
   }
-}
-
-/* ==========================================================================
-   THEME TOGGLE + LIGHT MODE
-
-   Dark is the default theme. The whole palette lives in the tokens at the top
-   of this file; light mode below only re-points those tokens, it never styles
-   a surface directly. An inline <head> script sets data-theme before paint so
-   there is no flash. The photo-mosaic hero stays dark in both themes (a cream
-   wash over a photo grid reads wrong), so its themed tokens are pinned locally.
-   ========================================================================== */
-
-/* Fixed top-left toggle, above the sticky topbar */
-.theme-toggle {
-  position: fixed;
-  top: 14px;
-  left: 16px;
-  z-index: 1000;
-  width: 42px;
-  height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--ink);
-  background: var(--fill-2);
-  border: 1px solid rgba(var(--wash), 0.16);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 6px 20px -8px rgba(var(--shadow), 0.5);
-  transition: background 0.35s var(--ease-out), border-color 0.35s var(--ease-out),
-              transform 0.35s var(--ease-out), color 0.35s var(--ease-out);
-}
-.theme-toggle:hover { transform: translateY(-1px); background: var(--fill-2-hover); border-color: var(--accent-light); }
-.theme-toggle:active { transform: scale(0.96); }
-.theme-toggle:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
-.theme-ico { display: block; }
-/* Dark theme shows the sun (tap for light); light theme shows the moon. */
-.theme-ico-moon { display: none; }
-:root[data-theme="light"] .theme-ico-sun { display: none; }
-:root[data-theme="light"] .theme-ico-moon { display: block; }
-
-@media (prefers-reduced-motion: reduce) {
-  .theme-toggle { transition: none; }
-  .theme-toggle:hover { transform: none; }
-}
-
-/* --------------------------------------------------------------------------
-   Light theme: warm cream. Token re-points only.
-   -------------------------------------------------------------------------- */
-:root[data-theme="light"] {
-  --bg-dark: #efe7d6;    /* deeper sand: skills, footer */
-  --bg-mid: #f7f2e8;     /* main ivory */
-  --bg-light: #ffffff;
-
-  --ink: #38322a;
-  --ink-mute: #574f43;
-  --ink-dim: #837968;
-  --heading: #2a241c;
-  --heading-hover: #1f1b15;
-
-  --accent: #3b6fe5;
-  --accent-light: #2f5ec4;         /* deeper so accent text reads on cream */
-  --accent-hover: #2551ad;
-  --on-accent: #ffffff;
-  --accent-soft: 47, 94, 196;      /* deeper tint so soft chips read on cream */
-  --accent-glow: rgba(59, 111, 229, 0.28);
-  --selection: rgba(59, 111, 229, 0.22);
-
-  --wash: 58, 48, 30;              /* warm-dark films on cream */
-
-  --surface-1: #fffdf7;            /* raised warm white card */
-  --surface-1-hover: #ffffff;
-  --fill-2: #fffaf0;               /* chips, secondary buttons */
-  --fill-2-hover: #fff4e2;
-  --fill-3: #fff9ee;               /* skill tags */
-  --border: rgba(58, 48, 30, 0.14);
-  --code-bg: rgba(58, 48, 30, 0.06);
-
-  --shadow: 58, 48, 30;            /* warm soft shadows */
-  --img-outline: rgba(0, 0, 0, 0.1);
-
-  --topbar-bg: rgba(247, 242, 232, 0.85);
-
-  /* GitHub's mark flips to near-black on a light ground; LinkedIn Blue holds
-     4.8:1 on cream, so it does not move. */
-  --brand-github: #16161a;
-
-  --badge-award-fg: #a9741a;       /* darker gold/green for cream contrast */
-  --badge-ship-fg: #1f8a63;
-}
-
-/* Pin the hero dark in light mode: re-point its themed tokens back to dark so
-   every child that reads a token keeps its dark value. No per-element rules. */
-:root[data-theme="light"] .hero-v2 {
-  --ink: #e6ecf4;
-  --ink-mute: #cfd8e3;
-  --ink-dim: #9bb5d6;
-  --heading: #ffffff;
-  --heading-hover: #ffffff;
-  --accent-light: #7aa7ff;
-  --accent-soft: 123, 167, 255;
-  --wash: 255, 255, 255;
-  --fill-2: rgba(255, 255, 255, 0.05);
-  --fill-2-hover: rgba(255, 255, 255, 0.09);
-  --shadow: 0, 0, 0;
-  --bg-dark: #060912;
-  --brand-github: #ffffff;
-  background: #060912;
-}
-
-/* Narrow project pages: keep the back button clear of the fixed toggle.
-   ponytail: a fixed nudge, not a layout rewrite. */
-@media (max-width: 860px) {
-  .project-topbar { padding-left: 72px; }
 }
