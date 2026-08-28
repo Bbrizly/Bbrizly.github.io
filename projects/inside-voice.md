@@ -3,6 +3,7 @@ layout: project
 title: "Inside Voice"
 eyebrow: "iOS app · 2026"
 subtitle: "An EPUB and PDF reader that speaks the page with word-level highlighting, optional speed reading, and short recall prompts so you keep what you just read. Books, audio, and progress stay on your phone."
+description: "An iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts to help you retain what you read."
 tech:
   - Swift
   - SwiftUI

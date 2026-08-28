@@ -3,6 +3,7 @@ layout: project
 title: "Drawer"
 eyebrow: "macOS app · 2026"
 subtitle: "A menu bar app that slides today's to-do list into view with a global hotkey. The list is a plain markdown file, so you can edit it anywhere and the panel stays in sync. Check a task off in the panel and the checkbox is written back to the file. No account, no database."
+description: "A macOS menu bar app that slides today's to-do list into view with a global hotkey. The list is a plain markdown file that stays in sync as you edit it."
 tech:
   - Swift
   - SwiftUI

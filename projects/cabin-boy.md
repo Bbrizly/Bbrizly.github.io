@@ -3,6 +3,7 @@ layout: project
 title: "Cabin Boy"
 eyebrow: "Game showcase · 2025"
 subtitle: "A game I built with teammate Ben Harper, shown and played at the XP Gaming conference in PEI, where it won the Community Choice award by attendee vote."
+description: "A game built with teammate Ben Harper, shown at the XP Gaming conference in PEI, where it won the Community Choice award by attendee vote."
 hero_image: "/assets/images/cabin-boy-keyart.jpg"
 hero_width: 800
 hero_height: 800

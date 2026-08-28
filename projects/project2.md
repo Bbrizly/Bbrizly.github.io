@@ -3,6 +3,7 @@ layout: project
 title: "OpenGL Text Renderer"
 eyebrow: "Project · 2024"
 subtitle: "Text renderer that runs on font sheets and array textures. Does word wrap with hyphenation, shrinks to fit a box, truncates with ellipsis, and pulls localized strings from a CSV."
+description: "An OpenGL text renderer on font sheets and array textures, with word wrap, hyphenation, box-fit shrinking, and CSV-driven localization."
 tech:
   - C++
   - OpenGL

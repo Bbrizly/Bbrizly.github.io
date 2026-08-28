@@ -3,6 +3,7 @@ layout: project
 title: "Volpe Engine"
 eyebrow: "Engine · 2024"
 subtitle: "Small 3D engine I built from scratch in C++. Scene graph with quad and octree culling, PBR lighting, an array-texture text renderer, and a GPU-instanced particle system."
+description: "A 3D engine built from scratch in C++, with a scene graph, quad/octree culling, PBR lighting, and a GPU-instanced particle system."
 tech:
   - C++
   - OpenGL

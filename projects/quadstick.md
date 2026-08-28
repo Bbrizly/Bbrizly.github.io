@@ -3,6 +3,7 @@ layout: project
 title: "QuadStick Config"
 eyebrow: "Accessibility hardware · 2025"
 subtitle: "A free desktop editor for QuadStick profiles, the sip-and-puff controller quadriplegic gamers play through. Map inputs on a picture of the hardware, catch every bad cell in plain English, and install straight to the device. Windows, macOS and Linux, on the Mac App Store and the Microsoft Store."
+description: "A free desktop editor for QuadStick profiles, the sip-and-puff controller quadriplegic gamers play through. On the Mac App Store and Microsoft Store."
 tech:
   - "C#"
   - ".NET 8"

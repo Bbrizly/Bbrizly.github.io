@@ -3,6 +3,7 @@ layout: project
 title: "GPU Particle System"
 eyebrow: "Engine module · 2024"
 subtitle: "GPU-instanced particle system. Shape emitters, lifetime ranges, color gradients, and pluggable affectors. Effects load from YAML so you can compose multiple emitters into one effect."
+description: "A GPU-instanced particle system with shape emitters, lifetime ranges, color gradients, and pluggable affectors, configured through YAML."
 tech:
   - C++
   - OpenGL

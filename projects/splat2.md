@@ -5,6 +5,7 @@ project_home: true
 title: "Splat II"
 eyebrow: "Final-year capstone · 2025"
 subtitle: "Multiplayer racing game on Steam. You play as a ball with dual grappling hooks, swinging through a procedural city and building up serious speed, racing your own ghost or your friends. Built in C++ on a custom engine."
+description: "A multiplayer racing game: play as a ball with dual grappling hooks, swinging through a procedural city. Built in C++ on a custom engine, headed to Steam."
 # hero_image: "/assets/images/splat2/Splat_II_Gameplay.mp4"
 hero_poster: "/assets/images/splat2/splat2-poster.webp"
 hero_width: 800

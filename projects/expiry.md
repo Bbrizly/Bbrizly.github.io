@@ -3,6 +3,7 @@ layout: project
 title: "Expiry"
 eyebrow: "Hackathon · 2025"
 subtitle: "An app that helps restaurants cut food waste. Scan ingredient expiry dates with the camera, track inventory by shipment, and see which dishes are most at risk first. Built at the UPEI Hackathon."
+description: "An app that helps restaurants cut food waste: scan expiry dates with the camera, track inventory by shipment, and flag at-risk dishes first. Built at the UPEI Hackathon."
 tech:
   - Web
   - Hackathon

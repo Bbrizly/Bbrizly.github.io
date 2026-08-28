@@ -3,6 +3,7 @@ layout: project
 title: "Upstart"
 eyebrow: "Startup · 2024"
 subtitle: "Full company-automation SaaS. The flagship was marketing: describe a goal and Upstart would generate an entire marketing sprint, schedule it, and auto-post it across every channel. Panther Pitch finalist."
+description: "A company-automation SaaS. Describe a goal and Upstart generates a marketing sprint, schedules it, and auto-posts it across every channel. Panther Pitch finalist."
 hero_image: "/assets/images/upstart-dashboard.webp"
 hero_width: 1440
 hero_height: 900

@@ -3,6 +3,7 @@ layout: project
 title: "OpenGL Cityscape"
 eyebrow: "Project · 2024"
 subtitle: "Procedural city generated from a Voronoi diagram. Roofs use fan triangulation, buildings use array textures, and the whole scene runs on a day/night cycle."
+description: "A procedural OpenGL city generated from a Voronoi diagram, with fan-triangulated roofs, array-textured buildings, and a day/night cycle."
 tech:
   - C++
   - OpenGL

@@ -3,6 +3,7 @@ layout: project
 title: "Pluck"
 eyebrow: "Browser extension · 2026"
 subtitle: "Copy a Pinterest feed image straight to your clipboard without ever opening the pin. Hover a still image, click Copy, and paste a clean PNG into Messages, Slack, Figma, or anything else that reads images from the clipboard. Shipped to the Chrome and Firefox stores."
+description: "A browser extension that copies a Pinterest feed image straight to your clipboard, no need to open the pin. Shipped to the Chrome and Firefox stores."
 tech:
   - JavaScript
   - Manifest V3

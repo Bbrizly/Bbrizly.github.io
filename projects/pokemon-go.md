@@ -3,6 +3,7 @@ layout: project
 title: "Pokemon Go Mobile Game"
 eyebrow: "Mobile · 2024"
 subtitle: "Pokemon Go style mobile game. Flutter on the frontend, AWS Lambda and Firebase on the backend. AR capture mechanics, cloud-synced inventory, and full CI/CD through GitHub Actions and Docker."
+description: "A Pokemon Go style mobile game built with Flutter, AWS Lambda, and Firebase, with AR capture mechanics and cloud-synced inventory."
 tech:
   - Flutter
   - Dart
