@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Inside Voice Privacy Policy</title>
-<meta name="description" content="What Inside Voice does with data on your device, and the only things that leave it when you turn an optional feature on.">
-<meta property="og:title" content="Inside Voice Privacy Policy">
-<meta property="og:description" content="No account, no ads, no analytics. Books and reading progress stay on your device.">
-<meta property="og:url" content="https://bassamkamal.dev/insidevoice/privacy.html">
+<title>Inside Voice Support</title>
+<meta name="description" content="Help with In My Voice: importing books, voices, prepared audiobooks, recall, the Board, and how to get in touch.">
+<meta property="og:title" content="Inside Voice Support">
+<meta property="og:description" content="Answers to the usual questions, and an address to write to.">
+<meta property="og:url" content="https://bassamkamal.dev/insidevoice/support.html">
 <meta name="theme-color" content="#0E0C0A">
-<link rel="canonical" href="https://bassamkamal.dev/insidevoice/privacy.html">
+<link rel="canonical" href="https://bassamkamal.dev/insidevoice/support.html">
 <link rel="icon" type="image/png" href="/assets/images/inside-voice-logo.png">
 <link rel="apple-touch-icon" href="/assets/images/inside-voice-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,92 +147,65 @@ footer .l a:hover{color:var(--paper)}
 </a>
 
 <main>
-  <div class="masthead reveal">
-    <div class="logo-plate">
-      <div class="core"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice app icon" width="76" height="76"></div>
-    </div>
-    <span class="eyebrow"><span class="dot"></span>Inside Voice: Book Reader</span>
-    <h1>Privacy policy</h1>
+  <div class="masthead">
+    <div class="logo-plate"><div class="core"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice"></div></div>
+    <span class="eyebrow"><span class="dot"></span> In My Voice</span>
+    <h1>Support</h1>
     <div class="meta">
-      <span>Effective September 4, 2026</span>
-      <span>Bassam Kamal</span>
+      <span>One person makes this</span>
       <span>bassamkamal.py@gmail.com</span>
     </div>
   </div>
 
   <div class="short reveal">
     <div class="core">
-      <h2>The short version</h2>
-      <p>Inside Voice does not require an account. It does not sell data, run ads, or embed third-party analytics. Your books and reading progress stay on your device. Optional features (cloud AI keys, microphone transcription, neural voice download) only run after you turn them on, and only send what that feature needs.</p>
+      <h2>Fastest way to get help</h2>
+      <p>Email <a class="inline" href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>. Say what you were doing, what happened, and which iPhone or Mac you are on. Settings shows the version at the foot of the Page tab; including it saves a round trip. Expect a reply within a few days.</p>
     </div>
   </div>
 
+  <h2 class="reveal" id="books">Adding books</h2>
   <div class="reveal">
-    <p class="small">This policy describes what Inside Voice does with data on your device, and what leaves the device when you choose to switch on an optional feature.</p>
+    <p>The app opens EPUB and PDF. Add one with the plus button on the shelf, or share a book to In My Voice from Files, Mail or Safari. The file is copied into the app, so moving or deleting the original afterwards does not break the book.</p>
+    <p>If a book will not open, the app says why rather than showing a blank one. A DRM-protected book from a store cannot be opened by any app but that store's own. A scanned PDF with no text layer has nothing to read aloud or search.</p>
   </div>
 
-  <h2 class="reveal" id="on-device">Data stored on your device</h2>
+  <h2 class="reveal" id="voices">Voices</h2>
   <div class="reveal">
     <ul>
-      <li><b>Books you import</b> (EPUB or PDF), copied into the app's storage so moving the original file does not break the library.</li>
-      <li><b>Reading position</b>, themes, voice choices, speed-reading settings, and similar preferences.</li>
-      <li><b>Rendered chapter audio and word timings</b>, cached so a chapter does not have to be rebuilt every time you open it.</li>
-      <li><b>Optional API keys</b> you enter for Gemini, Azure OpenAI, or Azure Speech, kept in the Keychain on your device.</li>
-      <li><b>Your own voice</b>, if you record one. The ten second recording is written to the app's temporary folder and the voice built from it is kept in the app's own storage. Neither is uploaded, and neither is put anywhere other apps or the Files app can see. Deleting the voice deletes both.</li>
-      <li><b>Notes, quotes and the Board</b> you build from a book, and how much of each book you have read.</li>
-      <li><b>Prepared audiobooks</b> you asked the app to keep, and audiobooks you export, which go to the app's Documents folder so you can reach them in Files.</li>
+      <li><b>System voices</b> work with no download. iOS has better ones than the default under Settings, Accessibility, Spoken Content, Voices.</li>
+      <li><b>The neural voice</b> is an optional download of about ninety megabytes, from the Voice tab. It sounds much better and takes longer to make each chapter. It is not backed up to iCloud; it downloads again if you restore a phone.</li>
+      <li><b>Your own voice</b> is ten seconds of you reading a passage. Record it somewhere quiet, close to the phone, and start reading straight away rather than leaving silence at the front. The app scores the take and tells you the one thing worth changing.</li>
     </ul>
-    <p>The App Store privacy label for this build declares no tracking, and no collected data types sold or used for tracking. The app reads preferences, file timestamps, and system boot time only for ordinary on-device behaviour: settings, cache freshness, and timing.</p>
   </div>
 
-  <h2 class="reveal" id="microphone">Microphone</h2>
+  <h2 class="reveal" id="audio">Waiting for audio</h2>
   <div class="reveal">
-    <p>The microphone is used for two things, each only when you start it.</p>
-    <ul>
-      <li><b>Recording your own voice</b> so books can be read back in it. That recording never leaves the device: the voice is built on the phone, and both the recording and the voice are deleted when you delete the voice.</li>
-      <li><b>Speaking a recall answer instead of typing it.</b> This device's own speech recognition handles it, and nothing leaves the phone. If you have set an Azure Speech key and region in Settings, a recording it cannot handle is sent to Microsoft Azure Speech for short transcription and discarded by the app once the text comes back.</li>
-    </ul>
-    <p>Typing always works without the microphone, and the app reads books with no microphone permission at all.</p>
+    <p>A neural chapter is made on your phone, not fetched from a server, so the first part of a chapter takes a little while and the rest arrives behind it while you listen. Pressing play always takes priority over anything being prepared in the background.</p>
+    <p><b>Prepare</b> and <b>Make audiobook</b> build a chapter or a whole book ahead of time and keep it. Kept audio survives the cache being reclaimed and plays with no model at all, so a book prepared in a voice you later delete still reads aloud. Manage what is kept, and how much space it takes, under Voice.</p>
+    <p>Preparing is real work on the phone's Neural Engine. With the app in the background and nothing playing, iOS gives it a limited amount of time and then suspends it. Whatever was finished is saved, and it carries on where it left off when you come back.</p>
   </div>
 
-  <h2 class="reveal" id="network">Optional network features</h2>
+  <h2 class="reveal" id="ai">Recall, the Board, and AI</h2>
   <div class="reveal">
-    <p>None of these are required to read a book aloud with system voices.</p>
-    <ul>
-      <li><b>On device (default).</b> Nothing leaves the phone. Available when Apple Intelligence is ready.</li>
-      <li><b>Gemini.</b> Sends text you have already read, plus your recall or chat messages, to Google Gemini using an API key you paste. Only if you select Gemini.</li>
-      <li><b>Azure OpenAI.</b> The same kinds of text, sent to your own Azure OpenAI resource. Only if you configure endpoint, deployment, and key.</li>
-      <li><b>Azure Speech.</b> Sends short microphone recordings you start to Microsoft Speech, using your key and region. Only for voice input you trigger.</li>
-      <li><b>Neural voice install.</b> Downloads model weights (via the neural voice package, from Hugging Face) only if you tap to install the optional voice.</li>
-    </ul>
-    <p>Keys never leave the Keychain except as authorization headers on requests you start. The app does not operate a backend that stores your books or your chat history.</p>
+    <p>The recall card and the Board can run on this device with no key and nothing sent anywhere, or on Gemini or Azure OpenAI with a key you paste in Settings. The app uses the provider you chose and no other. If it fails, it says so rather than sending your book somewhere else.</p>
+    <p>On-device answers need Apple Intelligence, which not every device and region has. If Settings says it is not ready, either wait for it or add a key.</p>
+    <p>Nothing the model sees is ever ahead of where you have read, so asking about a book cannot spoil it.</p>
   </div>
 
-  <h2 class="reveal" id="tips">Tips</h2>
+  <h2 class="reveal" id="space">Space on the phone</h2>
   <div class="reveal">
-    <p>The app is free and nothing in it is paid for. There is an optional tip jar at the foot of the reading statistics screen, and it unlocks nothing: the app is identical before and after.</p>
-    <p>The tip jar is handled by RevenueCat, on top of Apple's own In-App Purchase. It is not started until you open that screen, so a reader who never goes there never contacts it. When it does run, RevenueCat receives an anonymous identifier it generates for the install and the purchase result. It never receives your name, your books, or anything you have read. Apple handles the payment itself and this app never sees your payment details.</p>
+    <p>Read-ahead audio lives in the cache and clears itself. Prepared audiobooks do not: they are yours until you delete them, under Voice, where each reading is listed with its size. Deleting a book from the shelf now deletes everything the app kept about it, prepared audio included.</p>
   </div>
 
-  <h2 class="reveal" id="children">Children</h2>
+  <h2 class="reveal" id="privacy">Privacy</h2>
   <div class="reveal">
-    <p>Inside Voice is not directed at children under 13. Do not use the optional cloud features to send a child's personal information.</p>
+    <p>No account, no ads, no analytics. Your books and your reading stay on your device unless you deliberately turn on a cloud feature. The full policy is at <a class="inline" href="/insidevoice/privacy.html">Privacy policy</a>.</p>
   </div>
 
-  <h2 class="reveal" id="third-parties">Third-party services</h2>
+  <h2 class="reveal" id="bugs">Reporting a bug</h2>
   <div class="reveal">
-    <p>If you enable Gemini, Azure OpenAI, Azure Speech, the neural voice download, or leave a tip, those providers' own terms and privacy policies also apply to the data that reaches them. Inside Voice does not control how those providers retain logs on their side.</p>
-    <p>The app sends a passage only to the provider you chose in Settings. If that provider fails, the app reports the failure; it does not quietly send the same passage to a different one.</p>
-  </div>
-
-  <h2 class="reveal" id="changes">Changes</h2>
-  <div class="reveal">
-    <p>If this policy changes in a way that affects how the app handles data, the effective date at the top will update, and the App Store listing privacy URL will keep pointing here: <code>https://bassamkamal.dev/insidevoice/privacy.html</code></p>
-  </div>
-
-  <h2 class="reveal" id="contact">Contact</h2>
-  <div class="reveal">
-    <p>Questions about privacy: <a class="inline" href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>. For help with the app, see <a class="inline" href="/insidevoice/support.html">Support</a>.</p>
+    <p>Email the address above, or open an issue on <a class="inline" href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">GitHub</a>. What helps most: the book it happened with, the voice in use, and whether it happens every time.</p>
   </div>
 
   <hr>
@@ -241,6 +214,7 @@ footer .l a:hover{color:var(--paper)}
 <footer>
   <a class="back" href="/insidevoice/"><span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>Back to Inside Voice</a>
   <div class="l">
+    <a href="/insidevoice/privacy.html">Privacy policy</a>
     <a href="/projects/inside-voice.html">How it was built</a>
     <a href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="/">bassamkamal.dev</a>
