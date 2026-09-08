@@ -35,12 +35,12 @@ pptx: "/documents/splat-ii-dev-log.pptx"
 
 <!-- ## Overview -->
 
-<div class="project-banner" style="--banner-img: url('/assets/images/splat2/splat2-keyart.png')">
-  <img src="/assets/images/splat2/splat2-keyart.png" alt="Splat II key art" loading="lazy" decoding="async" width="1672" height="941">
+<div class="project-banner" style="--banner-img: url('/assets/images/splat2/splat2-keyart.webp')">
+  <img src="/assets/images/splat2/splat2-keyart.webp" alt="Splat II key art" loading="lazy" decoding="async" width="1672" height="941">
 </div>
 
-<video class="project-hero-media" muted loop playsinline preload="none" data-autoplay width="800" height="450">
-  <source src="/assets/images/splat2/Splat_II_Gameplay.mp4" type="video/mp4">
+<video class="project-hero-media" muted loop playsinline preload="none" data-autoplay poster="/assets/images/splat2/splat2-poster.webp" width="800" height="450">
+  <source src="/assets/images/splat2/splat2-gameplay.mp4" type="video/mp4">
 </video>
 
 Splat II is my final-year capstone, built in C++ on top of a custom engine framework called Wolf. The game is a multiplayer racer where you play as a ball, swinging through a procedurally generated city using dual grappling hooks to build up speed, racing your own ghost or other players over Steam, and trying to reach the black hole at the end of the map.

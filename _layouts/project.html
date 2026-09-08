@@ -14,6 +14,88 @@
   <script>document.documentElement.classList.add('js');</script>
 
   {% seo %}
+
+  {% comment %} Structured data: breadcrumbs + per-page CreativeWork/TechArticle {% endcomment %}
+  {% assign schema_project_key = page.project_key %}
+  {% assign schema_overview = nil %}
+  {% if schema_project_key %}
+    {% assign schema_overview_candidates = site.pages | where: "project_key", schema_project_key | where: "project_home", true %}
+    {% assign schema_overview = schema_overview_candidates | first %}
+  {% endif %}
+  {% assign schema_meta = schema_overview | default: page %}
+  {% assign schema_desc = page.description | default: page.subtitle | default: schema_meta.description | default: schema_meta.subtitle %}
+  {% assign schema_image = page.hero_image | default: page.hero_poster | default: schema_meta.hero_image | default: schema_meta.hero_poster %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": {{ site.url | jsonify }}
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Projects",
+            "item": {{ site.url | append: "/#projects" | jsonify }}
+          }
+          {% if schema_project_key and schema_overview %}
+          ,{
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ schema_overview.title | jsonify }},
+            "item": {{ site.url | append: schema_overview.url | jsonify }}
+          }
+          {% if page.url != schema_overview.url %}
+          ,{
+            "@type": "ListItem",
+            "position": 4,
+            "name": {{ page.title | jsonify }},
+            "item": {{ site.url | append: page.url | jsonify }}
+          }
+          {% endif %}
+          {% else %}
+          ,{
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ page.title | jsonify }},
+            "item": {{ site.url | append: page.url | jsonify }}
+          }
+          {% endif %}
+        ]
+      },
+      {
+        "@type": {% if schema_project_key and schema_overview and page.url != schema_overview.url %}"TechArticle"{% else %}"CreativeWork"{% endif %},
+        "name": {{ page.title | jsonify }},
+        "description": {{ schema_desc | jsonify }},
+        "url": {{ site.url | append: page.url | jsonify }},
+        "author": {
+          "@type": "Person",
+          "name": {{ site.author.name | jsonify }},
+          "url": {{ site.url | jsonify }}
+        }
+        {% if schema_meta.github_link and schema_meta.github_link != "" %}
+        ,"codeRepository": {{ schema_meta.github_link | jsonify }}
+        {% endif %}
+        {% if schema_image and schema_image != "" %}
+        ,"image": {{ site.url | append: schema_image | jsonify }}
+        {% endif %}
+        {% if schema_project_key and schema_overview and page.url != schema_overview.url %}
+        ,"isPartOf": {
+          "@type": "CreativeWork",
+          "name": {{ schema_overview.title | jsonify }},
+          "url": {{ site.url | append: schema_overview.url | jsonify }}
+        }
+        {% endif %}
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="project-body">
   <a class="skip-link" href="#main">Skip to content</a>

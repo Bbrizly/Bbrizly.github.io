@@ -11,13 +11,8 @@ tech:
   - AWS Lambda
   - Docker
   - GitHub Actions
-github_link: ""
-# Paste the GitHub URL between the quotes when ready.
-# Add a hero image / gameplay video once exported:
-# hero_image: "/assets/images/pokemon-cover.webp"
-# images:
-#   - "/assets/images/pokemon-map.webp"
-#   - "/assets/images/pokemon-capture.mp4"
+topbar_disabled: true
+topbar_label: "Private repo"
 ---
 
 ## What it is
