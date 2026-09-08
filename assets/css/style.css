@@ -1207,17 +1207,18 @@ main { display: block; }
    even pitch; padding (not margin) keeps each tap target at least 44px. */
 .hero-rail {
   list-style: none;
-  margin: 0 auto;
+  margin: 10px 0 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
-  width: 100%;
-  max-width: 420px;
+  width: fit-content;
+  max-width: 100%;
+  gap: 8px;
 }
 
 .hero-rail li {
-  flex: 1 1 0;
+  flex: 0 0 auto;
   min-width: 0;
 }
 
@@ -1227,7 +1228,7 @@ main { display: block; }
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  width: 100%;
+  width: 68px;
   min-height: 44px;
   /* Padding, not margin, so the tap target clears 44px without moving anything. */
   padding: 12px 6px;
@@ -1791,8 +1792,9 @@ video.card-media { object-fit: cover; }
   .about-meta::before { content: ' · '; color: var(--ink-dim); }
 
   .hero-rail {
+    width: 100%;
     max-width: none;
-    margin-top: 4px;
+    margin-top: 10px;
   }
   .hero-rail a {
     gap: 8px;
