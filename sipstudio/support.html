@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SipStudio Support</title>
+<meta name="description" content="Get help with SipStudio: open a GitHub issue or send an email.">
+<meta property="og:title" content="SipStudio Support">
+<meta property="og:description" content="How to reach out for help with SipStudio, the QuadStick companion app.">
+<meta property="og:url" content="https://bassamkamal.dev/sipstudio/support.html">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="canonical" href="https://bassamkamal.dev/sipstudio/support.html">
+<link rel="icon" type="image/png" href="/assets/images/sipstudio-logo.png">
+<link rel="apple-touch-icon" href="/assets/images/sipstudio-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#F6F5F0;--ground-2:#FBFAF7;--surface:#FFFFFF;--surface-2:#EEECE4;
+  --ink:#17140F;--ink-2:#48423A;--dim:#8A8375;--faint:#B6AFA1;
+  --accent:#2451EE;--accent-soft:#6F8CFF;
+  --line:rgba(23,20,15,.09);--line-2:rgba(23,20,15,.05);
+  --ease:cubic-bezier(.32,.72,0,1);--ease-soft:cubic-bezier(.22,1,.36,1);
+  --shadow-soft:0 50px 90px -50px rgba(23,20,15,.16);
+  --shadow-lift:0 26px 60px -30px rgba(23,20,15,.20);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--ground);color:var(--ink);
+  font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif;font-size:16px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:rgba(36,81,238,.14)}
+a{color:inherit}
+a.inline{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(36,81,238,.3);transition:border-color .4s var(--ease)}
+a.inline:hover{border-color:var(--accent)}
+
+.home{
+  position:fixed;top:22px;left:26px;z-index:71;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 17px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink-2);text-decoration:none;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--line);box-shadow:var(--shadow-lift);
+  transform:translateY(-14px);opacity:0;transition:transform .9s var(--ease),opacity .9s var(--ease),color .4s var(--ease);
+}
+body.ready .home{transform:translateY(0);opacity:1}
+.home:hover{color:var(--ink)}
+.home svg{opacity:.55;transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.home:hover svg{transform:translateX(-2px);opacity:1}
+
+main{max-width:760px;margin:0 auto;padding:158px 28px 40px}
+
+.masthead{text-align:center;margin-bottom:56px}
+.logo-plate{
+  width:76px;height:76px;margin:0 auto 26px;padding:7px;border-radius:23px;
+  background:var(--surface-2);border:1px solid var(--line);box-shadow:var(--shadow-soft);
+}
+.logo-plate .core{width:100%;height:100%;border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 1px 1px rgba(255,255,255,.8) inset}
+.logo-plate img{width:100%;height:100%;object-fit:cover;display:block}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;padding:6px 15px 6px 12px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);
+  font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:700;color:var(--ink-2);
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(36,81,238,.14)}
+h1{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.04;
+  font-size:clamp(36px,6vw,56px);margin:22px 0 18px;
+}
+.meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
+.meta span{
+  font-size:12px;color:var(--dim);padding:5px 13px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);
+}
+
+.short{padding:9px;border-radius:2rem;background:var(--surface-2);border:1px solid var(--line);margin-bottom:56px}
+.short .core{
+  padding:34px 32px;border-radius:calc(2rem - .5625rem);
+  background:var(--surface);
+  box-shadow:0 1px 1px rgba(255,255,255,.8) inset;
+}
+.short h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:14px}
+.short p{color:var(--ink-2);font-size:17px;line-height:1.68}
+
+h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em;line-height:1.2;margin:52px 0 16px;scroll-margin-top:120px}
+h2:first-of-type{margin-top:0}
+p{color:var(--ink-2);margin-bottom:18px}
+p.small{font-size:14.5px;color:var(--dim)}
+ul{list-style:none;margin:0 0 22px}
+li{position:relative;padding-left:24px;margin-bottom:12px;color:var(--ink-2)}
+li::before{content:"";position:absolute;left:4px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7}
+li b{color:var(--ink);font-weight:700}
+hr{border:0;border-top:1px solid var(--line);margin:56px 0}
+
+footer{max-width:760px;margin:0 auto;padding:0 28px 90px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer .l{display:flex;flex-wrap:wrap;gap:22px;font-size:13.5px;color:var(--ink-2)}
+footer .l a{text-decoration:none;transition:color .4s var(--ease)}
+footer .l a:hover{color:var(--ink)}
+.back{
+  display:inline-flex;align-items:center;gap:11px;padding:11px 11px 11px 22px;border-radius:999px;
+  border:1px solid var(--line);color:var(--ink-2);font-size:14.5px;font-weight:700;text-decoration:none;
+  background:var(--surface);
+  transition:transform .55s var(--ease),border-color .55s var(--ease),color .55s var(--ease);
+}
+.back .circ{width:29px;height:29px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;transition:transform .55s var(--ease)}
+.back:hover{color:var(--ink);border-color:rgba(23,20,15,.18);transform:translateY(-1px)}
+.back:hover .circ{transform:translate(-2px,0) scale(1.07)}
+.back:active{transform:scale(.975)}
+
+.reveal{opacity:0;transform:translateY(28px);filter:blur(6px);
+  transition:opacity .9s var(--ease-soft),transform .9s var(--ease-soft),filter .9s var(--ease-soft)}
+.reveal.in{opacity:1;transform:none;filter:blur(0)}
+
+@media (max-width:768px){
+  main{padding:126px 20px 32px}
+  footer{padding:0 20px 70px}
+  .home{padding:9px 14px;font-size:12.5px}
+  .short .core{padding:28px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  .reveal{opacity:1;transform:none;filter:none}
+  html{scroll-behavior:auto}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<a class="home" href="/sipstudio/">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+  SipStudio
+</a>
+
+<main>
+  <div class="masthead reveal">
+    <div class="logo-plate"><div class="core"><img src="/assets/images/sipstudio-logo.png" alt="SipStudio app icon" width="76" height="76"></div></div>
+    <span class="eyebrow"><span class="dot"></span>SipStudio</span>
+    <h1>Support</h1>
+    <div class="meta">
+      <span>One person makes this</span>
+      <span>bassamkamal.py@gmail.com</span>
+    </div>
+  </div>
+
+  <div class="short reveal">
+    <div class="core">
+      <h2>Fastest way to get help</h2>
+      <p>Open an issue on <a class="inline" href="https://github.com/Bbrizly/Quadstick-Config-Manager/issues/new" target="_blank" rel="noopener noreferrer">GitHub</a>, or email <a class="inline" href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a>. Say what you were doing, what happened, and which QuadStick model and iPhone you are on.</p>
+    </div>
+  </div>
+
+  <h2 class="reveal" id="issue">Reporting a bug or asking a question</h2>
+  <div class="reveal">
+    <p>The fastest path is a GitHub issue on the SipStudio and QuadStick Config repo: <a class="inline" href="https://github.com/Bbrizly/Quadstick-Config-Manager/issues/new" target="_blank" rel="noopener noreferrer">github.com/Bbrizly/Quadstick-Config-Manager/issues/new</a>. Include the profile or game you were editing and whether it happens every time.</p>
+    <p>Prefer email? Write to <a class="inline" href="mailto:bassamkamal.py@gmail.com">bassamkamal.py@gmail.com</a> instead.</p>
+  </div>
+
+  <h2 class="reveal" id="privacy">Privacy</h2>
+  <div class="reveal">
+    <p>No accounts, no advertising, no analytics, no crash reporting. The full policy is at <a class="inline" href="/sipstudio/privacy.html">Privacy policy</a>.</p>
+  </div>
+
+  <hr>
+</main>
+
+<footer>
+  <a class="back" href="/sipstudio/"><span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>Back to SipStudio</a>
+  <div class="l">
+    <a href="/sipstudio/privacy.html">Privacy policy</a>
+    <a href="https://github.com/Bbrizly/Quadstick-Config-Manager" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="/">bassamkamal.dev</a>
+  </div>
+</footer>
+
+<script>
+requestAnimationFrame(function(){ document.body.classList.add('ready'); });
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.1, rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

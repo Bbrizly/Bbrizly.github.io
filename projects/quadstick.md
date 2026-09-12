@@ -52,3 +52,7 @@ The validator is the part that matters. Its rules come from the QuadStick's own 
 ## CI/CD
 
 Pushing a version tag is the whole release. GitHub Actions runs the tests, builds the Windows, macOS and Linux downloads, and publishes the release with all of them attached.
+
+## iPhone companion
+
+[SipStudio](/sipstudio/) reads and edits the same profiles from an iPhone, over USB-C.
