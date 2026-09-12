@@ -56,6 +56,20 @@
     src: "/assets/images/inside-voice-demo.mp4"
     poster: "/assets/images/inside-voice-demo-poster.jpg"
 
+- title: "ButtonHook"
+  date: "2026"
+  url: "/projects/buttonhook.html"
+  tags: "games-graphics"
+  description: "Daily truck-backing puzzle. Everyone gets the same yard each day, one attempt, and the score is how many times you had to change gear after moving. Zero shifts is a perfect run."
+  tech: ["three.js", "Vite", "Capacitor", "RevenueCat"]
+  media:
+    type: demo
+    color: games
+    logo: "/assets/images/buttonhook-logo.png"
+    demo_type: video
+    src: "/assets/images/buttonhook-demo.mp4"
+    poster: "/assets/images/buttonhook-demo-poster.jpg"
+
 - title: "Splat II"
   date: "2025"
   url: "/projects/splat2.html"
