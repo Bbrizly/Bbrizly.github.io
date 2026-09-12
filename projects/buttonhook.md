@@ -2,7 +2,7 @@
 layout: project
 title: "ButtonHook"
 eyebrow: "Web game · 2026"
-subtitle: "A daily truck-backing puzzle. Everyone gets the same yard each day, one attempt, and the score is how many times you had to change gear after moving. Zero shifts is a perfect run."
+subtitle: "A daily truck-backing puzzle. Everyone gets the same yard each day, and the score is how many times you had to change gear after moving. Zero shifts is a perfect run."
 description: "A daily truck-backing puzzle built with three.js: dock a 53ft trailer in the day's shared yard, scored by how many times you had to shift gear."
 tech:
   - three.js
@@ -40,4 +40,4 @@ No ads, no accounts, no login. There is a tip jar in the menu and it unlocks not
 
 Three.js on Vite for the 3D truck-and-yard sim, wrapped in Capacitor for the iOS build ("Back It Up!", currently in App Store review). RevenueCat handles the optional tip jar.
 
-The repository bundles 378 yards in `src/yards.json`. `scripts/yards.js` generates and fills the daily schedule ahead of time, and its `--check` pass re-parks every banked yard against whatever physics is currently in the tree, as a regression test. `selfcheck.js` runs a broader set of assertions over the physics and scoring rules on every check.
+The repository bundles 378 yards in `src/yards.json`. `scripts/yards.js` fills the dispatch calendar with generated yards, and `selfcheck.js` guards the physics and scoring rules that are easy to break silently.

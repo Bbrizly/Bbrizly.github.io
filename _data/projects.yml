@@ -60,7 +60,7 @@
   date: "2026"
   url: "/projects/buttonhook.html"
   tags: "games-graphics"
-  description: "Daily truck-backing puzzle. Everyone gets the same yard each day, one attempt, and the score is how many times you had to change gear after moving. Zero shifts is a perfect run."
+  description: "Daily truck-backing puzzle. Everyone gets the same yard each day, and the score is how many times you had to change gear after moving. Zero shifts is a perfect run."
   tech: ["three.js", "Vite", "Capacitor", "RevenueCat"]
   media:
     type: demo
