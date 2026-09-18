@@ -11,6 +11,12 @@
 <meta property="og:url" content="https://bassamkamal.dev/insidevoice/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inside Voice, the voice in your head, out loud">
+<meta name="twitter:description" content="Reads your books aloud with word-level highlighting, speed reading, and recall prompts. No account, no tracking, nothing leaves your phone unless you ask.">
+<meta name="twitter:image" content="https://bassamkamal.dev/assets/images/inside-voice-card.jpg">
+<meta name="author" content="Bassam Kamal">
+<meta name="date" content="2026-09-04">
+<meta property="article:modified_time" content="2026-09-18">
 <meta name="theme-color" content="#0E0C0A">
 <link rel="canonical" href="https://bassamkamal.dev/insidevoice/">
 <link rel="icon" type="image/png" href="/assets/images/inside-voice-logo.png">
@@ -18,6 +24,50 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Inside Voice",
+      "applicationCategory": "BookApplication",
+      "operatingSystem": "iOS 18+",
+      "description": "EPUB and PDF reader with word-level TTS highlighting, RSVP speed reading, and recall prompts. Books stay on device.",
+      "url": "https://bassamkamal.dev/insidevoice/",
+      "image": "https://bassamkamal.dev/assets/images/inside-voice-card.jpg",
+      "author": {"@id": "https://bassamkamal.dev/#person"},
+      "publisher": {"@id": "https://bassamkamal.dev/#person"},
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "dateModified": "2026-09-18"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://bassamkamal.dev/#person",
+      "name": "Bassam Kamal",
+      "email": "bassamkamal.py@gmail.com",
+      "url": "https://bassamkamal.dev/",
+      "sameAs": [
+        "https://github.com/Bbrizly",
+        "https://www.linkedin.com/in/bassam-k/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "name": "Inside Voice",
+      "url": "https://bassamkamal.dev/insidevoice/",
+      "description": "An iOS reader that speaks your EPUBs and PDFs out loud and highlights every word as it lands.",
+      "dateModified": "2026-09-18",
+      "isPartOf": {"@type": "WebSite", "name": "Bassam Kamal", "url": "https://bassamkamal.dev/"},
+      "author": {"@id": "https://bassamkamal.dev/#person"}
+    }
+  ]
+}
+</script>
 <style>
 :root{
   --ground:#0E0C0A;
@@ -137,6 +187,8 @@ body.menu-open .overlay a:nth-child(1){transition-delay:.08s}
 body.menu-open .overlay a:nth-child(2){transition-delay:.14s}
 body.menu-open .overlay a:nth-child(3){transition-delay:.2s}
 body.menu-open .overlay a:nth-child(4){transition-delay:.26s}
+body.menu-open .overlay a:nth-child(5){transition-delay:.32s}
+body.menu-open .overlay a:nth-child(6){transition-delay:.38s}
 
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(38px);filter:blur(7px);
@@ -314,6 +366,38 @@ section{padding:120px 0}
 .spec b{display:block;font-family:'Fraunces',serif;font-weight:400;font-size:27px;letter-spacing:-.02em;margin-bottom:6px}
 .spec span{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--faint)}
 
+.byline{margin:18px auto 0;font-size:13px;color:var(--faint)}
+.byline a{color:var(--paper-2);border-bottom:1px solid rgba(246,240,228,.18)}
+.byline a:hover{color:var(--paper)}
+.def{
+  margin:22px auto 0;max-width:62ch;padding:18px 20px;border-radius:1.1rem;
+  background:rgba(246,240,228,.04);border:1px solid var(--hair-2);
+  font-size:15px;color:var(--paper-2);line-height:1.65;text-align:left;
+}
+.def b{color:var(--paper);font-weight:600}
+
+.faq{display:grid;gap:14px;max-width:840px;margin:0 auto}
+.faq details{
+  padding:8px;border-radius:1.4rem;background:rgba(246,240,228,.035);border:1px solid var(--hair-2);
+}
+.faq details[open]{border-color:var(--hair);background:rgba(246,240,228,.05)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:18px 20px;font-family:'Fraunces',serif;font-size:20px;
+  letter-spacing:-.015em;line-height:1.25;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq .ans{padding:0 20px 22px;font-size:15px;color:var(--dim);line-height:1.7}
+.faq .ans p+p{margin-top:12px}
+
+.compare-wrap{margin:0 auto;max-width:900px;overflow-x:auto;border-radius:1.4rem;border:1px solid var(--hair);background:rgba(246,240,228,.03)}
+.compare{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+.compare th,.compare td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--hair-2);vertical-align:top}
+.compare th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.compare td:first-child,.compare th:first-child{color:var(--paper-2);font-weight:600}
+.compare tr:last-child td{border-bottom:none}
+.compare .yes{color:var(--amber-soft)}
+.compare .no{color:var(--faint)}
+
 /* footer */
 footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 .foot{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between}
@@ -364,10 +448,11 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 
 <nav>
   <div class="navpill">
-    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="">Inside Voice</a>
+    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice">Inside Voice</a>
     <div class="navlinks">
       <a href="#idea">The idea</a>
       <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
       <a href="#private">Privacy</a>
     </div>
     <a href="#get" class="nav-cta">Get it<span class="circ"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a>
@@ -378,6 +463,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <div class="overlay" id="overlay">
   <a href="#idea">The idea</a>
   <a href="#features">Features</a>
+  <a href="#faq">FAQ</a>
   <a href="#private">Privacy</a>
   <a href="/insidevoice/privacy.html">Privacy policy</a>
   <a href="/insidevoice/support.html">Support</a>
@@ -391,10 +477,12 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
   <span class="eyebrow reveal" data-d="1"><span class="dot"></span>iPhone &amp; iPad · iOS 18+</span>
   <h1 class="reveal" data-d="2">The voice in your head, <em>out loud</em>.</h1>
   <p class="lede reveal" data-d="3">Inside Voice reads your EPUBs and PDFs aloud and lights up every word as it lands. Speed read a chapter one word at a time. Then it asks what you just read, so it actually stays. Your books never leave your phone.</p>
+  <p class="def reveal" data-d="3">What is Inside Voice? Inside Voice is a privacy-first iOS reader for EPUB and PDF files. It reads books aloud with word-level highlighting synced to narration, offers RSVP speed reading at 100 to 1000 words per minute, and uses recall prompts so you summarize a passage before rereading it. All books and reading progress stay on your iPhone unless you opt into optional cloud AI keys.</p>
+  <p class="byline reveal" data-d="4">By <a href="/">Bassam Kamal</a> · Updated 18 Sep 2026</p>
   <div class="cta-row reveal" data-d="4">
     <!-- swap for <a class="btn" href="APP_STORE_URL"> when the listing is live -->
     <span class="btn btn-wait"><span class="pulse"></span>Coming to the App Store</span>
-    <a class="btn-ghost" href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">Read the source<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a class="btn-ghost" href="/insidevoice/support.html">Support<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
   <p class="cta-note reveal" data-d="5" style="margin-top:20px">Free. No account, no ads, no tracking.</p>
 
@@ -421,27 +509,27 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
         <div class="slot">
           <div class="cap on" id="cap-0" role="tabpanel">
             <span class="num">01</span>
-            <h3>Drop a book in and go</h3>
+            <h3>How do I add a book?</h3>
             <p>Add an EPUB or PDF from Files, or share one straight into the app. It is copied into your library, so moving the original never breaks the book. Every book keeps its own place, down to the word.</p>
           </div>
           <div class="cap" id="cap-1" role="tabpanel">
             <span class="num">02</span>
-            <h3>Every word lights up as it is spoken</h3>
+            <h3>How does word-level highlighting work?</h3>
             <p>Pick any voice on your phone and press play. The highlight follows the narration exactly, at 0.75x through 2.0x, and it keeps going with the screen off, with the book on your lock screen.</p>
           </div>
           <div class="cap" id="cap-2" role="tabpanel">
             <span class="num">03</span>
-            <h3>Or take the page one word at a time</h3>
+            <h3>What is RSVP speed reading?</h3>
             <p>Speed reading holds a single word in a fixed spot so your eyes stop hunting. 100 to 1000 words a minute, with the sentence underneath when you need the context back.</p>
           </div>
           <div class="cap" id="cap-3" role="tabpanel">
             <span class="num">04</span>
-            <h3>Then it asks what you just read</h3>
+            <h3>What is a recall prompt?</h3>
             <p>A recall card interrupts on purpose. Say or type what happened, and it checks your answer against the passage you already finished. It never reads ahead, so nothing gets spoiled.</p>
           </div>
           <div class="cap" id="cap-4" role="tabpanel">
             <span class="num">05</span>
-            <h3>Ask the book a question</h3>
+            <h3>Can I ask the book a question?</h3>
             <p>Lost track of a character? Ask. The answer is built only from the part you have already read. On device by default, so the question stays with you.</p>
           </div>
         </div>
@@ -456,7 +544,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="idea">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>The whole idea</span>
-    <h2>One book. One timeline.</h2>
+    <h2>How does one timeline keep reading, audio, and recall in sync?</h2>
     <p>Every word in a chapter gets a start time and an end time. The highlight, the speed-reading card, and the voice are all just views on that one list, so they can never drift apart.</p>
   </div>
 
@@ -499,7 +587,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="features">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>What is inside</span>
-    <h2>A reader first. A narrator second.</h2>
+    <h2>What can Inside Voice do while you read?</h2>
     <p>Tune the page until it reads like a book you own, then hand it a voice.</p>
   </div>
 
@@ -549,8 +637,8 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
     <div class="card c6 reveal">
       <div class="core">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v18M3 12h18" opacity=".35"/><circle cx="12" cy="12" r="9"/></svg>
-        <h3>Fast on a very big book</h3>
-        <p>War and Peace is 568,000 words across 367 chapters. It opens in 16 milliseconds and gets you to a readable page in 17, because chapters are parsed only when you reach them.</p>
+        <h3>How fast does a big book open?</h3>
+        <p>War and Peace is 568,000 words across 367 chapters. It opens in 16 milliseconds and gets you to a readable page in 17, because chapters are parsed only when you reach them. Measured on an iPhone running iOS 18, cold open to the first readable chapter page.</p>
       </div>
     </div>
     <div class="card c6 reveal">
@@ -564,13 +652,115 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 </section>
 </div>
 
+<!-- FAQ -->
+<div class="wrap">
+<section id="faq">
+  <div class="sec-head reveal">
+    <span class="eyebrow"><span class="dot"></span>Questions</span>
+    <h2>Frequently asked questions</h2>
+    <p>Short answers you can quote without reading the whole page.</p>
+  </div>
+  <div class="faq">
+    <details class="reveal" open>
+      <summary>What is Inside Voice?</summary>
+      <div class="ans">
+        <p>Inside Voice is a privacy-first iOS 18+ reader for EPUB and PDF files on iPhone and iPad. It narrates your books with word-level highlighting synced to speech, offers RSVP speed reading from 100 to 1000 words per minute, and interrupts with recall prompts so you summarize a passage before you see it again. Book chat answers only from the part you have already read, so spoilers stay blocked.</p>
+        <p>There is no account, no ads, and no analytics. Books, rendered audio, and reading position stay in the app's own storage unless you turn on an optional cloud AI key for Gemini or Azure. The app is free and heading for the App Store.</p>
+      </div>
+    </details>
+    <details class="reveal">
+      <summary>How is Inside Voice different from Voice Dream or ElevenReader?</summary>
+      <div class="ans">
+        <p>Voice Dream and ElevenReader are strong at turning documents into spoken audio. Inside Voice is built around one chapter timeline: every word has a start and end time, so highlighting, RSVP speed reading, and narration cannot drift apart. Scrubbing is a lookup on that list, not a guess.</p>
+        <p>It also adds recall prompts and book chat that never read ahead of your place, and it ships without an account or analytics. Optional neural and system voices run on device after any one-time downloads you choose. Cloud AI is bring-your-own-key only.</p>
+      </div>
+    </details>
+    <details class="reveal">
+      <summary>Does Inside Voice work offline?</summary>
+      <div class="ans">
+        <p>Yes for reading aloud with iOS system voices, including enhanced and premium voices you install on the phone. Background playback and lock-screen controls keep working with no signal. An optional neural voice downloads once, then runs entirely on device.</p>
+        <p>Recall and book chat default to on-device Apple Intelligence when your device and region support it. Gemini or Azure only run if you paste your own keys. Books never need a server to open or keep your place.</p>
+      </div>
+    </details>
+    <details class="reveal">
+      <summary>What is the recall prompt?</summary>
+      <div class="ans">
+        <p>A recall card stops you on purpose after a stretch of reading and asks what just happened. You can speak or type an answer. The app checks it against a short summary of the paragraphs behind your playhead, never against text you have not reached yet.</p>
+        <p>That pattern is retrieval practice: saying what you remember before you reread. On-device is the default. Optional cloud models use only the passage you already finished, and only with a key you supply.</p>
+      </div>
+    </details>
+    <details class="reveal">
+      <summary>Where can I get Inside Voice?</summary>
+      <div class="ans">
+        <p>Inside Voice is built and heading for the App Store for iPhone and iPad on iOS 18+. Until the listing is live, use the support page for setup questions and email bassamkamal.py@gmail.com for help. The product site, privacy policy, and this FAQ stay at bassamkamal.dev/insidevoice.</p>
+        <p>The app is free. There is no account to create. Optional tips unlock nothing; the reader is the same with or without them.</p>
+      </div>
+    </details>
+  </div>
+</section>
+</div>
+
+<!-- COMPARE -->
+<div class="wrap">
+<section id="compare" style="padding-top:20px">
+  <div class="sec-head reveal">
+    <span class="eyebrow"><span class="dot"></span>Compare</span>
+    <h2>How does Inside Voice compare to cloud TTS readers?</h2>
+    <p>A quick table for the usual shopping questions.</p>
+  </div>
+  <div class="compare-wrap reveal">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Inside Voice</th>
+          <th>Typical cloud TTS reader</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Word-level highlight on one timeline</td>
+          <td class="yes">Yes</td>
+          <td class="no">Often sentence or page only</td>
+        </tr>
+        <tr>
+          <td>RSVP speed reading</td>
+          <td class="yes">100–1000 wpm</td>
+          <td class="no">Rare</td>
+        </tr>
+        <tr>
+          <td>Recall prompts (no spoilers)</td>
+          <td class="yes">Yes</td>
+          <td class="no">Usually none</td>
+        </tr>
+        <tr>
+          <td>Account required</td>
+          <td class="yes">No</td>
+          <td class="no">Often yes</td>
+        </tr>
+        <tr>
+          <td>Offline system voices</td>
+          <td class="yes">Yes</td>
+          <td class="no">Varies; cloud voices need network</td>
+        </tr>
+        <tr>
+          <td>Analytics / ads</td>
+          <td class="yes">None</td>
+          <td class="no">Common</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+
 <!-- PRIVACY -->
 <div class="wrap">
 <section id="private" style="padding-top:20px">
   <div class="band reveal">
     <div class="core">
       <span class="eyebrow"><span class="dot"></span>Yours</span>
-      <h2>Nothing leaves your phone unless you ask it to.</h2>
+      <h2>Does anything leave your phone?</h2>
       <p>No account. No ads. No analytics. Your books, your rendered audio, and your place in every chapter sit in the app's own storage and stay there.</p>
       <a class="btn-ghost" href="/insidevoice/privacy.html">Read the privacy policy<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
 
@@ -590,12 +780,12 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="get" style="padding-top:20px">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>Getting it</span>
-    <h2>Almost out.</h2>
-    <p>Inside Voice is built and heading for the App Store. Until the listing goes live, the whole thing is on GitHub, source and all.</p>
+    <h2>Where can I download Inside Voice?</h2>
+    <p>Inside Voice is built and heading for the App Store. Until the listing goes live, the support page has setup help, and email reaches the developer directly.</p>
   </div>
   <div class="cta-row reveal" style="justify-content:center">
     <span class="btn btn-wait"><span class="pulse"></span>Coming to the App Store</span>
-    <a class="btn-ghost" href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">GitHub<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a class="btn-ghost" href="/insidevoice/support.html">Support<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
 
   <div class="specs reveal" style="margin-top:56px">
@@ -610,11 +800,11 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <div class="wrap">
 <footer>
   <div class="foot">
-    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="" style="width:22px;height:22px;border-radius:6px">Inside Voice</a>
+    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice" style="width:22px;height:22px;border-radius:6px">Inside Voice</a>
     <div class="l">
       <a href="/insidevoice/privacy.html">Privacy policy</a>
+      <a href="/insidevoice/support.html">Support</a>
       <a href="/projects/inside-voice.html">How it was built</a>
-      <a href="https://github.com/Bbrizly/reader" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="/">bassamkamal.dev</a>
     </div>
     <div class="cr">Made by Bassam Kamal. Books, audio, and progress stay on your device.</div>

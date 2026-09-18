@@ -9,7 +9,6 @@ tech:
   - SwiftUI
   - TextKit
   - iOS 18+
-github_link: "https://github.com/Bbrizly/reader"
 topbar_link: "/insidevoice/"
 topbar_icon: "fas fa-arrow-up-right-from-square"
 topbar_label: "Visit site"

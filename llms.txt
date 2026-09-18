@@ -1,0 +1,18 @@
+# Inside Voice
+> An iOS EPUB and PDF reader that reads books aloud with word-level highlighting, RSVP speed reading, and recall prompts. Books stay on device. No account, no analytics.
+
+## Main pages
+- [Inside Voice](https://bassamkamal.dev/insidevoice/): Product overview, features, privacy positioning
+- [Privacy policy](https://bassamkamal.dev/insidevoice/privacy.html): Data handling, optional cloud features, effective 2026-09-04
+- [Support](https://bassamkamal.dev/insidevoice/support.html): Setup, voices, recall, troubleshooting
+- [Build log](https://bassamkamal.dev/projects/inside-voice.html): How it was built
+
+## Key facts
+- Inside Voice is an iOS 18+ app for iPhone and iPad (EPUB and PDF)
+- Word-level highlight syncs to narration via a single chapter timeline
+- RSVP speed reading: 100 to 1000 words per minute
+- Recall prompts ask what you read before showing the passage again
+- On-device by default; optional Gemini or Azure keys in Keychain
+- War and Peace (568,000 words, 367 chapters) opens in 16 ms on device
+- Free; heading for the App Store
+- Developer: Bassam Kamal (bassamkamal.py@gmail.com)
