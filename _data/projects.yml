@@ -38,11 +38,11 @@
     src: "/assets/images/adptiv-demo.mp4"
     poster: "/assets/images/adptiv-demo-poster.jpg"
 
-- title: "Inside Voice"
+- title: "In My Voice"
   date: "2026"
   url: "/insidevoice/"
   tags: "mobile-web ai-ml"
-  description: "iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts. Books and progress stay on device."
+  description: "EPUB and PDF reader on the App Store for iPhone, iPad and Mac. Reads books aloud word by word in 27 on-device voices or your own, with speed reading and recall prompts. Books stay on device."
   tech: ["Swift", "SwiftUI", "TextKit", "iOS"]
   badge:
     type: award

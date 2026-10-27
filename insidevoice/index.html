@@ -3,20 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Inside Voice</title>
-<meta name="description" content="An iOS reader that speaks your EPUBs and PDFs out loud and highlights every word as it lands. Speed read a chapter, then answer a recall prompt so it sticks. Your books stay on your phone.">
-<meta property="og:title" content="Inside Voice, the voice in your head, out loud">
-<meta property="og:description" content="Reads your books aloud with word-level highlighting, speed reading, and recall prompts. No account, no tracking, nothing leaves your phone unless you ask.">
+<title>In My Voice: EPUB reader that reads aloud, in your voice</title>
+<meta name="description" content="Reads EPUB and PDF books aloud with word-by-word highlighting, in 27 on-device voices or your own. Speed reading and recall prompts. Free on iPhone, iPad and Mac.">
+<meta name="apple-itunes-app" content="app-id=6803684007">
+<meta property="og:site_name" content="Bassam Kamal">
+<meta property="og:title" content="In My Voice: read it, hear it, recall it">
+<meta property="og:description" content="An EPUB and PDF reader that reads aloud with word-by-word highlighting, in 27 on-device voices or ten seconds of your own. Free on the App Store.">
 <meta property="og:image" content="https://bassamkamal.dev/assets/images/inside-voice-card.jpg">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="625">
+<meta property="og:image:alt" content="In My Voice app icon and a page of a book with one word highlighted">
 <meta property="og:url" content="https://bassamkamal.dev/insidevoice/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Inside Voice, the voice in your head, out loud">
-<meta name="twitter:description" content="Reads your books aloud with word-level highlighting, speed reading, and recall prompts. No account, no tracking, nothing leaves your phone unless you ask.">
+<meta name="twitter:title" content="In My Voice: read it, hear it, recall it">
+<meta name="twitter:description" content="An EPUB and PDF reader that reads aloud with word-by-word highlighting, in 27 on-device voices or ten seconds of your own. Free on the App Store.">
 <meta name="twitter:image" content="https://bassamkamal.dev/assets/images/inside-voice-card.jpg">
+<meta name="twitter:image:alt" content="In My Voice app icon and a page of a book with one word highlighted">
 <meta name="author" content="Bassam Kamal">
 <meta name="date" content="2026-09-04">
-<meta property="article:modified_time" content="2026-09-18">
+<meta property="article:modified_time" content="2026-10-27">
 <meta name="theme-color" content="#0E0C0A">
 <link rel="canonical" href="https://bassamkamal.dev/insidevoice/">
 <link rel="icon" type="image/png" href="/assets/images/inside-voice-logo.png">
@@ -29,21 +35,59 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "SoftwareApplication",
-      "name": "Inside Voice",
+      "@type": "MobileApplication",
+      "@id": "https://bassamkamal.dev/insidevoice/#app",
+      "name": "In My Voice",
+      "alternateName": "Inside Voice",
       "applicationCategory": "BookApplication",
-      "operatingSystem": "iOS 18+",
-      "description": "EPUB and PDF reader with word-level TTS highlighting, RSVP speed reading, and recall prompts. Books stay on device.",
+      "applicationSubCategory": "EPUB and PDF reader",
+      "operatingSystem": "iOS 26.0 or later, iPadOS 26.0 or later, macOS 15.0 or later",
+      "softwareVersion": "1.3",
+      "datePublished": "2026-09-11",
+      "fileSize": "33.7 MB",
+      "contentRating": "4+",
+      "inLanguage": "en",
+      "description": "EPUB and PDF reader that reads books aloud with word-by-word highlighting, in 27 on-device neural voices or a voice built from ten seconds of your own recording. RSVP speed reading at 100 to 1000 words a minute, and recall prompts that ask what just happened before showing the passage again. No account. Books stay on the device.",
+      "featureList": [
+        "Word-by-word highlighting synced to narration",
+        "27 on-device neural voices, plus iOS system voices",
+        "Read in your own voice from a ten second recording",
+        "RSVP speed reading, 100 to 1000 words per minute",
+        "Recall prompts: answer first, then see the passage",
+        "Lock screen, Control Center and headphone controls",
+        "EPUB and PDF from the Files app"
+      ],
       "url": "https://bassamkamal.dev/insidevoice/",
+      "installUrl": "https://apps.apple.com/app/in-my-voice/id6803684007",
+      "downloadUrl": "https://apps.apple.com/app/in-my-voice/id6803684007",
+      "sameAs": ["https://apps.apple.com/app/in-my-voice/id6803684007"],
       "image": "https://bassamkamal.dev/assets/images/inside-voice-card.jpg",
+      "screenshot": [
+        "https://bassamkamal.dev/assets/images/insidevoice/shot-reading.webp",
+        "https://bassamkamal.dev/assets/images/insidevoice/shot-speed.webp",
+        "https://bassamkamal.dev/assets/images/insidevoice/shot-recall.webp"
+      ],
       "author": {"@id": "https://bassamkamal.dev/#person"},
       "publisher": {"@id": "https://bassamkamal.dev/#person"},
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "dateModified": "2026-09-18"
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "In My Voice, with four bundled classics",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/app/in-my-voice/id6803684007"
+        },
+        {
+          "@type": "Offer",
+          "name": "Add your own EPUB and PDF books (one-time in-app purchase)",
+          "price": "7.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/app/in-my-voice/id6803684007"
+        }
+      ],
+      "dateModified": "2026-10-27"
     },
     {
       "@type": "Person",
@@ -53,15 +97,18 @@
       "url": "https://bassamkamal.dev/",
       "sameAs": [
         "https://github.com/Bbrizly",
-        "https://www.linkedin.com/in/bassam-k/"
+        "https://www.linkedin.com/in/bassam-k/",
+        "https://apps.apple.com/developer/bassam-kamal/id6790202215"
       ]
     },
     {
       "@type": "WebPage",
-      "name": "Inside Voice",
+      "name": "In My Voice",
       "url": "https://bassamkamal.dev/insidevoice/",
-      "description": "An iOS reader that speaks your EPUBs and PDFs out loud and highlights every word as it lands.",
-      "dateModified": "2026-09-18",
+      "description": "In My Voice reads your EPUB and PDF books aloud and highlights each word as it is spoken.",
+      "about": {"@id": "https://bassamkamal.dev/insidevoice/#app"},
+      "datePublished": "2026-09-04",
+      "dateModified": "2026-10-27",
       "isPartOf": {"@type": "WebSite", "name": "Bassam Kamal", "url": "https://bassamkamal.dev/"},
       "author": {"@id": "https://bassamkamal.dev/#person"}
     }
@@ -448,7 +495,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 
 <nav>
   <div class="navpill">
-    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice">Inside Voice</a>
+    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="In My Voice">In My Voice</a>
     <div class="navlinks">
       <a href="#idea">The idea</a>
       <a href="#features">Features</a>
@@ -472,19 +519,18 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <div class="wrap" id="top">
 <header>
   <div class="logo-plate reveal">
-    <div class="core"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice app icon" width="96" height="96"></div>
+    <div class="core"><img src="/assets/images/inside-voice-logo.png" alt="In My Voice app icon" width="96" height="96"></div>
   </div>
-  <span class="eyebrow reveal" data-d="1"><span class="dot"></span>iPhone &amp; iPad · iOS 18+</span>
+  <span class="eyebrow reveal" data-d="1"><span class="dot"></span>iPhone, iPad &amp; Mac · on the App Store</span>
   <h1 class="reveal" data-d="2">The voice in your head, <em>out loud</em>.</h1>
-  <p class="lede reveal" data-d="3">Inside Voice reads your EPUBs and PDFs aloud and lights up every word as it lands. Speed read a chapter one word at a time. Then it asks what you just read, so it actually stays. Your books never leave your phone.</p>
-  <p class="def reveal" data-d="3">What is Inside Voice? Inside Voice is a privacy-first iOS reader for EPUB and PDF files. It reads books aloud with word-level highlighting synced to narration, offers RSVP speed reading at 100 to 1000 words per minute, and uses recall prompts so you summarize a passage before rereading it. All books and reading progress stay on your iPhone unless you opt into optional cloud AI keys.</p>
-  <p class="byline reveal" data-d="4">By <a href="/">Bassam Kamal</a> · Updated 18 Sep 2026</p>
+  <p class="lede reveal" data-d="3">In My Voice reads your EPUBs and PDFs aloud and lights up every word as it lands. Speed read a chapter one word at a time. Then it asks what you just read, so it actually stays. Your books never leave your phone.</p>
+  <p class="def reveal" data-d="3">What is In My Voice? In My Voice is an EPUB and PDF reader for iPhone, iPad and Mac. It reads books aloud and highlights each word as it is spoken, in one of 27 neural voices that run on the device, or in your own voice built from a ten second recording. It also has RSVP speed reading at 100 to 1000 words a minute, and a recall prompt that asks what just happened before it shows you the passage again. There is no account, and your books stay on your device.</p>
+  <p class="byline reveal" data-d="4">By <a href="/">Bassam Kamal</a> · Updated 27 Oct 2026</p>
   <div class="cta-row reveal" data-d="4">
-    <!-- swap for <a class="btn" href="APP_STORE_URL"> when the listing is live -->
-    <span class="btn btn-wait"><span class="pulse"></span>Coming to the App Store</span>
+    <a class="btn" href="https://apps.apple.com/app/in-my-voice/id6803684007" rel="noopener">Download on the App Store<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
     <a class="btn-ghost" href="/insidevoice/support.html">Support<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
-  <p class="cta-note reveal" data-d="5" style="margin-top:20px">Free. No account, no ads, no tracking.</p>
+  <p class="cta-note reveal" data-d="5" style="margin-top:20px">Free with four classics to read. Adding your own books is a one-time purchase, not a subscription. No account, no ads, no tracking.</p>
 
   <!-- screenshot cycler -->
   <div class="showcase reveal" data-d="6" id="showcase">
@@ -498,7 +544,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
     <div class="stage">
       <div class="frame">
         <div class="core">
-          <img class="on" src="/assets/images/insidevoice/shot-library.webp" alt="The Inside Voice library, a shelf of book covers" width="620" height="1262" fetchpriority="high">
+          <img class="on" src="/assets/images/insidevoice/shot-library.webp" alt="The In My Voice library, a shelf of book covers" width="620" height="1262" fetchpriority="high">
           <img src="/assets/images/insidevoice/shot-reading.webp" alt="A chapter playing with the current word highlighted" width="620" height="1262" loading="lazy">
           <img src="/assets/images/insidevoice/shot-speed.webp" alt="Speed reading one word at a time with the words-per-minute control" width="620" height="1262" loading="lazy">
           <img src="/assets/images/insidevoice/shot-recall.webp" alt="A recall card asking what just happened in the book" width="620" height="1262" loading="lazy">
@@ -515,7 +561,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
           <div class="cap" id="cap-1" role="tabpanel">
             <span class="num">02</span>
             <h3>How does word-level highlighting work?</h3>
-            <p>Pick any voice on your phone and press play. The highlight follows the narration exactly, at 0.75x through 2.0x, and it keeps going with the screen off, with the book on your lock screen.</p>
+            <p>Pick a voice and press play. The highlight follows the narration word by word, and tapping any word moves the audio there. It keeps going with the screen off, with the book on your lock screen.</p>
           </div>
           <div class="cap" id="cap-2" role="tabpanel">
             <span class="num">03</span>
@@ -525,7 +571,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
           <div class="cap" id="cap-3" role="tabpanel">
             <span class="num">04</span>
             <h3>What is a recall prompt?</h3>
-            <p>A recall card interrupts on purpose. Say or type what happened, and it checks your answer against the passage you already finished. It never reads ahead, so nothing gets spoiled.</p>
+            <p>After a few paragraphs a small dot appears in the corner of the page. Tap it and the app asks what just happened. You answer first, out loud or typed, and only then does it show you the passage. Nothing is graded and nothing is saved.</p>
           </div>
           <div class="cap" id="cap-4" role="tabpanel">
             <span class="num">05</span>
@@ -587,7 +633,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="features">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>What is inside</span>
-    <h2>What can Inside Voice do while you read?</h2>
+    <h2>What can In My Voice do while you read?</h2>
     <p>Tune the page until it reads like a book you own, then hand it a voice.</p>
   </div>
 
@@ -596,11 +642,11 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
       <div class="core">
         <div>
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
-          <h3>Any voice on your phone</h3>
+          <h3>27 voices on the phone, or your own</h3>
           <p>Every installed system voice, including the premium and enhanced ones, with narration speed and pitch you can hear change as you drag. An optional neural voice downloads once and then runs entirely offline.</p>
         </div>
         <div class="mini-rate">
-          <b>0.75x</b><b>1x</b><b class="hot">1.5x</b><b>1.75x</b><b>2x</b>
+          <b>System voices</b><b>27 neural</b><b class="hot">Your own voice</b>
         </div>
       </div>
     </div>
@@ -609,7 +655,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
         <div>
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2.4"/><path d="M7 9h6M7 13h10M7 17h5"/></svg>
           <h3>Set the page how you like it</h3>
-          <p>Themes from paper to true dark, seven fonts, size, line spacing, margins, and justification. Take the colours from the book cover, or ignore it entirely.</p>
+          <p>Themes from paper to true dark, four typefaces (New York, San Francisco, Georgia, Palatino), size, line spacing, margins, and justification. Take the colours from the book cover, or ignore it entirely.</p>
         </div>
       </div>
     </div>
@@ -638,7 +684,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
       <div class="core">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v18M3 12h18" opacity=".35"/><circle cx="12" cy="12" r="9"/></svg>
         <h3>How fast does a big book open?</h3>
-        <p>War and Peace is 568,000 words across 367 chapters. It opens in 16 milliseconds and gets you to a readable page in 17, because chapters are parsed only when you reach them. Measured on an iPhone running iOS 18, cold open to the first readable chapter page.</p>
+        <p>War and Peace is 568,000 words across 367 chapters. It opens in 16 milliseconds and gets you to a readable page in 17, because chapters are parsed only when you reach them. Measured on an iPhone, cold open to the first readable chapter page.</p>
       </div>
     </div>
     <div class="card c6 reveal">
@@ -662,21 +708,28 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
   </div>
   <div class="faq">
     <details class="reveal" open>
-      <summary>What is Inside Voice?</summary>
+      <summary>What is In My Voice?</summary>
       <div class="ans">
-        <p>Inside Voice is a privacy-first iOS 18+ reader for EPUB and PDF files on iPhone and iPad. It narrates your books with word-level highlighting synced to speech, offers RSVP speed reading from 100 to 1000 words per minute, and interrupts with recall prompts so you summarize a passage before you see it again. Book chat answers only from the part you have already read, so spoilers stay blocked.</p>
-        <p>There is no account, no ads, and no analytics. Books, rendered audio, and reading position stay in the app's own storage unless you turn on an optional cloud AI key for Gemini or Azure. The app is free and heading for the App Store.</p>
+        <p>In My Voice is an EPUB and PDF reader for iPhone, iPad (iOS 26 or later) and Mac (macOS 15 or later). It reads your books aloud with each word highlighted as it is spoken, in 27 on-device neural voices or in your own voice from a ten second recording. It has RSVP speed reading from 100 to 1000 words a minute, and recall prompts that ask what just happened before showing you the passage again.</p>
+        <p>There is no account, no ads, and no analytics. Books, rendered audio, and reading position stay in the app's own storage unless you turn on an optional cloud AI key for Gemini or Azure. The app is free on the App Store.</p>
       </div>
     </details>
     <details class="reveal">
-      <summary>How is Inside Voice different from Voice Dream or ElevenReader?</summary>
+      <summary>Can In My Voice read my books in my own voice?</summary>
       <div class="ans">
-        <p>Voice Dream and ElevenReader are strong at turning documents into spoken audio. Inside Voice is built around one chapter timeline: every word has a start and end time, so highlighting, RSVP speed reading, and narration cannot drift apart. Scrubbing is a lookup on that list, not a guess.</p>
+        <p>Yes. Open a book, tap Aa, go to the Voice tab and choose Record my voice. You read out loud for about ten seconds, and the app builds a voice from that recording on the device. The recording never leaves your phone.</p>
+        <p>If you would rather not, there are 27 neural voices that run on the device after a one-time download of about 90 MB, plus the system voices already on your iPhone.</p>
+      </div>
+    </details>
+    <details class="reveal">
+      <summary>How is In My Voice different from Voice Dream or ElevenReader?</summary>
+      <div class="ans">
+        <p>Voice Dream and ElevenReader are strong at turning documents into spoken audio. In My Voice is built around one chapter timeline: every word has a start and end time, so highlighting, RSVP speed reading, and narration cannot drift apart. Scrubbing is a lookup on that list, not a guess.</p>
         <p>It also adds recall prompts and book chat that never read ahead of your place, and it ships without an account or analytics. Optional neural and system voices run on device after any one-time downloads you choose. Cloud AI is bring-your-own-key only.</p>
       </div>
     </details>
     <details class="reveal">
-      <summary>Does Inside Voice work offline?</summary>
+      <summary>Does In My Voice work offline?</summary>
       <div class="ans">
         <p>Yes for reading aloud with iOS system voices, including enhanced and premium voices you install on the phone. Background playback and lock-screen controls keep working with no signal. An optional neural voice downloads once, then runs entirely on device.</p>
         <p>Recall and book chat default to on-device Apple Intelligence when your device and region support it. Gemini or Azure only run if you paste your own keys. Books never need a server to open or keep your place.</p>
@@ -690,10 +743,10 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
       </div>
     </details>
     <details class="reveal">
-      <summary>Where can I get Inside Voice?</summary>
+      <summary>Where can I get In My Voice, and what does it cost?</summary>
       <div class="ans">
-        <p>Inside Voice is built and heading for the App Store for iPhone and iPad on iOS 18+. Until the listing is live, use the support page for setup questions and email bassamkamal.py@gmail.com for help. The product site, privacy policy, and this FAQ stay at bassamkamal.dev/insidevoice.</p>
-        <p>The app is free. There is no account to create. Optional tips unlock nothing; the reader is the same with or without them.</p>
+        <p>On the <a href="https://apps.apple.com/app/in-my-voice/id6803684007" rel="noopener" style="color:var(--paper-2);border-bottom:1px solid rgba(246,240,228,.18)">App Store</a>, for iPhone and iPad on iOS 26 or later, and Mac on macOS 15 or later. For setup questions, the support page has answers, and bassamkamal.py@gmail.com reaches the developer.</p>
+        <p>The download is free and comes with four classics: Alice's Adventures in Wonderland, Frankenstein, Pride and Prejudice, and The Adventures of Sherlock Holmes. Every feature works on those books. Adding your own EPUB and PDF files is a one-time purchase (US$7.99), not a subscription. There is no account to create.</p>
       </div>
     </details>
   </div>
@@ -705,7 +758,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="compare" style="padding-top:20px">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>Compare</span>
-    <h2>How does Inside Voice compare to cloud TTS readers?</h2>
+    <h2>How does In My Voice compare to cloud TTS readers?</h2>
     <p>A quick table for the usual shopping questions.</p>
   </div>
   <div class="compare-wrap reveal">
@@ -713,7 +766,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
       <thead>
         <tr>
           <th>Feature</th>
-          <th>Inside Voice</th>
+          <th>In My Voice</th>
           <th>Typical cloud TTS reader</th>
         </tr>
       </thead>
@@ -780,16 +833,16 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <section id="get" style="padding-top:20px">
   <div class="sec-head reveal">
     <span class="eyebrow"><span class="dot"></span>Getting it</span>
-    <h2>Where can I download Inside Voice?</h2>
-    <p>Inside Voice is built and heading for the App Store. Until the listing goes live, the support page has setup help, and email reaches the developer directly.</p>
+    <h2>Where can I download In My Voice?</h2>
+    <p>In My Voice is free on the App Store for iPhone, iPad and Mac. The support page has setup help, and email reaches the developer directly.</p>
   </div>
   <div class="cta-row reveal" style="justify-content:center">
-    <span class="btn btn-wait"><span class="pulse"></span>Coming to the App Store</span>
+    <a class="btn" href="https://apps.apple.com/app/in-my-voice/id6803684007" rel="noopener">Download on the App Store<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
     <a class="btn-ghost" href="/insidevoice/support.html">Support<span class="circ"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
 
   <div class="specs reveal" style="margin-top:56px">
-    <div class="spec"><b>iOS 18+</b><span>iPhone and iPad</span></div>
+    <div class="spec"><b>iOS 26+</b><span>iPhone, iPad, and Mac</span></div>
     <div class="spec"><b>EPUB &amp; PDF</b><span>Your own files</span></div>
     <div class="spec"><b>Free</b><span>No account</span></div>
     <div class="spec"><b>Swift</b><span>SwiftUI and TextKit</span></div>
@@ -800,7 +853,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair-2);margin-top:120px}
 <div class="wrap">
 <footer>
   <div class="foot">
-    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="Inside Voice" style="width:22px;height:22px;border-radius:6px">Inside Voice</a>
+    <a href="#top" class="brand"><img src="/assets/images/inside-voice-logo.png" alt="In My Voice" style="width:22px;height:22px;border-radius:6px">In My Voice</a>
     <div class="l">
       <a href="/insidevoice/privacy.html">Privacy policy</a>
       <a href="/insidevoice/support.html">Support</a>

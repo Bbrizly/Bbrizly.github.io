@@ -1,26 +1,28 @@
 ---
 layout: project
-title: "Inside Voice"
-eyebrow: "iOS app · 2026"
+title: "In My Voice"
+eyebrow: "iPhone, iPad and Mac app · 2026"
 subtitle: "An EPUB and PDF reader that speaks the page with word-level highlighting, optional speed reading, and short recall prompts so you keep what you just read. Books, audio, and progress stay on your phone."
 description: "An iOS EPUB and PDF reader that speaks the page with word-level highlighting, speed reading, and short recall prompts to help you retain what you read."
 tech:
   - Swift
   - SwiftUI
   - TextKit
-  - iOS 18+
+  - iOS 26+
 topbar_link: "/insidevoice/"
 topbar_icon: "fas fa-arrow-up-right-from-square"
 topbar_label: "Visit site"
 live_url: "/insidevoice/"
 live_external: false
-live_label: "Open the Inside Voice site"
+live_label: "Open the In My Voice site"
 live_note: "The app site has the screens, the features, and the privacy policy. Everything below is how it was built."
 logo: "/assets/images/inside-voice-logo.png"
 hero_image: "/assets/images/inside-voice-card.webp"
 ---
 
 ## What it is
+
+In My Voice started as Inside Voice at the 2026 TechWeek Hackathon and is now [on the App Store](https://apps.apple.com/app/in-my-voice/id6803684007).
 
 Reading out loud is easy to zone out of. Silent reading is easy to skim past. Inside Voice keeps both modes on one timeline: each word has a start and end time, so the highlight, the speed-reading card, and the spoken audio are always the same place in the book.
 
@@ -37,7 +39,7 @@ When you want to check that you were actually paying attention, a recall card as
 
 ## How it's built
 
-SwiftUI on iOS 18+, with a `ReaderKit` package for EPUB and PDF parsing, pagination, timelines, and recall. Narration can use system voices or an optional on-device neural voice. The highlight is a pure function of playback time, so rate changes and backgrounding do not need special case math.
+SwiftUI on iOS 26+ and macOS 15+, with a `ReaderKit` package for EPUB and PDF parsing, pagination, timelines, and recall. Narration can use system voices or an optional on-device neural voice. The highlight is a pure function of playback time, so rate changes and backgrounding do not need special case math.
 
 ## Privacy policy
 {: #privacy}

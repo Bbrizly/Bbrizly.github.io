@@ -1,18 +1,21 @@
-# Inside Voice
-> An iOS EPUB and PDF reader that reads books aloud with word-level highlighting, RSVP speed reading, and recall prompts. Books stay on device. No account, no analytics.
+# In My Voice
+> An EPUB and PDF reader for iPhone, iPad and Mac. It reads books aloud with each word highlighted as it is spoken, in 27 on-device neural voices or in your own voice from a ten second recording. RSVP speed reading and recall prompts. No account. Books stay on the device.
 
 ## Main pages
-- [Inside Voice](https://bassamkamal.dev/insidevoice/): Product overview, features, privacy positioning
-- [Privacy policy](https://bassamkamal.dev/insidevoice/privacy.html): Data handling, optional cloud features, effective 2026-09-04
+- [In My Voice](https://bassamkamal.dev/insidevoice/): Product overview, features, FAQ, privacy positioning
+- [App Store listing](https://apps.apple.com/app/in-my-voice/id6803684007): Download, screenshots, in-app purchase prices
+- [Privacy policy](https://bassamkamal.dev/insidevoice/privacy.html): Data handling, purchases, optional cloud features
 - [Support](https://bassamkamal.dev/insidevoice/support.html): Setup, voices, recall, troubleshooting
 - [Build log](https://bassamkamal.dev/projects/inside-voice.html): How it was built
 
 ## Key facts
-- Inside Voice is an iOS 18+ app for iPhone and iPad (EPUB and PDF)
-- Word-level highlight syncs to narration via a single chapter timeline
+- In My Voice runs on iPhone and iPad (iOS 26 or later) and Mac (macOS 15 or later). Category: Books
+- Word-level highlighting follows the narration; tap any word to move the audio there
+- 27 neural voices run on the device; "Record my voice" builds a voice from about ten seconds of your reading, and the recording never leaves the device
 - RSVP speed reading: 100 to 1000 words per minute
-- Recall prompts ask what you read before showing the passage again
-- On-device by default; optional Gemini or Azure keys in Keychain
+- Recall prompts ask what just happened before showing the passage again. Nothing is graded or saved
+- Free download with four public-domain classics. Adding your own EPUB and PDF files is a one-time purchase (US$7.99), not a subscription. Optional tips unlock nothing
+- No account, no ads, no analytics. Optional Gemini or Azure keys are stored in the Keychain
 - War and Peace (568,000 words, 367 chapters) opens in 16 ms on device
-- Free; heading for the App Store
+- Earlier name: Inside Voice (2nd place, TechWeek Hackathon 2026, PEI)
 - Developer: Bassam Kamal (bassamkamal.py@gmail.com)
